@@ -19,8 +19,6 @@
 -- Current Database: `condominio`
 --
 
-/*!40000 DROP DATABASE IF EXISTS `condominio`*/;
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `condominio` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `condominio`;
@@ -50,7 +48,7 @@ CREATE TABLE `empreendimento` (
 
 LOCK TABLES `empreendimento` WRITE;
 /*!40000 ALTER TABLE `empreendimento` DISABLE KEYS */;
-INSERT INTO `empreendimento` (`id`, `nome`, `bairro`, `ide`) VALUES (1,'Park Reality','CAMPO GRANDE',1),(2,'Park Renovare','CAMPO GRANDE',1);
+INSERT INTO `empreendimento` VALUES (1,'Park Reality','CAMPO GRANDE',1),(2,'Park Renovare','CAMPO GRANDE',1);
 /*!40000 ALTER TABLE `empreendimento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,7 +76,7 @@ CREATE TABLE `empresa` (
 
 LOCK TABLES `empresa` WRITE;
 /*!40000 ALTER TABLE `empresa` DISABLE KEYS */;
-INSERT INTO `empresa` (`id`, `nome`, `login`, `senha`, `uf`, `cidade`) VALUES (1,'MRV','mrv','123','RJ','RIO DE JANEIRO');
+INSERT INTO `empresa` VALUES (1,'MRV','mrv','123','RJ','RIO DE JANEIRO');
 /*!40000 ALTER TABLE `empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,14 +91,15 @@ CREATE TABLE `reclamacao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idu` int(11) NOT NULL,
   `ide` int(11) NOT NULL,
+  `titulo` varchar(250) NOT NULL,
   `descricao` text,
   `dt_cadastro` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`idu`,`ide`),
   KEY `idu` (`idu`),
   KEY `ide` (`ide`),
-  CONSTRAINT `reclamacao_ibfk_2` FOREIGN KEY (`ide`) REFERENCES `empreendimento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `reclamacao_ibfk_1` FOREIGN KEY (`idu`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `reclamacao_ibfk_1` FOREIGN KEY (`idu`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `reclamacao_ibfk_2` FOREIGN KEY (`ide`) REFERENCES `empreendimento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,6 +108,7 @@ CREATE TABLE `reclamacao` (
 
 LOCK TABLES `reclamacao` WRITE;
 /*!40000 ALTER TABLE `reclamacao` DISABLE KEYS */;
+INSERT INTO `reclamacao` VALUES (1,1,1,'aa','TESTE 1','2014-04-30 00:00:00'),(2,1,1,'bb','XXXXXXXXXXXXXXXXX','2014-04-29 00:00:00'),(3,1,1,'ccc','XXXXXXXXXXXXXXXXX','2014-04-29 00:00:00'),(4,1,1,'dd','BBBBBBBBBBBBXXXXXXXXXXXXXXXXX','2014-04-29 00:00:00'),(5,1,1,'eee','CCCCCCCCCCCCBBBBBBBBBBBBXXXXXXXXXXXXXXXXX','2014-04-29 00:00:00');
 /*!40000 ALTER TABLE `reclamacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +135,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` (`id`, `nome`, `login`, `senha`, `idface`) VALUES (1,'Fabio Rocha','fabio','123','');
+INSERT INTO `usuario` VALUES (1,'Fabio Rocha','fabio','123','');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -148,4 +148,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-30  2:33:10
+-- Dump completed on 2014-04-30 20:03:04
