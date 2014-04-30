@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+        <h1>{{titulo_empreendimento}}</h1>
+      </div>
+<div class="col-md-8">
+                {% for reclamacao in aLista %}
+                    <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="{{reclamacao.id}}" >
+                              {{reclamacao.titulo}} 
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                          <div class="panel-body">
+                            {{reclamacao.descricao}}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+
+                {% endfor %}
+        
+</div>
+        {% include "pagination.html.twig" %}
+{% endblock %}

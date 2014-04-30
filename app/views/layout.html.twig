@@ -13,20 +13,8 @@
         <!-- Bootstrap core CSS -->
         <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap theme -->
-        <link href="{{ app.request.basepath }}/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/css/theme.min.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <link href="{{ app.request.basepath }}/css/theme.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/footer.css" rel="stylesheet">
-
-        <!-- Just for debugging purposes. Don't actually copy this line! -->
-        <!--[if lt IE 9]><script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
         <title>{{ 'Reclame Empreendimento'|trans }}</title>        
     </head>
 <body role="document">
@@ -40,15 +28,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#" class="navbar-brand">Reclame Empreendimento</a>
+          <a href="/" class="navbar-brand">Reclame Empreendimento</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="icon-home"></i>  {{ 'Home'|trans }}</a></li>
+            <li {% if 'morador' == active %}class="active"{% endif %}><a href="{{ path('morador') }}"><i class="icon-home"></i>  {{ 'Morador'|trans }}</a></li>
+            <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
             
-            <li><a href="#about">Morador</a></li>            
-            <li><a href="#contact">Construtora</a></li>
-            
+
             <!--
             
             {% if is_granted('ROLE_USER') %}
@@ -59,22 +46,16 @@
             {% endif %}
             
             -->
-          </ul>
+      
         </div><!--/.nav-collapse -->
       </div>
     </div>
     <!-- Begin page content -->
-    <div class="container">      
+    <div class="container" role="main">      
         {% block secondaryNavigation %}
         {% endblock %}
         {% block content %}
         {% endblock %}
-    </div>
-    
-    <div id="footer">
-      <div class="container">
-          <p style="text-align: center" class="text-muted"><a href="http://fsitecnologia.com.br">FSITecnologia</a></p>
-      </div>
     </div>
 
     <!-- Bootstrap core JavaScript
@@ -82,7 +63,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ app.request.basepath }}/js/jquery-2.0.3.min.js"></script>
     <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
-    <script src="{{ app.request.basepath }}/js/docs.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/start.js"></script>
 
 </body>
 </html>

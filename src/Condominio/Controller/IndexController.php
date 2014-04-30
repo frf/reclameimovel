@@ -34,6 +34,33 @@ class IndexController
             'groupedLikedArtists' => $groupedLikedArtists,
             'groupedNewestArtists' => $groupedNewestArtists,
         );*/
-        return $app['twig']->render('index.html.twig');
+        
+        $aLista = array(1,2,3,4,5,6,7);
+        
+       
+        
+        if($empreendimento){
+            // Perform pagination logic.
+            $limit = 20;
+            $total = $app['repository.reclamacao']->getCount();
+            $numPages = ceil($total / $limit);
+            $currentPage = $request->query->get('page', 1);
+            $offset = ($currentPage - 1) * $limit;
+            $aLista = $app['repository.reclamacao']->findAll($limit, $offset);
+        
+            
+            $empreendimento = ucwords(str_replace("-"," ",$empreendimento));
+            $data = array(
+                'aLista' => $aLista,
+                'titulo_empreendimento' => $empreendimento,
+                'currentPage' => $currentPage,
+                'numPages' => $numPages,
+                'here' => $app['url_generator']->generate('artists'),
+            );
+        
+            return $app['twig']->render('lista_reclamacao.html.twig', $data);
+        }else{
+            return $app['twig']->render('index.html.twig');
+        }
     }
 }

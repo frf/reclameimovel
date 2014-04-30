@@ -21,8 +21,13 @@ $app['controllers']->convert('user', function ($id) use ($app) {
 
 // Register routes.
 $app->get('/{pageName}', 'Condominio\Controller\IndexController::indexAction')
-        ->bind('homepage')
         ->value('pageName',false);
+
+$app->get('/morador', 'Condominio\Controller\IndexController::indexAction')
+        ->bind('morador');
+
+$app->get('/construtora', 'Condominio\Controller\IndexController::indexAction')
+        ->bind('construtora');
 
 
 $app->get('/me', 'Condominio\Controller\UserController::meAction')
