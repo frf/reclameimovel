@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Administração de Conteúdo">
+        <meta name="author" content="Fabio Rocha">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="pt" />
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <link href="{{ app.request.basepath }}/css/bootstrap-theme.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="{{ app.request.basepath }}/css/theme.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/css/footer.css" rel="stylesheet">
+
+        <!-- Just for debugging purposes. Don't actually copy this line! -->
+        <!--[if lt IE 9]><script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <title>{{ 'Reclame Empreendimento'|trans }}</title>        
+    </head>
+<body role="document">
+    {% set active = active|default(null) %}
+    <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#" class="navbar-brand">Reclame Empreendimento</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="icon-home"></i>  {{ 'Home'|trans }}</a></li>
+            
+            <li><a href="#about">Morador</a></li>            
+            <li><a href="#contact">Construtora</a></li>
+            
+            <!--
+            
+            {% if is_granted('ROLE_USER') %}
+                <li {% if 'me' == active %}class="active"{% endif %}><a href="{{ path('me') }}"><i class="icon-user"></i> My Profile</a></li>
+                <li><a href="{{ path('logout') }}">{{ 'Logout'|trans }}</a></li>
+            {% else %}
+                <li {% if 'login' == active %}class="active"{% endif %}><a href="{{ path('login') }}"><i class="icon-user"></i> {{ 'Login'|trans }}</a></li>
+            {% endif %}
+            
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <!-- Begin page content -->
+    <div class="container">      
+        {% block secondaryNavigation %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+          <p style="text-align: center" class="text-muted"><a href="http://fsitecnologia.com.br">FSITecnologia</a></p>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ app.request.basepath }}/js/jquery-2.0.3.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/docs.min.js"></script>
+
+</body>
+</html>
