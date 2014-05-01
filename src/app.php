@@ -104,9 +104,6 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
 });
 
 
-
-var_dump($app['user']);
-
 // Register the error handler.
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {
