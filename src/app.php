@@ -17,8 +17,8 @@ $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
     'oauth.services' => array(
         'facebook' => array(
-            'key' => '237098739830424',
-            'secret' => '1269e70d03f172e6e2ccf67e6c4f10f0',
+            'key' => '237093413164290',
+            'secret' => '8f94031a4b4a962543c33747c1a2e6e7',
             'scope' => array('email'),
             'user_endpoint' => 'https://graph.facebook.com/me'
         ),
