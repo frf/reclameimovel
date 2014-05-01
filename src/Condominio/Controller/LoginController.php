@@ -13,6 +13,8 @@ class LoginController
     {
         
         $services = array_keys($app['oauth.services']);
+        
+        var_dump($app['user']);
 
         return $app['twig']->render('login.html.twig', array(
             'login_paths' => array_map(function ($service) use ($app) {
@@ -37,25 +39,5 @@ class LoginController
         );
         return $app['twig']->render('login.html.twig', $data);*/
     }
-    public function authAction(Request $request, Application $app)
-    {
-         $form = $app['form.factory']->createBuilder('form')
-            ->add('idface', 'text', array('label' => 'Idface','data' => $app['session']->get('_security.last_idface')))
-            ->add('login', 'submit')
-            ->getForm();
-
-        $data = array(
-            'form'  => $form->createView(),
-            'error' => $app['security.last_error']($request),
-        );
-        
-        var_dump($data);
-        return $app['twig']->render('login.html.twig', $data);
-    }
-
-    public function logoutAction(Request $request, Application $app)
-    {
-        $app['session']->clear();
-        return $app->redirect($app['url_generator']->generate('homepage'));
-    }
+    
 }
