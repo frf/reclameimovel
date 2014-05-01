@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8018bbcf4961b5e21e536f4786e92414",
+    "hash": "73965bc5483caed647e7c6c929547811",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -516,6 +516,114 @@
                 "sdk"
             ],
             "time": "2014-04-28 22:03:56"
+        },
+        {
+            "name": "gigablah/silex-oauth",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gigablah/silex-oauth.git",
+                "reference": "1aa78c7c3d675900b835455e50295a99551a8e2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gigablah/silex-oauth/zipball/1aa78c7c3d675900b835455e50295a99551a8e2e",
+                "reference": "1aa78c7c3d675900b835455e50295a99551a8e2e",
+                "shasum": ""
+            },
+            "require": {
+                "lusitanian/oauth": ">=0.2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Gigablah\\Silex\\OAuth": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Heng",
+                    "email": "bigblah@gmail.com",
+                    "homepage": "http://gigablah.com"
+                }
+            ],
+            "description": "Silex OAuth Authentication Provider",
+            "homepage": "https://github.com/gigablah/silex-oauth",
+            "keywords": [
+                "oauth",
+                "silex"
+            ],
+            "time": "2014-02-16 09:49:52"
+        },
+        {
+            "name": "lusitanian/oauth",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Lusitanian/PHPoAuthLib.git",
+                "reference": "f981b349c03f7e233b7058a9d30903809898659c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/f981b349c03f7e233b7058a9d30903809898659c",
+                "reference": "f981b349c03f7e233b7058a9d30903809898659c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "predis/predis": "0.8.*@dev",
+                "symfony/http-foundation": "~2.1"
+            },
+            "suggest": {
+                "ext-openssl": "Allows for usage of secure connections with the stream-based HTTP client.",
+                "predis/predis": "Allows using the Redis storage backend.",
+                "symfony/http-foundation": "Allows using the Symfony Session storage backend."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "OAuth": "src",
+                    "OAuth\\Unit": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Desberg",
+                    "email": "david@daviddesberg.com"
+                },
+                {
+                    "name": "Pieter Hordijk",
+                    "email": "info@pieterhordijk.com",
+                    "homepage": "https://pieterhordijk.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "PHP 5.3+ oAuth 1/2 Library",
+            "keywords": [
+                "Authentication",
+                "authorization",
+                "oauth",
+                "security"
+            ],
+            "time": "2014-03-30 13:50:10"
         },
         {
             "name": "pimple/pimple",

@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+
 // Register service providers.
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
@@ -13,28 +14,72 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 
+$app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
+    'oauth.services' => array(
+        'facebook' => array(
+            'key' => '237098739830424',
+            'secret' => '1269e70d03f172e6e2ccf67e6c4f10f0',
+            'scope' => array('email'),
+            'user_endpoint' => 'https://graph.facebook.com/me'
+        ),
+        'twitter' => array(
+            'key' => TWITTER_API_KEY,
+            'secret' => TWITTER_API_SECRET,
+            'scope' => array(),
+            'user_endpoint' => 'https://api.twitter.com/1.1/account/verify_credentials.json'
+        ),
+        'google' => array(
+            'key' => GOOGLE_API_KEY,
+            'secret' => GOOGLE_API_SECRET,
+            'scope' => array(
+                'https://www.googleapis.com/auth/userinfo.email',
+                'https://www.googleapis.com/auth/userinfo.profile'
+            ),
+            'user_endpoint' => 'https://www.googleapis.com/oauth2/v1/userinfo'
+        ),
+        'github' => array(
+            'key' => GITHUB_API_KEY,
+            'secret' => GITHUB_API_SECRET,
+            'scope' => array('user:email'),
+            'user_endpoint' => 'https://api.github.com/user'
+        )
+    )
+));
+// Provides URL generation
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
+// Provides CSRF token generation
+$app->register(new Silex\Provider\FormServiceProvider());
+
+// Provides session storage
+$app->register(new Silex\Provider\SessionServiceProvider(), array(
+    'session.storage.save_path' => '/path/to/sessions'
+));
+
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
-        'admin' => array(
+        'default' => array(
             'pattern' => '^/',
-            'form' => array(
-                'login_path' => '/login',
-                'check_path' => '/auth',
-                'username_parameter' => 'form[idface]',
-            ),
-            'logout'  => true,
             'anonymous' => true,
-            'users' => $app->share(function () use ($app) {
-                return new Condominio\Repository\UserRepository($app['db']);
-            }),
-        ),
+            'oauth' => array(
+                //'login_path' => '/auth/{service}',
+                //'callback_path' => '/auth/{service}/callback',
+                //'check_path' => '/auth/{service}/check',
+                'failure_path' => '/login',
+                'with_csrf' => true
+            ),
+            'logout' => array(
+                'logout_path' => '/logout',
+                'with_csrf' => true
+            ),
+            'users' => new Gigablah\Silex\OAuth\Security\User\Provider\OAuthInMemoryUserProvider()
+        )
     ),
-    'security.role_hierarchy' => array(
-       'ROLE_ADMIN' => array('ROLE_USER'),
-    ),
+    'security.access_rules' => array(
+        array('^/auth', 'ROLE_USER')
+    )
 ));
-            
-            
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.options' => array(
         'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
@@ -48,27 +93,13 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 $app['repository.reclamacao'] = $app->share(function ($app) {
     return new Condominio\Repository\ReclamacaoRepository($app['db']);
 });
-// Register repositories.
-$app['repository.facebook'] = $app->share(function ($app) {
-    return new Condominio\Repository\FacebookRepository($app);
-});
 
-$app['repository.user'] = $app->share(function ($app) {
-    return new Condominio\Repository\UserRepository($app['db'], $app['security.encoder.digest']);
-});
+$app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
+    $token = $app['security']->getToken();
+    $app['user'] = null;
 
-
-// Protect admin urls.
-$app->before(function (Request $request) use ($app) {
-    $protected = array(
-        '/morador' => 'ROLE_USER',
-    );
-    $path = $request->getPathInfo();
-    foreach ($protected as $protectedPath => $role) {
-        
-        if (strpos($path, $protectedPath) !== FALSE && !$app['security']->isGranted($role)) {
-            throw new AccessDeniedException();
-        }
+    if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
+        $app['user'] = $token->getUser();
     }
 });
 
