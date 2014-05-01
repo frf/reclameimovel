@@ -14,8 +14,6 @@ class LoginController
         
         $services = array_keys($app['oauth.services']);
         
-        var_dump($app['user']);
-
         return $app['twig']->render('login.html.twig', array(
             'login_paths' => array_map(function ($service) use ($app) {
                 return $app['url_generator']->generate('_auth_service', array(

@@ -62,9 +62,9 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'pattern' => '^/',
             'anonymous' => true,
             'oauth' => array(
-                //'login_path' => '/auth/{service}',
-                //'callback_path' => '/auth/{service}/callback',
-                //'check_path' => '/auth/{service}/check',
+                'login_path' => '/auth/{service}',
+                'callback_path' => '/auth/{service}/callback',
+                'check_path' => '/auth/{service}/check',
                 'failure_path' => '/login',
                 'with_csrf' => true
             ),
