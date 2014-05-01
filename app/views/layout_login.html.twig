@@ -14,11 +14,13 @@
         <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap theme -->
         <link href="{{ app.request.basepath }}/css/theme.min.css" rel="stylesheet">
-
+    
         <script src="http://connect.facebook.net/en_US/all.js"></script>
         
         <title>{{ 'Reclame Imóvel'|trans }}</title>        
+        
     </head>
+    
 <body role="document">
     {% set active = active|default(null) %}
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
@@ -65,7 +67,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ app.request.basepath }}/js/jquery-2.0.3.min.js"></script>
     <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
-    <script src="{{ app.request.basepath }}/js/start.js"></script>
+    <script src="{{ app.request.basepath }}/js/start_login.js"></script>
 
 </body>
 </html>

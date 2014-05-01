@@ -1,6 +1,8 @@
 <?php
 
-define('MUSICBOX_PUBLIC_ROOT', __DIR__);
+define('COND_PUBLIC_ROOT', __DIR__);
+
+list($consumerKey, $consumerSecret) = include __DIR__ . '/../app/config/credentials.conf.php';
 
 require_once __DIR__.'/../vendor/autoload.php';
 

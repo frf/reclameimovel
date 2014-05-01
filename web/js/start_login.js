@@ -2,11 +2,15 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
-  
- $(function() { 
-    $(".collapse").collapse(); 
+ 
+ 
+ $(function() {
+ 
+ $(".collapse").collapse();
+ 
  });
  */
+var URL_SISTEMA = "http://contas.fabiofarias.com.br";
 
 FB.init({
     appId: '237098739830424',
@@ -15,28 +19,12 @@ FB.init({
 
 function logaSistema(dados) {
 
-    var tipoUrlInterna = "";
-
-    //console.log("LOGANDO COM USUARIO DO FACE NO MS");
-
-    if ($("#tipo").val() == "") {
-        window.location = "http://minhasaude.me/erro";
-        return false;
-    }
-    $.post("http://minhasaude.me/authface/login-face", {json: dados, tipo: $("#tipo").val()},
+    $.post(URL_SISTEMA+"/authface", {json: dados},
+    
     function(data, status) {
         if (status == "success") {
             if (data.return) {
-
-                if (data.tipo == "N") {
-                    tipoUrlInterna = "nutricionista";
-                } else if (data.tipo == "P") {
-                    tipoUrlInterna = "paciente";
-                } else {
-                    tipoUrlInterna = "";
-                }
-
-                window.location = "http://minhasaude.me/" + tipoUrlInterna;
+                window.location = URL_SISTEMA;
             } else {
                 console.log("Erro de login");
             }
@@ -44,7 +32,6 @@ function logaSistema(dados) {
     });
 }
 function statusFacebook() {
-    
     //console.log("statusFacebook");               
     FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
@@ -53,16 +40,16 @@ function statusFacebook() {
                 logaSistema(JSON.stringify(response));
             });
         } else if (response.status === 'not_authorized') {
-            //console.log("statusFacebook:"  + response.status + " - " + tipoUrl); 
-            loginFacebook(tipoUrl); // nao autorizado, solicitar login 
+            console.log("statusFacebook:"  + response.status + " - " + tipoUrl); 
+            loginFacebook(); // nao autorizado, solicitar login 
         } else {
-            //console.log("statusFacebook:" + response.status + " - " + tipoUrl);
-            loginFacebook(tipoUrl); // nao autorizado, solicitar login 
+            console.log("statusFacebook:" + response.status + " - " + tipoUrl);
+            loginFacebook(); // nao autorizado, solicitar login 
         }
     });
 }
 
-function loginFacebook(tipoUrl) {
+function loginFacebook() {
     //console.log("loginFacebook=" + tipoUrl);
     $("#msgFace").css({'color': '#000000'});
     $("#loadingface").show();
@@ -90,8 +77,5 @@ function loginFacebook(tipoUrl) {
 }
 
 $(document).ready(function() {
-    $("#target").click(function() {
-        alert("Handler for .click() called.");
-    });
     statusFacebook();
 });

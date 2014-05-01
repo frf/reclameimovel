@@ -47,15 +47,16 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 $app['repository.reclamacao'] = $app->share(function ($app) {
     return new Condominio\Repository\ReclamacaoRepository($app['db']);
 });
-$app['repository.user'] = $app->share(function ($app) {
-    return new Condominio\Repository\UserRepository($app['db'], $app['security.encoder.digest']);
+// Register repositories.
+$app['repository.facebook'] = $app->share(function ($app) {
+    return new Condominio\Repository\FacebookRepository($app);
 });
-
 // Protect admin urls.
 $app->before(function (Request $request) use ($app) {
     $protected = array(
         '/admin/' => 'ROLE_ADMIN',
         '/me' => 'ROLE_USER',
+        '/morador' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
     foreach ($protected as $protectedPath => $role) {
@@ -64,7 +65,6 @@ $app->before(function (Request $request) use ($app) {
         }
     }
 });
-
 // Register the error handler.
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {

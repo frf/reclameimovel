@@ -10,7 +10,8 @@
         "symfony/translation": "~2.3",
         "symfony/twig-bridge": "~2.3",
         "symfony/validator": "~2.3",
-        "swiftmailer/swiftmailer": "~5.0"
+        "swiftmailer/swiftmailer": "~5.0",
+        "facebook/php-sdk-v4" : "4.0.*"
     },
     "require-dev": {
         "symfony/browser-kit"   : "~2.3",

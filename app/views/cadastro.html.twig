@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="alert alert-success">
+    <strong>Você não é cadastrado!</strong> Utilizamos o facebook para que possamos efetuar a divulgação da sua reclamação de maneira mais ampla. Não se preocupe não vamos divulgar seus dados, a única informação visivel será seu nome.
+  
+</div>
+<section id="register">
+    <div class="row animated fadeILeftBig">
+        <div class="login-holder col-md-6 col-md-offset-3">
+            <img src="/images/loading.gif" style="display: none; position: absolute;" id="loadingface" width="20px" heigth="20px">
+            <form role="form" action="index.html" method="post">
+                <div style=" height: 47px; overflow: hidden;margin-bottom:14px;text-align:center">
+                    <img pacientealt="Entrar com Facebook" src="/images/botao-facebook-cadastro-maior.png" style="cursor: pointer" onclick="loginFacebook()">
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+    
+{% endblock %}

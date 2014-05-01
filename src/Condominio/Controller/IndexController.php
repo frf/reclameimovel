@@ -12,32 +12,9 @@ class IndexController
     public function indexAction(Request $request, Application $app)
     {
         $empreendimento = $request->get("pageName");
-        /*
-        $limit = 4;
-        $offset = 0;
-        $likedOrderBy = array('likes' => 'DESC');
-        $newestOrderBy = array('created_at' => 'DESC');
-        $likedArtists = $app['repository.artist']->findAll($limit, $offset, $likedOrderBy);
-        $newestArtists = $app['repository.artist']->findAll($limit, $offset, $newestOrderBy);
-        // Divide artists into groups of 2.
-        $groupSize = 2;
-        $groupedLikedArtists = array();
-        $groupedNewestArtists = array();
-        $progress = 0;
-        while ($progress < $limit) {
-            $groupedLikedArtists[] = array_slice($likedArtists, $progress, $groupSize);
-            $groupedNewestArtists[] = array_slice($newestArtists, $progress, $groupSize);
-            $progress += $groupSize;
-        }
-
-        $data = array(
-            'groupedLikedArtists' => $groupedLikedArtists,
-            'groupedNewestArtists' => $groupedNewestArtists,
-        );*/
+              
+        #$FacebookUser = $app['repository.facebook']->checkSession();
         
-        $aLista = array(1,2,3,4,5,6,7);
-        
-       
         
         if($empreendimento){
             // Perform pagination logic.
@@ -54,13 +31,27 @@ class IndexController
                 'aLista' => $aLista,
                 'titulo_empreendimento' => $empreendimento,
                 'currentPage' => $currentPage,
-                'numPages' => $numPages,
-                'here' => $app['url_generator']->generate('artists'),
+                'numPages' => $numPages
             );
         
             return $app['twig']->render('lista_reclamacao.html.twig', $data);
         }else{
             return $app['twig']->render('index.html.twig');
         }
+    }
+    public function cadastroAction(Request $request, Application $app)
+    {        
+        return $app['twig']->render('cadastro.html.twig');
+        
+    }
+    public function moradorAction(Request $request, Application $app)
+    {        
+        return $app['twig']->render('morador.html.twig');
+        
+    }
+    public function contrutoraAction(Request $request, Application $app)
+    {        
+        return $app['twig']->render('construtora.html.twig');
+        
     }
 }
