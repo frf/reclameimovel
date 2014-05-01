@@ -53,7 +53,7 @@ $app->register(new Silex\Provider\FormServiceProvider());
 
 // Provides session storage
 $app->register(new Silex\Provider\SessionServiceProvider(), array(
-    'session.storage.save_path' => '/path/to/sessions'
+    'session.storage.save_path' => $app['session.path']
 ));
 
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(

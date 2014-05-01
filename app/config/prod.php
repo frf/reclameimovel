@@ -5,6 +5,7 @@ date_default_timezone_set('Europe/Paris');
 
 // Cache
 $app['cache.path'] = __DIR__ . '/../cache';
+$app['session.path'] = __DIR__ . '/../session';
 
 // Twig cache
 $app['twig.options.cache'] = $app['cache.path'] . '/twig';
