@@ -19,14 +19,13 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'pattern' => '^/',
             'form' => array(
                 'login_path' => '/login',
-                'check_path' => '/admin/login_check',
-                'username_parameter' => 'form[username]',
-                'password_parameter' => 'form[password]',
+                'check_path' => '/auth',
+                'username_parameter' => 'form[idface]',
             ),
             'logout'  => true,
             'anonymous' => true,
             'users' => $app->share(function () use ($app) {
-                return new Condominio\Repository\UserRepository($app['db'], $app['security.encoder.digest']);
+                return new Condominio\Repository\UserRepository($app['db']);
             }),
         ),
     ),
@@ -34,6 +33,8 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
        'ROLE_ADMIN' => array('ROLE_USER'),
     ),
 ));
+            
+            
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.options' => array(
         'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
@@ -51,20 +52,27 @@ $app['repository.reclamacao'] = $app->share(function ($app) {
 $app['repository.facebook'] = $app->share(function ($app) {
     return new Condominio\Repository\FacebookRepository($app);
 });
+
+$app['repository.user'] = $app->share(function ($app) {
+    return new Condominio\Repository\UserRepository($app['db'], $app['security.encoder.digest']);
+});
+
+
 // Protect admin urls.
 $app->before(function (Request $request) use ($app) {
     $protected = array(
-        '/admin/' => 'ROLE_ADMIN',
-        '/me' => 'ROLE_USER',
         '/morador' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
     foreach ($protected as $protectedPath => $role) {
+        
         if (strpos($path, $protectedPath) !== FALSE && !$app['security']->isGranted($role)) {
             throw new AccessDeniedException();
         }
     }
 });
+
+
 // Register the error handler.
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {

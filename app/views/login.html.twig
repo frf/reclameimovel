@@ -19,5 +19,18 @@
         </div>
     </div>
 </section>
+    <div id="main" role="main" class="container">
+    <h1>{{ 'Login'|trans }}</h1>
+        {% if error %}
+            <div class="alert alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+      
+     <form action="{{ path('auth') }}" method="post" novalidate {{ form_enctype(form) }} class="form-vertical">
+            {{ form_widget(form) }}
+        </form>
     
+    </div>
 {% endblock %}

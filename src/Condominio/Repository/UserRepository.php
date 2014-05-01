@@ -55,12 +55,12 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
                 $userData['image'] = $user->getImage();
             }
 
-            $this->db->update('users', $userData, array('user_id' => $user->getId()));
+            $this->db->update('usuario', $userData, array('id' => $user->getId()));
         } else {
             // The user is new, note the creation timestamp.
             $userData['created_at'] = time();
 
-            $this->db->insert('users', $userData);
+            $this->db->insert('usuario', $userData);
             // Get the id of the newly created user and set it on the entity.
             $id = $this->db->lastInsertId();
             $user->setId($id);
@@ -70,32 +70,11 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
             $newFile = $this->handleFileUpload($user);
             if ($newFile) {
                 $newData = array('image' => $user->getImage());
-                $this->db->update('users', $newData, array('user_id' => $id));
+                $this->db->update('usuario', $newData, array('id' => $id));
             }
         }
     }
 
-    /**
-     * Handles the upload of a user image.
-     *
-     * @param \Condominio\Entity\User $user
-     *
-     * @param boolean TRUE if a new user image was uploaded, FALSE otherwise.
-     */
-    protected function handleFileUpload($user) {
-        // If a temporary file is present, move it to the correct directory
-        // and set the filename on the user.
-        $file = $user->getFile();
-        if ($file) {
-            $newFilename = $user->getUsername() . '.' . $file->guessExtension();
-            $file->move(MUSICBOX_PUBLIC_ROOT . '/img/users', $newFilename);
-            $user->setFile(null);
-            $user->setImage($newFilename);
-            return TRUE;
-        }
-
-        return FALSE;
-    }
 
     /**
      * Deletes the user.
@@ -104,16 +83,16 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
      */
     public function delete($id)
     {
-        return $this->db->delete('users', array('user_id' => $id));
+        return $this->db->delete('usuario', array('id' => $id));
     }
 
     /**
-     * Returns the total number of users.
+     * Returns the total number of usuario.
      *
-     * @return integer The total number of users.
+     * @return integer The total number of usuario.
      */
     public function getCount() {
-        return $this->db->fetchColumn('SELECT COUNT(user_id) FROM users');
+        return $this->db->fetchColumn('SELECT COUNT(id) FROM usuario');
     }
 
     /**
@@ -125,71 +104,95 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
      */
     public function find($id)
     {
-        $userData = $this->db->fetchAssoc('SELECT * FROM users WHERE user_id = ?', array($id));
+        $userData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE id = ?', array($id));
         return $userData ? $this->buildUser($userData) : FALSE;
     }
 
     /**
-     * Returns a collection of users.
+     * Returns a collection of usuario.
      *
      * @param integer $limit
-     *   The number of users to return.
+     *   The number of usuario to return.
      * @param integer $offset
-     *   The number of users to skip.
+     *   The number of usuario to skip.
      * @param array $orderBy
      *   Optionally, the order by info, in the $column => $direction format.
      *
-     * @return array A collection of users, keyed by user id.
+     * @return array A collection of usuario, keyed by user id.
      */
     public function findAll($limit, $offset = 0, $orderBy = array())
     {
         // Provide a default orderBy.
         if (!$orderBy) {
-            $orderBy = array('username' => 'ASC');
+            $orderBy = array('id' => 'ASC');
         }
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->select('u.*')
-            ->from('users', 'u')
+            ->from('usuario', 'u')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->orderBy('u.' . key($orderBy), current($orderBy));
         $statement = $queryBuilder->execute();
-        $usersData = $statement->fetchAll();
+        $usuarioData = $statement->fetchAll();
 
-        $users = array();
-        foreach ($usersData as $userData) {
-            $userId = $userData['user_id'];
-            $users[$userId] = $this->buildUser($userData);
+        $usuario = array();
+        foreach ($usuarioData as $userData) {
+            $userId = $userData['id'];
+            $usuario[$userId] = $this->buildUser($userData);
         }
 
-        return $users;
+        return $usuario;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($idface)
     {
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->select('u.*')
-            ->from('users', 'u')
-            ->where('u.username = :username OR u.mail = :mail')
-            ->setParameter('username', $username)
-            ->setParameter('mail', $username)
+            ->from('usuario', 'u')
+            ->where('u.idface = :idface')
+            ->setParameter('idface', $idface)
             ->setMaxResults(1);
         $statement = $queryBuilder->execute();
-        $usersData = $statement->fetchAll();
-        if (empty($usersData)) {
+        $usuarioData = $statement->fetch();
+       
+        if (empty($usuarioData)) {
             throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
         }
-
-        $user = $this->buildUser($usersData[0]);
+        
+        $user = $this->buildUser($usuarioData);
+              
         return $user;
     }
 
+    /**
+     * Instantiates a user entity and sets its properties using db data.
+     *
+     * @param array $userData
+     *   The array of db data.
+     *
+     * @return \Condominio\Entity\User
+     */
+    protected function buildUser($userData)
+    {
+        $user = new User();
+        $user->setId($userData['id']);
+        $user->setName($userData['name']);
+        $user->setEmail($userData['email']);
+        $user->setIdface($userData['idface']);
+        $user->setLink($userData['link']);
+        $user->setGender($userData['gender']);
+        $user->setRole($userData['role']);
+        $user->setSalt(md5('fuck'));
+        $user->setPassword(md5('fuck'));
+        $user->setUsername($userData['name']);
+        return $user;
+    }
     /**
      * {@inheritDoc}
      */
@@ -217,25 +220,4 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
         return 'Condominio\Entity\User' === $class;
     }
 
-    /**
-     * Instantiates a user entity and sets its properties using db data.
-     *
-     * @param array $userData
-     *   The array of db data.
-     *
-     * @return \Condominio\Entity\User
-     */
-    protected function buildUser($userData)
-    {
-        $user = new User();
-        $user->setId($userData['user_id']);
-        $user->setUsername($userData['username']);
-        $user->setSalt($userData['salt']);
-        $user->setPassword($userData['password']);
-        $user->setMail($userData['mail']);
-        $user->setRole($userData['role']);
-        $createdAt = new \DateTime('@' . $userData['created_at']);
-        $user->setCreatedAt($createdAt);
-        return $user;
-    }
 }
