@@ -11,6 +11,7 @@ $app->get('/logout', 'Condominio\Controller\LoginController::logoutAction')->bin
 */
 
 $app->get('/login', 'Condominio\Controller\LoginController::loginAction')->bind('login');
+$app->match('/logout', function () {})->bind('logout');
 /*
 $app->get('/login', function () use ($app) {
     $services = array_keys($app['oauth.services']);
