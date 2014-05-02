@@ -98,9 +98,34 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
     $token = $app['security']->getToken();
     $app['user'] = null;
 
+    $services = array_keys($app['oauth.services']);
+	$app['login'] = array(
+        'login_paths' => array_map(function ($service) use ($app) {
+            return $app['url_generator']->generate('_auth_service', array(
+                'service' => $service,
+                '_csrf_token' => $app['form.csrf_provider']->generateCsrfToken('oauth')
+            ));
+        }, array_combine($services, $services)),
+        'logout_path' => $app['url_generator']->generate('logout', array(
+            '_csrf_token' => $app['form.csrf_provider']->generateCsrfToken('logout')
+        )));
+
     if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
         $app['user'] = $token->getUser();
     }
+
+    $protected = array(
+        '/morador' => 'ROLE_USER',
+        '/adicionar' => 'ROLE_USER',
+    );
+    $path = $request->getPathInfo();
+
+    foreach ($protected as $protectedPath => $role) {
+        if (strpos($path, $protectedPath) !== FALSE && !$app['security']->isGranted($role)) {
+            throw new AccessDeniedException();
+        }
+    }
+
 });
 
 

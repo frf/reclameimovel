@@ -1,4 +1,4 @@
-{% extends 'layout_login.html.twig' %}
+{% extends 'layout.html.twig' %}
 {% set active = 'account' %}
 
 {% block content %}
@@ -9,27 +9,21 @@
 <section id="register">
     <div class="row animated fadeILeftBig">
         <div class="login-holder col-md-6 col-md-offset-3">
-            <h4 class="text-center text-primary" style="color:red" id="msgFace"></h4>
-            <form role="form" action="index.html" method="post">
+		{% if app.user == false %}
                 <div style=" height: 47px; overflow: hidden;margin-bottom:14px;text-align:center">
-                    <img src="/images/loading.gif" style="margin-bottom: 44px;display: none" id="loadingface" width="20px" heigth="20px">
-                    <img pacientealt="Entrar com Facebook" src="/images/botao-facebook-cadastro-maior.png" style="cursor: pointer" onclick="loginFacebook()">
+                    <a href="{{ app.login.login_paths.facebook }}">
+			<img pacientealt="Entrar com Facebook" src="/images/botao-facebook-cadastro-maior.png" style="cursor: pointer" >
+		    </a>
                 </div>
-            </form>
+  		{% endif %}
         </div>
     </div>
 </section>
-   <div>
-  {% if app.user %}
-    <p>Hello {{ app.user.username }}! Your email is {{ app.user.email }}</p>
-    <a href="{{ logout_path }}">Logout</a>
-  {% else %}
-    <ul>
-      <li><a href="{{ login_paths.facebook }}">Login with Facebook</a></li>
-      <!--<li><a href="{{ login_paths.twitter }}">Login with Twitter</a></li>
-      <li><a href="{{ login_paths.google }}">Login with Google</a></li>
-      <li><a href="{{ login_paths.github }}">Login with GitHub</a></li>-->
-    </ul>
-  {% endif %}
-</div>
+    <!--
+	<ul>
+      		<li><a href="{{ app.login.login_paths.twitter }}">Login with Twitter</a></li>
+      		<li><a href="{{ app.login.login_paths.google }}">Login with Google</a></li>
+      		<li><a href="{{ app.login.login_paths.github }}">Login with GitHub</a></li>
+    	</ul>
+    -->
 {% endblock %}

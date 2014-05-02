@@ -15,7 +15,7 @@
         <!-- Bootstrap theme -->
         <link href="{{ app.request.basepath }}/css/theme.min.css" rel="stylesheet">
     
-        <script src="http://connect.facebook.net/en_US/all.js"></script>
+<!--        <script src="http://connect.facebook.net/en_US/all.js"></script> -->
         
         <title>{{ 'Reclame Imóvel'|trans }}</title>        
         
@@ -38,18 +38,6 @@
           <ul class="nav navbar-nav">
             <li  {% if 'morador' == active %}class="active"{% endif %}><a href="{{ path('morador') }}"><i class="icon-home"></i>  {{ 'Morador'|trans }}</a></li>
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
-            
-            <!--
-            
-            {% if is_granted('ROLE_USER') %}
-                <li {% if 'me' == active %}class="active"{% endif %}><a href="{{ path('me') }}"><i class="icon-user"></i> My Profile</a></li>
-                <li><a href="{{ path('logout') }}">{{ 'Logout'|trans }}</a></li>
-            {% else %}
-                <li {% if 'login' == active %}class="active"{% endif %}><a href="{{ path('login') }}"><i class="icon-user"></i> {{ 'Login'|trans }}</a></li>
-            {% endif %}
-            
-            -->
-      
         </div><!--/.nav-collapse -->
       </div>
     </div>

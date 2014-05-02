@@ -7,7 +7,7 @@
     $(".collapse").collapse(); 
  });
  */
-
+/*
 FB.init({
     appId: '237098739830424',
     status: true, cookie: false, xfbml: false, oauth: true
@@ -95,3 +95,4 @@ $(document).ready(function() {
     });
     statusFacebook();
 });
+*/

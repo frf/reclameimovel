@@ -13,9 +13,6 @@ class IndexController
     {
         $empreendimento = $request->get("pageName");
               
-        #$FacebookUser = $app['repository.facebook']->checkSession();
-        
-        
         if($empreendimento){
             // Perform pagination logic.
             $limit = 20;

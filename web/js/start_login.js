@@ -10,6 +10,7 @@
  
  });
  */
+/*
 var URL_SISTEMA = "http://contas.fabiofarias.com.br";
 
 FB.init({
@@ -79,3 +80,4 @@ function loginFacebook() {
 $(document).ready(function() {
     statusFacebook();
 });
+*/
