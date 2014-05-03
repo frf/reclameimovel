@@ -15,9 +15,11 @@
 
     <h1>{{ title }}</h1>
 
-    <form action="" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    <form action="" method="post" {{ form_enctype(form) }} class="form-horizontal"role="form">
         {{ form_widget(form) }}
     </form>
+
+    
   </div>
 
 {% endblock %}

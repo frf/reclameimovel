@@ -32,7 +32,7 @@ $app->match('/logout', function () {})->bind('logout');
 */
 
 $app->get('/morador', 'Condominio\Controller\MoradorController::indexAction')->bind('morador');
-$app->get('/adicionar', 'Condominio\Controller\MoradorController::indexAction')->bind('adicionar');
+$app->get('/adicionar', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add');
 $app->get('/construtora', 'Condominio\Controller\IndexController::construtoraAction')->bind('construtora');
 $app->get('/cadastro', 'Condominio\Controller\IndexController::cadastroAction')->bind('cadastro');
 $app->get('/{pageName}', 'Condominio\Controller\IndexController::indexAction')->value('pageName',false);

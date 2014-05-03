@@ -89,10 +89,11 @@ function loginFacebook(tipoUrl) {
     //alert("Atenção verifique seu bloqueador de pop-up, e tente novamente.");
 }
 
-$(document).ready(function() {
-    $("#target").click(function() {
-        alert("Handler for .click() called.");
-    });
-    statusFacebook();
-});
+
 */
+
+$(document).ready(function() {
+    $("#adicionar").click(function() {
+        window.location = '/adicionar';
+    });
+});
