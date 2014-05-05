@@ -99,6 +99,7 @@ $app['repository.empreendimento'] = $app->share(function ($app) {
 });
 
 use Facebook\FacebookSession;
+use Facebook\FacebookRequest;
 
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
