@@ -3,6 +3,11 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Condominio\Repository\OAuthUserProvider;
+
+use Facebook\FacebookSession;
+use Facebook\FacebookRequest;
+
 
 
 
@@ -97,10 +102,6 @@ $app['repository.reclamacao'] = $app->share(function ($app) {
 $app['repository.empreendimento'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpreendimentoRepository($app['db']);
 });
-
-use Facebook\FacebookSession;
-use Facebook\FacebookRequest;
-
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $token = $app['security']->getToken();
