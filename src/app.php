@@ -22,7 +22,7 @@ $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
             'scope' => array('email'),
             'user_endpoint' => 'https://graph.facebook.com/me'
         ),
-        'twitter' => array(
+        /*'twitter' => array(
             'key' => TWITTER_API_KEY,
             'secret' => TWITTER_API_SECRET,
             'scope' => array(),
@@ -42,7 +42,7 @@ $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
             'secret' => GITHUB_API_SECRET,
             'scope' => array('user:email'),
             'user_endpoint' => 'https://api.github.com/user'
-        )
+        )*/
     )
 ));
 // Provides URL generation
@@ -96,9 +96,6 @@ $app['repository.reclamacao'] = $app->share(function ($app) {
 $app['repository.empreendimento'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpreendimentoRepository($app['db']);
 });
-$app['repository.user'] = $app->share(function ($app) {
-    return new Condominio\Repository\UserRepository($app['db']);
-});
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $token = $app['security']->getToken();
@@ -118,7 +115,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
 
     if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
         $app['user'] = $token->getUser();
-        var_dump($app['repository.user'].find(1));
+        var_dump($token);
     }
 
     $protected = array(
