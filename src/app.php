@@ -96,6 +96,9 @@ $app['repository.reclamacao'] = $app->share(function ($app) {
 $app['repository.empreendimento'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpreendimentoRepository($app['db']);
 });
+$app['repository.user'] = $app->share(function ($app) {
+    return new Condominio\Repository\UserRepository($app['db']);
+});
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $token = $app['security']->getToken();
