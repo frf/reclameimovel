@@ -2,12 +2,10 @@
 
 namespace Condominio\Repository;
 
-use Gigablah\Silex\OAuth\Security\User\StubUser;
 use Gigablah\Silex\OAuth\Security\Authentication\Token\OAuthTokenInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\DBAL\Connection;
 use Condominio\Entity\User;
 use Condominio\Repository\OAuthUserProviderInterface;
 
