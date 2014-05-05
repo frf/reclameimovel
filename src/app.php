@@ -78,7 +78,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 'logout_path' => '/logout',
                 'with_csrf' => true
             ),
-            'users' => new OAuthUserProvider()
+            'users' => new \Condominio\Repository\OAuthUserProvider()
         )
     ),
     'security.access_rules' => array(
