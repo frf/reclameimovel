@@ -78,7 +78,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 'logout_path' => '/logout',
                 'with_csrf' => true
             ),
-            'users' => new \Condominio\Repository\OAuthUserProvider()
+            'users' => new Gigablah\Silex\OAuth\Security\User\Provider\OAuthInMemoryUserProvider()
         )
     ),
     'security.access_rules' => array(
