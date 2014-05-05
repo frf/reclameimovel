@@ -78,8 +78,9 @@ class UserInfoListener implements EventSubscriberInterface
         $token->setUser($userInfo['name']);
         $token->setEmail($userInfo['email']);
         $token->setUid($userInfo['id']);
-        
+        var_dump($token);
         var_dump($this->db->fetchAssoc('SELECT * FROM usuario WHERE id = 1')); 
+        exit;
     }
 
     /**
