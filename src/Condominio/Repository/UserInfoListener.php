@@ -1,6 +1,7 @@
 <?php
 
-namespace Gigablah\Silex\OAuth\EventListener;
+
+namespace Condominio\Repository;
 
 use Doctrine\DBAL\Connection;
 use Gigablah\Silex\OAuth\OAuthServiceRegistry;
@@ -8,7 +9,7 @@ use Gigablah\Silex\OAuth\OAuthEvents;
 use Gigablah\Silex\OAuth\Event\FilterTokenEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
+/** Condominio
  * Listener to retrieve user information from the OAuth service provider.
  *
  * @author Chris Heng <bigblah@gmail.com>
