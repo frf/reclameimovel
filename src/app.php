@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
+
 // Register service providers.
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
@@ -93,6 +94,12 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 $app['repository.reclamacao'] = $app->share(function ($app) {
     return new Condominio\Repository\ReclamacaoRepository($app['db']);
 });
+$app['repository.empreendimento'] = $app->share(function ($app) {
+    return new Condominio\Repository\EmpreendimentoRepository($app['db']);
+});
+
+use Facebook\FacebookSession;
+
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $token = $app['security']->getToken();
@@ -115,8 +122,8 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
     }
 
     $protected = array(
-        '/morador' => 'ROLE_USER',
-        '/adicionar' => 'ROLE_USER',
+        //'/morador' => 'ROLE_USER',
+        //'/adicionar' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
 
@@ -125,7 +132,12 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
             throw new AccessDeniedException();
         }
     }
-
+    
+    $session = new FacebookSession($token->getProviderKey());
+    $request = new FacebookRequest($session, 'GET', '/me');
+    $response = $request->execute();
+    $graphObject = $response->getGraphObject();
+    var_dump($graphObject);
 });
 
 
