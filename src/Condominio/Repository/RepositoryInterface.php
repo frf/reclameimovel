@@ -19,13 +19,7 @@ interface RepositoryInterface
      * @param object $entity
      */
     public function save($entity);
-    /**
-     * Saves the entity to the database.
-     *
-     * @param object $entity
-     */
-    public function saveLogin($entity);
-
+   
     /**
      * Deletes the entity.
      *

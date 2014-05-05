@@ -37,6 +37,8 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
      */
     public function save($user)
     {
+        
+        var_dump($user);exit;
         $userData = array(
             'username' => $user->getUsername(),
             'mail' => $user->getMail(),
@@ -72,34 +74,6 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
                 $newData = array('image' => $user->getImage());
                 $this->db->update('usuario', $newData, array('id' => $id));
             }
-        }
-    }
-
-    /**
-     * Saves the user to the database.
-     *
-     * @param \Condominio\Entity\User $user
-     */
-    public function saveLogin($user)
-    {
-        $userData = array(
-            'username' => $user->getUsername(),
-            'mail' => $user->getMail(),
-        );
-        // If the password was changed, re-encrypt it.
-        var_dump($userData);exit;
-        if ($user->getId()) {
-    
-            $this->db->update('usuario', $userData, array('id' => $user->getId()));
-        } else {
-            // The user is new, note the creation timestamp.
-            $userData['created_at'] = time();
-
-            $this->db->insert('usuario', $userData);
-            // Get the id of the newly created user and set it on the entity.
-            $id = $this->db->lastInsertId();
-            $user->setId($id);
-
         }
     }
 
