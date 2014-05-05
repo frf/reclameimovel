@@ -46,8 +46,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
             $user->getCredentialsNonExpired(true);
             $user->setAccountNonLocked(true);
             
-            //$enabled = true, $userNonExpired = true, $credentialsNonExpired = true, $userNonLocked = true)
-            //$user = new StubUser($username, $password, $email, $roles, $enabled, true, true, true);
+           //$user = new StubUser($username, $password, $email, $roles, $enabled, true, true, true);
             $this->createUser($user);            
         }
         
@@ -71,8 +70,6 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
         if (isset($this->users[strtolower($username)])) {
             $user = $this->users[strtolower($username)];
         } else {
-            $user = new StubUser($username, '', $username . '@example.org', array('ROLE_USER'), true, true, true, true);
-            
             $user = new User();
             $user->setUsername($username);
             $user->setPassword('');
