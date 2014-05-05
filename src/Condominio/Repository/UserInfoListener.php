@@ -84,15 +84,14 @@ class UserInfoListener implements EventSubscriberInterface
         $aData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE idface = ?', array($userInfo['id']));
         
         if($aData){
-            $userData['idface'] = $userInfo['id'];
-            $userData['email'] = $userInfo['email'];
-        
-            var_dump($this->db->insert('usuario', $userData));
-            exit("INSERT");
-        }else{
             var_dump($this->db->update('usuario', $userData, array('id' => $aData['id'])));
             exit("UPDATE");
-            
+        }else{            
+            $userData['idface'] = $userInfo['id'];
+            $userData['email'] = $userInfo['email'];        
+            $userData['nome'] = $userInfo['name'];        
+            var_dump($this->db->insert('usuario', $userData));
+            exit("INSERT");
         }
     }
 
