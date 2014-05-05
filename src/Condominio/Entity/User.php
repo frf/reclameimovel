@@ -17,6 +17,11 @@ class User implements UserInterface
     protected $password;
     protected $salt;
     protected $username;
+    
+    private $enabled;
+    private $accountNonExpired;
+    private $credentialsNonExpired;
+    private $accountNonLocked;
 
 
     public function getId() {
@@ -123,6 +128,42 @@ class User implements UserInterface
         $this->username = $username;
         return $this;
     }
+    public function getEnabled() {
+        return $this->enabled;
+    }
+
+    public function getAccountNonExpired() {
+        return $this->accountNonExpired;
+    }
+
+    public function getCredentialsNonExpired() {
+        return $this->credentialsNonExpired;
+    }
+
+    public function getAccountNonLocked() {
+        return $this->accountNonLocked;
+    }
+
+    public function setEnabled($enabled) {
+        $this->enabled = $enabled;
+        return $this;
+    }
+
+    public function setAccountNonExpired($accountNonExpired) {
+        $this->accountNonExpired = $accountNonExpired;
+        return $this;
+    }
+
+    public function setCredentialsNonExpired($credentialsNonExpired) {
+        $this->credentialsNonExpired = $credentialsNonExpired;
+        return $this;
+    }
+
+    public function setAccountNonLocked($accountNonLocked) {
+        $this->accountNonLocked = $accountNonLocked;
+        return $this;
+    }
+
 
 
 

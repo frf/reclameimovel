@@ -20,7 +20,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
 {
     private $users;
     private $credentials;
-
+ 
     /**
      * Constructor.
      *
@@ -38,10 +38,15 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
       
             $user = new User();
             $user->setUsername($username);
+            $user->setPassword($password);
             $user->setEmail($email);
             $user->setRole($roles);
-            $user->setPassword($password);
+            $user->setEnabled($enabled);
+            $user->setAccountNonExpired(true);
+            $user->getCredentialsNonExpired(true);
+            $user->setAccountNonLocked(true);
             
+            //$enabled = true, $userNonExpired = true, $credentialsNonExpired = true, $userNonLocked = true)
             //$user = new StubUser($username, $password, $email, $roles, $enabled, true, true, true);
             $this->createUser($user);            
         }
