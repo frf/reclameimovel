@@ -24,7 +24,7 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
      */
     protected $encoder;
 
-    public function __construct(Connection $db, $encoder)
+    public function __construct(Connection $db)
     {
         $this->db = $db;
         $this->encoder = $encoder;
@@ -44,11 +44,7 @@ class UserRepository implements RepositoryInterface, UserProviderInterface
             'mail' => $user->getMail(),
             'role' => $user->getRole(),
         );
-        // If the password was changed, re-encrypt it.
-        if (strlen($user->getPassword()) != 88) {
-            $userData['salt'] = uniqid(mt_rand());
-            $userData['password'] = $this->encoder->encodePassword($user->getPassword(), $userData['salt']);
-        }
+       
 
         if ($user->getId()) {
             // If a new image was uploaded, make sure the filename gets set.
