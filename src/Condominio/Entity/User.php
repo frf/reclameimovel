@@ -4,8 +4,9 @@ namespace Condominio\Entity;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-class User implements UserInterface
+class User implements UserInterface,AdvancedUserInterface
 {
     protected $id;
     protected $name;
