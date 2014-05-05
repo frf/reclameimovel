@@ -70,8 +70,6 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
     {
         if (isset($this->users[strtolower($username)])) {
             $user = $this->users[strtolower($username)];
-            
-            var_dump($user);exit;
         } else {
             $user = new StubUser($username, '', $username . '@example.org', array('ROLE_USER'), true, true, true, true);
             $this->createUser($user);
@@ -119,23 +117,4 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
         return $class === 'Gigablah\\Silex\\OAuth\\Security\\User\\StubUser';
     }
     
-    /**
-     * Saves the user to the database.
-     *
-     * @param \Condominio\Entity\User $user
-     */
-    public function save($user)
-    {
-        $userData = array(
-            'email' => $user->getEmail()
-        );
-       
-
-        if ($user->getId()) {
-            $this->db->update('usuario', $userData, array('id' => $user->getId()));
-        } else {
-            // The user is new, note the creation timestamp.
-            $this->db->insert('usuario', $userData);
-        }
-    }
 }
