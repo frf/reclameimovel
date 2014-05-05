@@ -114,7 +114,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
      */
     public function supportsClass($class)
     {
-        return $class === 'Gigablah\\Silex\\OAuth\\Security\\User\\StubUser';
+        return 'Condominio\Entity\User' === $class;
     }
     
 }
