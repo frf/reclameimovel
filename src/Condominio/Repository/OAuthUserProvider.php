@@ -72,10 +72,31 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
             $user = $this->users[strtolower($username)];
         } else {
             $user = new StubUser($username, '', $username . '@example.org', array('ROLE_USER'), true, true, true, true);
+            
+            $user = new User();
+            $user->setUsername($username);
+            $user->setPassword('');
+            $user->setEmail($username . 'fabiofarias.com.br');
+            $user->setRole(array('ROLE_USER'));
+            $user->setEnabled(true);
+            $user->setAccountNonExpired(true);
+            $user->getCredentialsNonExpired(true);
+            $user->setAccountNonLocked(true);
+            
             $this->createUser($user);
         }
+        
+        $user = new User();
+        $user->setUsername($user->getUsername());
+        $user->setPassword($user->getPassword());
+        $user->setEmail($user->getEmail());
+        $user->setRole($user->getRoles());
+        $user->setEnabled($user->getEnabled());
+        $user->setAccountNonExpired($user->getAccountNonExpired());
+        $user->getCredentialsNonExpired($user->getCredentialsNonExpired());
+        $user->setAccountNonLocked($user->getAccountNonLocked());
 
-        return new StubUser($user->getUsername(), $user->getPassword(), $user->getEmail(), $user->getRoles(), $user->isEnabled(), $user->isAccountNonExpired(), $user->isCredentialsNonExpired(), $user->isAccountNonLocked());
+        return $user;
     }
 
     /**
@@ -91,7 +112,16 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
             }
         }
 
-        $user = new StubUser($token->getUsername(), '', $token->getEmail(), array('ROLE_USER'), true, true, true, true);
+        $user = new User();
+        $user->setUsername($token->getUsername());
+        $user->setPassword('');
+        $user->setEmail($token->getEmail());
+        $user->setRole(array('ROLE_USER'));
+        $user->setEnabled(true);
+        $user->setAccountNonExpired(true);
+        $user->getCredentialsNonExpired(true);
+        $user->setAccountNonLocked(true);
+        
         $this->createUser($user);
 
         return $user;
@@ -102,7 +132,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
      */
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof StubUser) {
+        if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
