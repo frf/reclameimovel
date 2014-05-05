@@ -18,7 +18,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
 {
     private $users;
     private $credentials;
- 
+
     /**
      * Constructor.
      *
@@ -27,27 +27,15 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
      */
     public function __construct(array $users = array(), array $credentials = array())
     {
-        
         foreach ($users as $username => $attributes) {
             $password = isset($attributes['password']) ? $attributes['password'] : null;
             $email = isset($attributes['email']) ? $attributes['email'] : null;
             $enabled = isset($attributes['enabled']) ? $attributes['enabled'] : true;
             $roles = isset($attributes['roles']) ? (array) $attributes['roles'] : array();
-      
-            $user = new User();
-            $user->setUsername($username);
-            $user->setPassword($password);
-            $user->setEmail($email);
-            $user->setRole($roles);
-            $user->setEnabled($enabled);
-            $user->setAccountNonExpired(true);
-            $user->getCredentialsNonExpired(true);
-            $user->setAccountNonLocked(true);
-            
-           //$user = new StubUser($username, $password, $email, $roles, $enabled, true, true, true);
-            $this->createUser($user);            
+            $user = new User($username, $password, $email, $roles, $enabled, true, true, true);
+            $this->createUser($user);
         }
-        
+
         $this->credentials = $credentials;
     }
 
@@ -68,30 +56,11 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
         if (isset($this->users[strtolower($username)])) {
             $user = $this->users[strtolower($username)];
         } else {
-            $user = new User();
-            $user->setUsername($username);
-            $user->setPassword('');
-            $user->setEmail($username . 'fabiofarias.com.br');
-            $user->setRole(array('ROLE_USER'));
-            $user->setEnabled(true);
-            $user->setAccountNonExpired(true);
-            $user->getCredentialsNonExpired(true);
-            $user->setAccountNonLocked(true);
-            
+            $user = new User($username, '', $username . '@example.org', array('ROLE_USER'), true, true, true, true);
             $this->createUser($user);
         }
-        
-        $user = new User();
-        $user->setUsername($user->getUsername());
-        $user->setPassword($user->getPassword());
-        $user->setEmail($user->getEmail());
-        $user->setRole($user->getRoles());
-        $user->setEnabled($user->getEnabled());
-        $user->setAccountNonExpired($user->getAccountNonExpired());
-        $user->getCredentialsNonExpired($user->getCredentialsNonExpired());
-        $user->setAccountNonLocked($user->getAccountNonLocked());
 
-        return $user;
+        return new User($user->getUsername(), $user->getPassword(), $user->getEmail(), $user->getRoles(), $user->isEnabled(), $user->isAccountNonExpired(), $user->isCredentialsNonExpired(), $user->isAccountNonLocked());
     }
 
     /**
@@ -107,16 +76,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
             }
         }
 
-        $user = new User();
-        $user->setUsername($token->getUsername());
-        $user->setPassword('');
-        $user->setEmail($token->getEmail());
-        $user->setRole(array('ROLE_USER'));
-        $user->setEnabled(true);
-        $user->setAccountNonExpired(true);
-        $user->getCredentialsNonExpired(true);
-        $user->setAccountNonLocked(true);
-        
+        $user = new User($token->getUsername(), '', $token->getEmail(), array('ROLE_USER'), true, true, true, true);
         $this->createUser($user);
 
         return $user;
@@ -134,6 +94,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
         return $user;
     }
 
+    
     /**
      * {@inheritDoc}
      */
