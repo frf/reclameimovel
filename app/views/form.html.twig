@@ -13,9 +13,11 @@
         {% endfor %}
     {% endfor %}
 
-    <h1>{{ title }}</h1>
+      <div class="page-header">
+        <h1>{{ title }} <small>{{ sub_titulo }}</small></h1>
+      </div>
 
-    <form action="" method="post" {{ form_enctype(form) }} class="form-horizontal"role="form">
+    <form action="/adicionar" method="post" {{ form_enctype(form) }} class="form-horizontal"role="form">
         {{ form_widget(form) }}
     </form>
 

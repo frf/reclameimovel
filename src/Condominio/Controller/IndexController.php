@@ -11,9 +11,12 @@ class IndexController
 {
     public function indexAction(Request $request, Application $app)
     {
-        $empreendimento = $request->get("pageName");
-              
-        if($empreendimento){
+        $ide = $request->get("ide");
+
+        $oEmp = $app['repository.empreendimento']->findIdNome($ide);
+            
+        if($oEmp){
+            
             // Perform pagination logic.
             $limit = 20;
             $total = $app['repository.reclamacao']->getCount();
@@ -21,14 +24,17 @@ class IndexController
             $currentPage = $request->query->get('page', 1);
             $offset = ($currentPage - 1) * $limit;
             $aLista = $app['repository.reclamacao']->findAll($limit, $offset);
-        
+
+            $titulo = ucwords(str_replace("-"," ",$ide));
+            $sub_titulo = ucwords($oEmp->getBairro());
             
-            $empreendimento = ucwords(str_replace("-"," ",$empreendimento));
             $data = array(
                 'aLista' => $aLista,
-                'titulo_empreendimento' => $empreendimento,
+                'titulo_empreendimento' => $titulo,
+                'sub_titulo' => $sub_titulo,
                 'currentPage' => $currentPage,
-                'numPages' => $numPages
+                'numPages' => $numPages,                
+                'ide' => $ide,
             );
         
             return $app['twig']->render('lista_reclamacao.html.twig', $data);
@@ -36,11 +42,7 @@ class IndexController
             return $app['twig']->render('index.html.twig');
         }
     }
-    public function cadastroAction(Request $request, Application $app)
-    {        
-        return $app['twig']->render('cadastro.html.twig');
-        
-    }
+    
     public function moradorAction(Request $request, Application $app)
     {        
         return $app['twig']->render('morador.html.twig');

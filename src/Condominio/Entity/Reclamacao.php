@@ -27,7 +27,7 @@ class Reclamacao
      * @var integer
      */
     protected $ide;
-
+    
     /**
      * Titulo.
      *
@@ -94,7 +94,6 @@ class Reclamacao
     public function setTitulo($titulo) {
         $this->titulo = $titulo;
     }
-
 
 
 }

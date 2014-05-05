@@ -28,38 +28,18 @@ class ReclamacaoRepository implements RepositoryInterface
     public function save($reclamacao)
     {
         $reclamacaoData = array(
-            'name' => $reclamacao->getName(),
-            'short_biography' => $reclamacao->getShortBiography(),
-            'biography' => $reclamacao->getBiography(),
-            'soundcloud_url' => $reclamacao->getSoundCloudUrl(),
-            'image' => $reclamacao->getImage(),
+            'idu' => $reclamacao->getIdu(),
+            'ide' => $reclamacao->getIde(),
+            'descricao' => $reclamacao->getDescricao(),
+            'dt_cadastro'=>time()
         );
 
         if ($reclamacao->getId()) {
-            // If a new image was uploaded, make sure the filename gets set.
-            $newFile = $this->handleFileUpload($reclamacao);
-            if ($newFile) {
-                $reclamacaoData['image'] = $reclamacao->getImage();
-            }
-
             $this->db->update('reclamacao', $reclamacaoData, array('id' => $reclamacao->getId()));
         }
         else {
-            // The reclamacao is new, note the creation timestamp.
-            $reclamacaoData['created_at'] = time();
 
             $this->db->insert('reclamacao', $reclamacaoData);
-            // Get the id of the newly created reclamacao and set it on the entity.
-            $id = $this->db->lastInsertId();
-            $reclamacao->setId($id);
-
-            // If a new image was uploaded, update the reclamacao with the new
-            // filename.
-            $newFile = $this->handleFileUpload($reclamacao);
-            if ($newFile) {
-                $newData = array('image' => $reclamacao->getImage());
-                $this->db->update('reclamacao', $newData, array('id' => $id));
-            }
         }
     }
 

@@ -9,6 +9,16 @@
     <strong>Olá venha fazer parte.</strong><a href="/login" class="alert-link"> Clique aqui e começe a reclamar, registre o seu problema, e deixe que nós facilitamos a divulgação.</a>
 </div>
 {% endif %}
+
+{% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
+    {% for alert in alertTypeAvaillable %}
+        {% for message in app.session.getFlashBag.get(alert) %}
+            <div class="alert alert-{{ alert }}" >
+                <button class="close" data-dismiss="alert">×</button>
+                {{ message|trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 <form class="form-inline" role="form">
   <div class="form-group has-success has-feedback" style="width:90%">
     <input type="text" class="form-control" id="valor" style="width:100%" placeholder="Procure agora seu empreendimento">

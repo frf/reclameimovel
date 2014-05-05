@@ -7,6 +7,16 @@
     $(".collapse").collapse(); 
  });
  */
+
+$(document).ready(function() {
+    $("#adicionar").click(function() {
+        if($("#ide").val() != ""){
+            window.location = '/adicionar/'+$("#ide").val();
+        }
+    });
+});
+
+
 /*
 FB.init({
     appId: '237098739830424',
@@ -91,9 +101,3 @@ function loginFacebook(tipoUrl) {
 
 
 */
-
-$(document).ready(function() {
-    $("#adicionar").click(function() {
-        window.location = '/adicionar';
-    });
-});

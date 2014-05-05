@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\DBAL\Connection;
 use Condominio\Entity\User;
+use Condominio\Repository\OAuthUserProviderInterface;
 
 /**
  * OAuth in-memory stub user provider.
@@ -26,7 +27,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
      * @param array $users       An array of users
      * @param array $credentials A map of usernames with
      */
-    public function __construct(array $users = array(), array $credentials = array(),Connection $db)
+    public function __construct(array $users = array(), array $credentials = array())
     {
         
         foreach ($users as $username => $attributes) {
@@ -45,7 +46,6 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
             $this->createUser($user);            
         }
         
-        $this->db = $db;
         $this->credentials = $credentials;
     }
 

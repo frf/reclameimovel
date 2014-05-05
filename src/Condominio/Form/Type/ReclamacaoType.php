@@ -12,11 +12,14 @@ class ReclamacaoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', 'hidden')
+            ->add('ide', 'hidden')
+            ->add('idu', 'hidden')
             ->add('descricao', 'textarea', array(
                 'attr' => array(
-                    'rows' => '7',
+                    'rows' => '10',
                     'class'=>'form-control',
-                    'placeholder'=>'Preencher todo o seu problema, lembre de colocar todas as informações.',
+                    'placeholder'=>'Preencher todo o seu problema,coloque todas as informações.',
                 ),
                 'label'=>'Descrição'
                 

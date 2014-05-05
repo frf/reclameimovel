@@ -1383,10 +1383,7 @@ h1 [class^="icon-"] {
 }
 .page-header {
     border-bottom-color: #999999;
-    color: #222222;
-    margin: 75px 0 20px;
     min-height: 35px;
-    padding: 20px;
     position: relative;
 }
 .page-header:after, .page-header:before {
@@ -1400,7 +1397,7 @@ h1 [class^="icon-"] {
 }
 @media (min-width: 768px) {
 .page-header {
-    padding: 0 15px;
+    padding: 0 0px;
 }
 }
 .page-header h1, .page-header h2, .page-header h3, .page-header h4, .page-header h5, .page-header h6 {
