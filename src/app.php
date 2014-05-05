@@ -73,7 +73,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 'logout_path' => '/logout',
                 'with_csrf' => true
             ),
-            'users' => new Gigablah\Silex\OAuth\Security\User\Provider\OAuthInMemoryUserProvider()
+            'users' => new Condominio\Repository\OAuthUserProvider()
         )
     ),
     'security.access_rules' => array(
@@ -133,12 +133,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
             throw new AccessDeniedException();
         }
     }
-    
-    $session = new FacebookSession($token->getProviderKey());
-    $request = new FacebookRequest($session, 'GET', '/me');
-    $response = $request->execute();
-    $graphObject = $response->getGraphObject();
-    var_dump($graphObject);
+
 });
 
 
