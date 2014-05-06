@@ -100,6 +100,7 @@ $app['repository.empreendimento'] = $app->share(function ($app) {
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $token = $app['security']->getToken();
     $app['user'] = null;
+    $app['token'] = null;
 
     $services = array_keys($app['oauth.services']);
 	$app['login'] = array(
@@ -115,7 +116,8 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
 
     if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
         $app['user'] = $token->getUser();
-        var_dump($app['user']);
+        $app['token'] = $token;
+        var_dump($app['token']);
     }
 
     $protected = array(
