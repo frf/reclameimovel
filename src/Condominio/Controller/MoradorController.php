@@ -12,6 +12,7 @@ use Condominio\Form\Type\ReclamacaoType;
 use Facebook\FacebookRequest;
 use Facebook\GraphObject;
 use Facebook\FacebookRequestException;
+use Facebook\FacebookSession;
 
 class MoradorController {
 
