@@ -64,7 +64,7 @@ class MoradorController {
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
 
         if ($request->isMethod('POST')) {
-            $token = $app['token']->getAccessToken()->getAccessToken();
+            /*$token = $app['token']->getAccessToken()->getAccessToken();
             $session = new FacebookSession($token);            
             
             if($session) {
@@ -87,7 +87,7 @@ class MoradorController {
               }   
 
             }
-
+            */
 
             $form->bind($request);
 
