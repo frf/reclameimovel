@@ -9,6 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Condominio\Entity\Reclamacao;
 use Condominio\Entity\Empreendimento;
 use Condominio\Form\Type\ReclamacaoType;
+use Facebook\FacebookRequest;
+use Facebook\GraphObject;
+use Facebook\FacebookRequestException;
 
 class MoradorController {
 
@@ -51,7 +54,7 @@ class MoradorController {
              */
             $reclamacao->setIde($oEmp->getId());
         }
-        
+        var_dump($app['token']);
         /*
          * Pegar id da sessao
          */
@@ -60,6 +63,30 @@ class MoradorController {
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
 
         if ($request->isMethod('POST')) {
+            
+            
+            $session = new FacebookSession('access token here');            
+            
+            if($session) {
+
+              try {
+                $request = new FacebookRequest($session, 'GET', '/me/feed',array('link' => 'www.fabiofarias.com.br',
+                                    'message' => 'User provided message'));
+                $response = $request->execute();
+                $graphObject = $response->getGraphObject();
+                
+                echo "Posted with id: " . $response->getProperty('id');
+
+              } catch(FacebookRequestException $e) {
+
+                echo "Exception occured, code: " . $e->getCode();
+                echo " with message: " . $e->getMessage();
+
+              }   
+
+            }
+
+
             $form->bind($request);
 
             if ($form->isValid()) {
