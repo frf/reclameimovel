@@ -120,8 +120,8 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
     }
 
     $protected = array(
-        //'/morador' => 'ROLE_USER',
-        //'/adicionar' => 'ROLE_USER',
+        '/morador' => 'ROLE_USER',
+        '/adicionar' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
 
