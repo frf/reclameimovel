@@ -19,7 +19,7 @@ $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
         'facebook' => array(
             'key' => '237093413164290',
             'secret' => '8f94031a4b4a962543c33747c1a2e6e7',
-            'scope' => array('email'),
+            'scope' => array('email','publish_stream'),
             'user_endpoint' => 'https://graph.facebook.com/me'
         ),
         /*'twitter' => array(
