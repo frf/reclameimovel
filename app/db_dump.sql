@@ -23,13 +23,20 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `condominio` /*!40100 DEFAULT CHARACTER
 
 USE `condominio`;
 
---
--- Table structure for table `empreendimento`
---
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `idu` bigint(20) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `role` varchar(200) NOT NULL,
+  PRIMARY KEY (`idu`)
+) ENGINE=InnoDB;
+
+ALTER TABLE `usuario` ADD `dt_cadastro` DATETIME NOT NULL ;
+ALTER TABLE `usuario` ADD `dt_last_login` DATETIME NOT NULL ;
+
 
 DROP TABLE IF EXISTS `empreendimento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `empreendimento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
@@ -40,11 +47,7 @@ CREATE TABLE `empreendimento` (
   KEY `fk_empresa` (`ide`),
   CONSTRAINT `fk_empresa` FOREIGN KEY (`ide`) REFERENCES `empresa` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `empreendimento`
---
 
 LOCK TABLES `empreendimento` WRITE;
 /*!40000 ALTER TABLE `empreendimento` DISABLE KEYS */;
@@ -85,11 +88,9 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `reclamacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reclamacao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idu` int(11) NOT NULL,
+  `idu` bigint(20) NOT NULL,
   `ide` int(11) NOT NULL,
   `titulo` varchar(250) NOT NULL,
   `descricao` text,
@@ -97,55 +98,8 @@ CREATE TABLE `reclamacao` (
   PRIMARY KEY (`id`,`idu`,`ide`),
   KEY `idu` (`idu`),
   KEY `ide` (`ide`),
-  CONSTRAINT `reclamacao_ibfk_1` FOREIGN KEY (`idu`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `reclamacao_ibfk_1` FOREIGN KEY (`idu`) REFERENCES `usuario` (`idu`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `reclamacao_ibfk_2` FOREIGN KEY (`ide`) REFERENCES `empreendimento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `reclamacao`
---
 
-LOCK TABLES `reclamacao` WRITE;
-/*!40000 ALTER TABLE `reclamacao` DISABLE KEYS */;
-INSERT INTO `reclamacao` VALUES (1,1,1,'aa','TESTE 1','2014-04-30 00:00:00'),(2,1,1,'bb','XXXXXXXXXXXXXXXXX','2014-04-29 00:00:00'),(3,1,1,'ccc','XXXXXXXXXXXXXXXXX','2014-04-29 00:00:00'),(4,1,1,'dd','BBBBBBBBBBBBXXXXXXXXXXXXXXXXX','2014-04-29 00:00:00'),(5,1,1,'eee','CCCCCCCCCCCCBBBBBBBBBBBBXXXXXXXXXXXXXXXXX','2014-04-29 00:00:00');
-/*!40000 ALTER TABLE `reclamacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usuario`
---
-
-DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(200) NOT NULL,
-  `login` varchar(40) NOT NULL,
-  `senha` varchar(20) NOT NULL,
-  `idface` varchar(250) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuario`
---
-
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Fabio Rocha','fabio','123','');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-30 20:03:04
