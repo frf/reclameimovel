@@ -54,7 +54,7 @@ class MoradorController {
              */
             $reclamacao->setIde($oEmp->getId());
         }
-        var_dump($app['token']->getAccessToken()->getAccessToken());
+        
         /*
          * Pegar id da sessao
          */
@@ -63,9 +63,8 @@ class MoradorController {
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
 
         if ($request->isMethod('POST')) {
-            
-            
-            $session = new FacebookSession('access token here');            
+            $token = $app['token']->getAccessToken()->getAccessToken();
+            $session = new FacebookSession($token);            
             
             if($session) {
 
