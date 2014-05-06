@@ -70,8 +70,12 @@ class MoradorController {
             if($session) {
 
               try {
-                $request = new FacebookRequest($session, 'GET', '/me/feed',array('link' => 'www.fabiofarias.com.br',
-                                    'message' => 'User provided message'));
+                
+                $request = new FacebookRequest(
+                    $session, 'POST', '/me/feed', array(
+                      'link' => 'www.fabiofarias.com.br',
+                      'message' => 'User provided message'
+                    ));
                 $response = $request->execute();
                 $graphObject = $response->getGraphObject();
                 
