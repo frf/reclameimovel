@@ -18,7 +18,6 @@
 --
 -- Current Database: `condominio`
 --
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `condominio` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `condominio`;
@@ -40,10 +39,12 @@ DROP TABLE IF EXISTS `empreendimento`;
 CREATE TABLE `empreendimento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
+  `idnome` varchar(200) NOT NULL,
   `bairro` varchar(200) NOT NULL,
   `ide` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`),
+  UNIQUE KEY `idnome` (`idnome`),
   KEY `fk_empresa` (`ide`),
   CONSTRAINT `fk_empresa` FOREIGN KEY (`ide`) REFERENCES `empresa` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -51,7 +52,7 @@ CREATE TABLE `empreendimento` (
 
 LOCK TABLES `empreendimento` WRITE;
 /*!40000 ALTER TABLE `empreendimento` DISABLE KEYS */;
-INSERT INTO `empreendimento` VALUES (1,'Park Reality','CAMPO GRANDE',1),(2,'Park Renovare','CAMPO GRANDE',1);
+INSERT INTO `empreendimento` VALUES (1,'Park Reality','mrv-park-reality','CAMPO GRANDE',1),(2,'Park Renovare','mrv-park-renovare','CAMPO GRANDE',1);
 /*!40000 ALTER TABLE `empreendimento` ENABLE KEYS */;
 UNLOCK TABLES;
 
