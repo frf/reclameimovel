@@ -54,7 +54,7 @@ class MoradorController {
              */
             $reclamacao->setIde($oEmp->getId());
         }
-        var_dump($app['token']);
+        var_dump($app['token']->getAccessToken());
         /*
          * Pegar id da sessao
          */
