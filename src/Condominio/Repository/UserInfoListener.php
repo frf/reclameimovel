@@ -90,7 +90,10 @@ class UserInfoListener implements EventSubscriberInterface
             $userData['email'] = $userInfo['email'];        
             $userData['nome'] = $userInfo['name'];        
             $this->db->insert('usuario', $userData);
+            $aData['id'] = $this->db->lastInsertId();
         }
+        
+        $token->setId($aData['id']);
     }
 
     /**
