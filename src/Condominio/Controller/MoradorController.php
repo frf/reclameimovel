@@ -55,7 +55,7 @@ class MoradorController {
         /*
          * Pegar id da sessao
          */
-        $reclamacao->setIdu(1);
+        $reclamacao->setIdu($app['token']->getUid());
 
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
 

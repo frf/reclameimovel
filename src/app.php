@@ -117,7 +117,6 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
     if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
         $app['user'] = $token->getUser();
         $app['token'] = $token;
-        var_dump($app['token']->getUid());
     }
 
     $protected = array(
