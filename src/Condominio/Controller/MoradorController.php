@@ -75,8 +75,6 @@ class MoradorController {
                 $response = $request->execute();
                 $graphObject = $response->getGraphObject();
                 
-                echo "Posted with id: " . $response->getProperty('id');
-
               } catch(FacebookRequestException $e) {
 
                 echo "Exception occured, code: " . $e->getCode();
