@@ -12,15 +12,12 @@ $(function() {
                 dataType: "jsonp",
                 data: {
                     featureClass: "P",
-                    style: "full",
-                    maxRows: 12,
-                    name_startsWith: request.term
                 },
                 success: function(data) {
-                    response($.map(data.geonames, function(item) {
+                    response($.map(data, function(item) {
                         return {
-                            label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-                            value: item.name
+                            label: item.nome + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.nome,
+                            value: item.nome
                         }
                     }));
                 }
