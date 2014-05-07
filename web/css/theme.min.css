@@ -5440,3 +5440,10 @@ pre {
 .select2-results .select2-highlighted {
     background-color: #F34541;
 }
+
+
+
+.ui-autocomplete-loading {
+    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+#city { width: 25em; }
