@@ -21,21 +21,9 @@
     {% endfor %}
 <form class="form-inline" role="form">
   <div class="form-group has-success has-feedback" style="width:90%">
-    <input type="text" class="form-control" id="valor" style="width:100%" placeholder="Procure agora seu empreendimento">
+    <input type="text" class="form-control" id="autocomplete_emp" style="width:100%" placeholder="Procure agora seu empreendimento">
   </div>
 	<button type="button" class="btn btn-success" id="buscar">Procurar</button>
 </form>
-<br>
-<br>
-<div class="ui-widget">
-<label for="emp">Your city: </label>
-<input id="emp">
-Powered by <a href="http://geonames.org">geonames.org</a>
-</div>
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-Result:
-<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>
-
 
 {% endblock %}

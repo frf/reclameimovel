@@ -1,7 +1,7 @@
 $(function() {
     var cache = {};
 
-    $("#emp").autocomplete({
+    $("#autocomplete_emp").autocomplete({
         minLength: 2,
         source: function(request, response) {
             console.log(request.term);
