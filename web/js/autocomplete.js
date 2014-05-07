@@ -14,13 +14,16 @@ $(function() {
                     featureClass: "P",
                 },
                 success: function(data) {
+                    console.log(data);
+                   
                     response(data);
                 }
             });
         },
         minLength: 2,
         select: function(event, ui) {
-            log(ui);
+            console.log(event);
+            console.log(ui);
         },
         open: function() {
             $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
