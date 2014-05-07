@@ -5440,32 +5440,3 @@ pre {
 .select2-results .select2-highlighted {
     background-color: #F34541;
 }
-
-
-
-.ui-autocomplete-loading {
-    background: white url('/images/ui-anim_basic_16x16.gif') right center no-repeat;
-}
-#autocomplete_emp { width: 25em; }
-
-
- .ui-autocomplete {
-    max-height: 100px;
-    overflow-y: auto;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
-}
-/* IE 6 doesn't support max-height
-* we use height instead, but this forces the menu to always be this tall
-*/
-* html .ui-autocomplete {
-    height: 100px;
-}
-
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    background-color: grey;
-    background-image: none;
-    padding: 0px;
-    margin: 0px;
-    border-radius: 0;
-}
