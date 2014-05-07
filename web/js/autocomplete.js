@@ -15,8 +15,9 @@ $(function() {
                
                 response($.map(data, function(item) {
                     return {
-                        id: item.id,
-                        nome: item.nome
+                        label: item.nome,
+                        value: item.nome,
+                        id:    item.id
                     }
                 }));
             });
