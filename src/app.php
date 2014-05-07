@@ -89,7 +89,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => array(__DIR__ . '/../app/views')
 ));
 
-$app['view_path'] = 'http://reclameimovel.com.br/view/';
+$app['view_path'] = 'http://reclameimovel.com.br/view';
     
 $app['repository.empresa'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpresaRepository($app['db']);
