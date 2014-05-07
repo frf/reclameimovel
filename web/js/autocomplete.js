@@ -15,22 +15,21 @@ $(function() {
                
                 response($.map(data, function(item) {
                     return {
-                        label: item.nome,
-                        value: item.nome
+                        id: item.id,
+                        nome: item.nome
                     }
                 }));
             });
         },
         select: function( event, ui ) {
              console.log("SELECT");
-             //console.log(event);
-             console.log(ui);
+             // console.log(event);
+             console.log(ui.item.id + " - " + ui.item.nome);
         },
         open: function( event, ui ) {
-             
-             console.log("OPEN");
              //console.log(event);
-             console.log(ui);
+             console.log("OPEN");
+             console.log(ui.item.id + " - " + ui.item.nome);
         }
     });
 
