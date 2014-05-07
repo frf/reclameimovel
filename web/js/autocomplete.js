@@ -1,5 +1,5 @@
 $(function() {
-
+    var cache = {};
     $("#emp").autocomplete({
         minLength: 2,
         source: function(request, response) {
