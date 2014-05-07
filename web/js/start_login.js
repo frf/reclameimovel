@@ -11,7 +11,7 @@
  });
  */
 /*
-var URL_SISTEMA = "http://contas.fabiofarias.com.br";
+var URL_SISTEMA = "http://reclameimveol.com.br";
 
 FB.init({
     appId: '237098739830424',

@@ -116,16 +116,10 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         'logout_path' => $app['url_generator']->generate('logout', array(
             '_csrf_token' => $app['form.csrf_provider']->generateCsrfToken('logout')
         )));
-    if($app['debug']){
-        class Token{ private $id = 1; public function getUid(){return $this->id; } };
-        $token = new Token;
-        $app['token'] = $token;
-    }else{
         if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
             $app['user'] = $token->getUser();
             $app['token'] = $token;
         }
-    }
     $protected = array(
         '/morador' => 'ROLE_USER',
         '/adicionar' => 'ROLE_USER',
