@@ -3,8 +3,8 @@ $(function() {
     $("#emp").autocomplete({
         minLength: 2,
         source: function(request, response) {
-            console.log(request);
-            var term = request;
+            console.log(request.term);
+            var term = request.term;
             if (term in cache) {
                 response(cache[ term ]);
                 return;
