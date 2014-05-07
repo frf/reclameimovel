@@ -16,7 +16,7 @@ $(function() {
                 success: function(data) {
                     response($.map(data, function(item) {
                         return {
-                            label: item.nome + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.nome,
+                            id: item.id,
                             value: item.nome
                         }
                     }));
@@ -26,7 +26,7 @@ $(function() {
         minLength: 2,
         select: function(event, ui) {
             log(ui.item ?
-                    "Selected: " + ui.item.label :
+                    "Selected: " + ui.item.id :
                     "Nothing selected, input was " + this.value);
         },
         open: function() {
