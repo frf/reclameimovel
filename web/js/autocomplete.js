@@ -14,20 +14,13 @@ $(function() {
                     featureClass: "P",
                 },
                 success: function(data) {
-                    response($.map(data, function(item) {
-                        return {
-                            id: item.id,
-                            value: item.nome
-                        }
-                    }));
+                    response(data);
                 }
             });
         },
         minLength: 2,
         select: function(event, ui) {
-            log(ui.item ?
-                    "Selected: " + ui.item.id :
-                    "Nothing selected, input was " + this.value);
+            log(ui);
         },
         open: function() {
             $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
