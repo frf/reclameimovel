@@ -21,14 +21,9 @@ $(function() {
                 }));
             });
         },
-        select: function( event, ui ) {
-             console.log("SELECT");
-             // console.log(event);
-             console.log(ui.item.id + " - " + ui.item.nome);
-        },
         open: function( event, ui ) {
              //console.log(event);
-             console.log("OPEN");
+             console.log("OPEN XXX");
              console.log(ui.item.id + " - " + ui.item.nome);
         }
     });
