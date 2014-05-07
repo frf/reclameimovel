@@ -22,6 +22,12 @@ $(function() {
             });
         },
         select: function( event, ui ) {
+             console.log("SELECT");
+             console.log(event);
+             console.log(ui);
+        },
+        open: function( event, ui ) {
+             console.log("OPEN");
              console.log(event);
              console.log(ui);
         }
