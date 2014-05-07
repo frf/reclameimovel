@@ -130,7 +130,7 @@ class EmpreendimentoRepository implements RepositoryInterface
     {
         // Provide a default orderBy.
         if (!$orderBy) {
-            $orderBy = array('a.id' => 'DESC');
+            $orderBy = array('id' => 'DESC');
         }
 
         $queryBuilder = $this->db->createQueryBuilder();
