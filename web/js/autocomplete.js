@@ -12,7 +12,7 @@ $(function() {
             }
             $.getJSON("http://reclameimovel.com.br/api/empreendimento", request, function(data, status, xhr) {
                 cache[ term ] = data;
-                console.log(data);
+               
                 response($.map(data, function(item) {
                     return {
                         label: item.nome,
@@ -20,6 +20,10 @@ $(function() {
                     }
                 }));
             });
+        },
+        select: function( event, ui ) {
+             console.log(event);
+             console.log(ui);
         }
     });
 
