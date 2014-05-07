@@ -2,7 +2,7 @@ $(function() {
     var cache = {};
 
     $("#autocomplete_emp").autocomplete({
-        minLength: 2,
+        minLength: 0,
         source: function(request, response) {
             console.log(request.term);
             var term = request.term;
@@ -22,10 +22,10 @@ $(function() {
                 }));
             });
         },
-        open: function( event, ui ) {
-             //console.log(event);
-             console.log("OPEN XXX");
-             console.log(ui.item.id + " - " + ui.item.nome);
+        select: function( event, ui ) {
+             console.log("SELECT");
+             // console.log(event);
+              console.log(ui.item.id + " - " + ui.item.nome);
         }
     });
 
