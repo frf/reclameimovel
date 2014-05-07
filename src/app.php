@@ -89,12 +89,15 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => array(__DIR__ . '/../app/views')
 ));
 
-// Register repositories.
-$app['repository.reclamacao'] = $app->share(function ($app) {
-    return new Condominio\Repository\ReclamacaoRepository($app['db']);
-});
+    
+$app['repository.empresa'] = $app->share(function ($app) {
+    return new Condominio\Repository\EmpresaRepository($app['db']);
+});  
 $app['repository.empreendimento'] = $app->share(function ($app) {
-    return new Condominio\Repository\EmpreendimentoRepository($app['db']);
+    return new Condominio\Repository\EmpreendimentoRepository($app['db'],$app['repository.empresa']);
+});  
+$app['repository.reclamacao'] = $app->share(function ($app) {
+    return new Condominio\Repository\ReclamacaoRepository($app['db'],$app['repository.empreendimento']);
 });
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
@@ -113,12 +116,16 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         'logout_path' => $app['url_generator']->generate('logout', array(
             '_csrf_token' => $app['form.csrf_provider']->generateCsrfToken('logout')
         )));
-
-    if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
-        $app['user'] = $token->getUser();
+    if($app['debug']){
+        class Token{ private $id = 1; public function getUid(){return $this->id; } };
+        $token = new Token;
         $app['token'] = $token;
+    }else{
+        if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
+            $app['user'] = $token->getUser();
+            $app['token'] = $token;
+        }
     }
-
     $protected = array(
         '/morador' => 'ROLE_USER',
         '/adicionar' => 'ROLE_USER',
@@ -130,8 +137,6 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
             throw new AccessDeniedException();
         }
     }
-    
-    
 
 });
 

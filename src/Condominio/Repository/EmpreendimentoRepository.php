@@ -14,10 +14,12 @@ class EmpreendimentoRepository implements RepositoryInterface
      * @var \Doctrine\DBAL\Connection
      */
     protected $db;
+    protected $empresaRepository;
 
-    public function __construct(Connection $db)
+    public function __construct(Connection $db, $empresaRepository)
     {
         $this->db = $db;
+        $this->empresaRepository = $empresaRepository;
     }
 
     /**
@@ -159,12 +161,18 @@ class EmpreendimentoRepository implements RepositoryInterface
      */
     protected function buildEmpreendimento($empreendimentoData)
     {
+        
+        $empresa = $this->empresaRepository->find($empreendimentoData['ide']);
+         
         $empreendimento = new Empreendimento();
+        $empreendimento->setEmpresa($empresa);
         $empreendimento->setId($empreendimentoData['id']);
         $empreendimento->setIdnome($empreendimentoData['idnome']);
         $empreendimento->setIde($empreendimentoData['ide']);
         $empreendimento->setNome($empreendimentoData['nome']);
         $empreendimento->setBairro($empreendimentoData['bairro']);
+        $empreendimento->setCidade($empreendimentoData['cidade']);
+        $empreendimento->setUf($empreendimentoData['uf']);
         return $empreendimento;
     }
 }

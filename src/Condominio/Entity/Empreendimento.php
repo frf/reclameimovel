@@ -5,6 +5,7 @@ namespace Condominio\Entity;
 
 class Empreendimento
 {
+    protected $empresa;
     /**
      * Reclamacao id.
      *
@@ -33,12 +34,17 @@ class Empreendimento
      */
     protected $nome;
     
+    protected $uf;
+    protected $cidade;
+
+
     /**
      * Bairro.
      *
      * @var vahchar 250
      */
     protected $bairro;
+    
     public function getId() {
         return $this->id;
     }
@@ -83,6 +89,33 @@ class Empreendimento
         $this->bairro = $bairro;
         return $this;
     }
+    public function getUf() {
+        return $this->uf;
+    }
+
+    public function getCidade() {
+        return $this->cidade;
+    }
+
+    public function setUf($uf) {
+        $this->uf = $uf;
+        return $this;
+    }
+
+    public function setCidade($cidade) {
+        $this->cidade = $cidade;
+        return $this;
+    }
+    public function getEmpresa() {
+        return $this->empresa;
+    }
+
+    public function setEmpresa($empresa) {
+        $this->empresa = $empresa;
+        return $this;
+    }
+
+
 
 
 }

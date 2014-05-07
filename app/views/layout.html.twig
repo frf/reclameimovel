@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Administração de Conteúdo">
+        <meta name="description" content="Reclamações, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular">
         <meta name="author" content="Fabio Rocha">
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -17,7 +17,7 @@
 
 <!--        <script src="http://connect.facebook.net/en_US/all.js"></script> -->
         
-        <title>{{ 'Reclame Imóvel'|trans }}</title>        
+        <title>{{ 'Reclame Imóvel'|trans }} - Aqui sua reclamação faz sentido.</title>        
     </head>
 <body role="document">
     {% set active = active|default(null) %}
@@ -25,12 +25,12 @@
       <div class="container">
         <div class="navbar-header">
           <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only">Menu</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="/" class="navbar-brand">Reclame Empreendimento</a>
+          <a href="/" class="navbar-brand">Reclame Imóvel</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -67,6 +67,7 @@
     <script src="{{ app.request.basepath }}/js/jquery-2.0.3.min.js"></script>
     <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
     <script src="{{ app.request.basepath }}/js/start.js"></script>
+    <div id="fb-root"></div>
 
 </body>
 </html>

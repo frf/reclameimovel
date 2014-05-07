@@ -14,10 +14,15 @@ class ReclamacaoRepository implements RepositoryInterface
      * @var \Doctrine\DBAL\Connection
      */
     protected $db;
+    /**
+     * @var \Condominio\Repository\EmpreendimentoRepository
+     */
+    protected $empreendimentoRepository;
 
-    public function __construct(Connection $db)
+    public function __construct(Connection $db,$empreendimentoRepository)
     {
         $this->db = $db;
+        $this->empreendimentoRepository = $empreendimentoRepository;
     }
 
     /**
@@ -30,8 +35,11 @@ class ReclamacaoRepository implements RepositoryInterface
         $reclamacaoData = array(
             'idu' => $reclamacao->getIdu(),
             'ide' => $reclamacao->getIde(),
+            'titulo' => $reclamacao->getTitulo(),
+            'dados' => $reclamacao->getDados(),
+            'idassunto' => $reclamacao->getIdassunto(),
             'descricao' => $reclamacao->getDescricao(),
-            'dt_cadastro'=>time()
+            'dt_cadastro'=>date('Y-m-d H:i:s')
         );
 
         if ($reclamacao->getId()) {
@@ -76,8 +84,24 @@ class ReclamacaoRepository implements RepositoryInterface
      */
     public function find($id)
     {
-        $reclamacaoData = $this->db->fetchAssoc('SELECT * FROM reclamacao WHERE id = ?', array($id));
+        if($id == ""){
+            return false; 
+        }
+        
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,emp.cidade,emp.uf,e.nome as nome')
+            ->from('reclamacao', 'r')
+            ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
+            ->innerJoin('emp',"empresa","e","e.id = emp.ide")
+            ->where("r.id = $id");
+          
+        $statement = $queryBuilder->execute();
+        $reclamacaoData = $statement->fetch();
+
         return $reclamacaoData ? $this->buildReclamacao($reclamacaoData) : FALSE;
+        
+        
     }
 
     /**
@@ -96,16 +120,16 @@ class ReclamacaoRepository implements RepositoryInterface
     {
         // Provide a default orderBy.
         if (!$orderBy) {
-            $orderBy = array('dt_cadastro' => 'DESC');
+            $orderBy = array('r.dt_cadastro' => 'DESC');
         }
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('a.*')
-            ->from('reclamacao', 'a')
-            ->setMaxResults($limit)
-            ->setFirstResult($offset)
-            ->orderBy('a.' . key($orderBy), current($orderBy));
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->from('reclamacao', 'r')
+            ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
+            ->innerJoin('emp',"empresa","e","e.id = emp.ide");
+          
         $statement = $queryBuilder->execute();
         $reclamacaoData = $statement->fetchAll();
 
@@ -114,6 +138,7 @@ class ReclamacaoRepository implements RepositoryInterface
             $reclamacaoId = $reclamacaoData['id'];
             $reclamacao[$reclamacaoId] = $this->buildReclamacao($reclamacaoData);
         }
+        
         return $reclamacao;
     }
 
@@ -127,13 +152,19 @@ class ReclamacaoRepository implements RepositoryInterface
      */
     protected function buildReclamacao($reclamacaoData)
     {
+        $empreendimento = $this->empreendimentoRepository->find($reclamacaoData['ide']);
+        
         $reclamacao = new Reclamacao();
         $reclamacao->setId($reclamacaoData['id']);
         $reclamacao->setIdu($reclamacaoData['idu']);
         $reclamacao->setIde($reclamacaoData['ide']);
+        $reclamacao->setEmpreendimento($empreendimento);
         $reclamacao->setTitulo($reclamacaoData['titulo']);
         $reclamacao->setDescricao($reclamacaoData['descricao']);
+        $reclamacao->setDados($reclamacaoData['dados']);
+        $reclamacao->setIdassunto($reclamacaoData['idassunto']);
         $createdAt = new \DateTime($reclamacaoData['dt_cadastro']);
+        
         $reclamacao->setDt_cadastro($createdAt);
         return $reclamacao;
     }

@@ -18,6 +18,8 @@ class MoradorController {
 
     public function indexAction(Request $request, Application $app) {
 
+        $ide = $request->get("ide");
+        
         // Perform pagination logic.
         $limit = 20;
         $total = $app['repository.reclamacao']->getCount();
@@ -29,6 +31,7 @@ class MoradorController {
         $data = array(
             'active' => 'morador',
             'aLista' => $aLista,
+            'ide' => $ide,
             'currentPage' => $currentPage,
             'numPages' => $numPages
         );
@@ -59,6 +62,7 @@ class MoradorController {
         /*
          * Pegar id da sessao
          */
+        
         $reclamacao->setIdu($app['token']->getUid());
 
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
@@ -88,7 +92,7 @@ class MoradorController {
 
             }
             */
-
+            
             $form->bind($request);
 
             if ($form->isValid()) {

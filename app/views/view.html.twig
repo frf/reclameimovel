@@ -3,26 +3,18 @@
 
 
     <div class="col-md-8">
-        <h1>Minhas Reclamações</h1>
-        <div class="btn-group">
-            <button type="button" id="adicionar" class="btn btn-success">Adicionar Reclamação</button>
-        </div>
-        <br />
-        <br />
-        {% for reclamacao in aLista %}
-            
                 <div class="panel-group" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">
+                        
                         <h3><b>{{reclamacao.titulo}}</b> - {{reclamacao.empreendimento.empresa.nome}}</h3>
                         <span style="font-size: 12px">{{reclamacao.empreendimento.cidade}} - {{reclamacao.empreendimento.uf}} </span><br />
                         <span style="font-size: 10px">{{reclamacao.dt_cadastro.date}}</span>
-                        </a>
+                      
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body text-justify">
-                            <a href="/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.descricao}}</a>
+                            {{reclamacao.descricao}}
                         </div>
                         <div style="padding: 11px;color:#080808">
                             <b style="float: left;margin-right: 5px">Avise ao seus amigos: </b>
@@ -32,10 +24,6 @@
                     </div>
                 </div>
             </div>
-
-        {% endfor %}
-
     </div>
 
-    {% include "pagination.html.twig" %}
 {% endblock %}
