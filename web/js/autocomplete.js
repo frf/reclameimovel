@@ -1,10 +1,5 @@
 $(function() {
 
-    function log( message ) {
-        $( "<div>" ).text( message ).prependTo( "#log" );
-        $( "#log" ).scrollTop( 0 );
-    }
-
     $("#emp").autocomplete({
         source: function(request, response) {
             $.ajax({
@@ -15,7 +10,6 @@ $(function() {
                 },
                 success: function(data) {
                     console.log(data);
-                   
                     response(data);
                 }
             });
