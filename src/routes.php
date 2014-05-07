@@ -7,4 +7,5 @@ $app->get('/adicionar/{ide}', 'Condominio\Controller\MoradorController::adiciona
 $app->get('/construtora', 'Condominio\Controller\IndexController::construtoraAction')->bind('construtora');
 $app->get('/{ide}', 'Condominio\Controller\IndexController::indexAction')->bind('principal')->value('ide',false);
 $app->get('/view/{ide}/{id}', 'Condominio\Controller\IndexController::viewAction')->bind('view')->value('ide',false)->value('id',false);
+$app->get('/api/empreendimento', 'Condominio\Controller\EmpreeendimentoController::apiAction')->bind('api_emp');
 $app->post('/adicionar', 'Condominio\Controller\MoradorController::adicionarAction');
