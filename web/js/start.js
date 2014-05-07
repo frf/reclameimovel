@@ -15,8 +15,6 @@ $(document).ready(function() {
         }
     });
     
-    
-     $(function() {
 var availableTags = [
 "ActionScript",
 "AppleScript",
@@ -41,8 +39,9 @@ var availableTags = [
 "Scala",
 "Scheme"
 ];
+
 $( "#tags" ).autocomplete({
-source: availableTags
+    source: availableTags
 });
     
 });
