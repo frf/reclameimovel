@@ -20,9 +20,12 @@ class IndexController
             
             if($id){
                 $aLista         = $app['repository.reclamacao']->find($id);
+                 
                 $currentPage    = 0;
                 $numPages       = 0;
             }else{
+                $nome_empresa = $oEmp->getEmpresa()->getNome();
+                $nome_emp = $oEmp->getNome();
                 // Perform pagination logic.
                 $limit = 20;
                 $total = $app['repository.reclamacao']->getCount();
@@ -37,6 +40,8 @@ class IndexController
                 
             $data = array(
                 'aLista' => $aLista,
+                'nome_emp' => $nome_emp,
+                'nome_empresa' => $nome_empresa,
                 'titulo_empreendimento' => $titulo,
                 'sub_titulo' => $sub_titulo,
                 'currentPage' => $currentPage,
@@ -56,29 +61,33 @@ class IndexController
 
         $oEmp = $app['repository.empreendimento']->findIdNome($ide);
 
-        if($oEmp){
-            
+        if($oEmp){            
             if($id){
                 $aLista         = $app['repository.reclamacao']->find($id);
-                $currentPage    = 0;
-                $numPages       = 0;
-            }
             
-            $titulo = ucwords(str_replace("-"," ",$ide));
-            $sub_titulo = ucwords($oEmp->getBairro());
-                
-            $data = array(
-                'reclamacao' => $aLista,
-                'titulo_empreendimento' => $titulo,
-                'sub_titulo' => $sub_titulo,       
-                'ide' => $ide,
-                'id' => $id,
-            );
-           return $app['twig']->render('view.html.twig', $data);
-        }else{
-            return $app['twig']->render('index.html.twig');
+                $app['repository.reclamacao']->updateVisita($id);
+
+                $titulo = ucwords(str_replace("-"," ",$ide));
+                $sub_titulo = ucwords($oEmp->getBairro());
+                $nome_empresa = $oEmp->getEmpresa()->getNome();
+                $nome_emp = $oEmp->getNome();
+
+                $data = array(
+                    'nome_emp' => $nome_emp,
+                    'nome_empresa' => $nome_empresa,
+                    'reclamacao' => $aLista,
+                    'titulo_empreendimento' => $titulo,
+                    'sub_titulo' => $sub_titulo,       
+                    'ide' => $ide,
+                    'id' => $id,
+                );
+                return $app['twig']->render('view.html.twig', $data);
+               
+            }else{
+                return $app->redirect("/$ide");
+            }
         }
-        
+        return false;
     }
     public function moradorAction(Request $request, Application $app)
     {        

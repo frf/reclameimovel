@@ -3,38 +3,39 @@
 
 
     <div class="col-md-8">
-        <h1>Minhas Reclamações</h1>
-        <div class="btn-group">
-            <button type="button" id="adicionar" class="btn btn-success">Adicionar Reclamação</button>
+        <h3>
+            <button type="button" id="adicionar" class="btn btn-danger btn-xs">Adicionar Reclamação</button>
+            <b>{{nome_empresa}} / {{nome_emp}}</b>
+        </h3>
+        <br>
+        Reclamações
+        <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-danger " role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                <span class="sr-only">80% Complete (danger)</span>
+            </div>
+        </div>
+        Soluções
+        <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                <span class="sr-only">40% Complete (success)</span>
+            </div>
+        </div>
+        Respostas
+        <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                <span class="sr-only">60% Complete (warning)</span>
+            </div>
         </div>
         <br />
-        <br />
+        <ul class="list-group">
         {% for reclamacao in aLista %}
-            
-                <div class="panel-group" >
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">
-                        <h3><b>{{reclamacao.titulo}}</b> - {{reclamacao.empreendimento.empresa.nome}}</h3>
-                        <span style="font-size: 12px">{{reclamacao.empreendimento.cidade}} - {{reclamacao.empreendimento.uf}} </span><br />
-                        <span style="font-size: 10px">{{reclamacao.dt_cadastro.date}}</span>
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body text-justify">
-                            <a href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.descricao}}</a>
-                        </div>
-                        <div style="padding: 11px;color:#080808">
-                            <b style="float: left;margin-right: 5px">Avise ao seus amigos: </b>
-                            <div class="fb-share-button" data-href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}" data-type="button_count"></div>
-                            <div style="float: right;font-size: 12px"><b>Autor:</b> Fabio Rocha</div>    
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <li class="list-group-item"> 
+                <span class="label label-danger left" style="border-radius:10px;float: right;margin-left: 20px">Pendente</span> 
+                <span class="badge" title="Visualizações">{{reclamacao.visita}}</span>
+                <a href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.dt_cadastro.date|date('d/m/Y H:i')}} - {{reclamacao.titulo}}</a>
+            </li>
         {% endfor %}
-
+        </ul>
     </div>
 
     {% include "pagination.html.twig" %}

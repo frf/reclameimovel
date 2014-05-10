@@ -50,7 +50,13 @@ class ReclamacaoRepository implements RepositoryInterface
             $this->db->insert('reclamacao', $reclamacaoData);
         }
     }
-
+    public function updateVisita($id)
+    {
+        $oRec = $this->find($id);
+        $visita = $oRec->getVisita() + 1;
+        
+        $this->db->update('reclamacao', array('visita'=>$visita), array('id' => $id));
+    }
     /**
      * Deletes the reclamacao.
      *
@@ -90,7 +96,7 @@ class ReclamacaoRepository implements RepositoryInterface
         
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide")
@@ -125,7 +131,7 @@ class ReclamacaoRepository implements RepositoryInterface
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
@@ -158,6 +164,7 @@ class ReclamacaoRepository implements RepositoryInterface
         $reclamacao->setId($reclamacaoData['id']);
         $reclamacao->setIdu($reclamacaoData['idu']);
         $reclamacao->setIde($reclamacaoData['ide']);
+        $reclamacao->setVisita($reclamacaoData['visita']);
         $reclamacao->setEmpreendimento($empreendimento);
         $reclamacao->setTitulo($reclamacaoData['titulo']);
         $reclamacao->setDescricao($reclamacaoData['descricao']);

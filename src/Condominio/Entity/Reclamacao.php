@@ -67,7 +67,8 @@ class Reclamacao
      */
     protected $dt_cadastro;
     
-
+    protected $visita;
+    
     public function getId() {
         return $this->id;
     }
@@ -148,6 +149,15 @@ class Reclamacao
         $this->empreendimento = $empreendimento;
         return $this;
     }
+    public function getVisita() {
+        return $this->visita;
+    }
+
+    public function setVisita($visita) {
+        $this->visita = $visita;
+        return $this;
+    }
+
 
 
 

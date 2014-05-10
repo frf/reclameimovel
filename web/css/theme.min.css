@@ -5367,51 +5367,6 @@ a.disabled:hover, a[disabled]:hover, a.disabled:hover:hover, a[disabled]:hover:h
     border-bottom-color: #F34541;
     border-top-color: #F34541;
 }
-.progress {
-    background-image: none;
-    box-shadow: none;
-    filter: none;
-}
-.progress.progress-small {
-    height: 10px;
-    line-height: 10px;
-}
-.progress.progress-small .progress-bar {
-    font-size: 10px;
-    padding-top: 0;
-}
-.progress.progress-mini {
-    height: 5px;
-    line-height: 5px;
-}
-.progress.progress-mini .progress-bar {
-    font-size: 5px;
-    padding-top: 0;
-}
-.progress .progress-bar {
-    background-color: #00ACEC;
-    background-image: none;
-    padding-top: 2px;
-}
-.progress.progress-danger .progress-bar, .progress.progress .progress-bar-danger {
-    background-color: #F34541;
-    background-image: none;
-}
-.progress.progress-success .progress-bar, .progress.progress .progress-bar-success {
-    background-color: #49BF67;
-    background-image: none;
-}
-.progress.progress-warning .progress-bar, .progress.progress .progress-bar-warning {
-    background-color: #F8A326;
-    background-image: none;
-}
-.progress.progress-info .progress-bar, .progress.progress .progress-bar-info {
-    background-color: #9564E2;
-    background-image: none;
-}
-.progress-pwstrength {
-    margin-bottom: 0;
-}
 .well {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #DDDDDD;

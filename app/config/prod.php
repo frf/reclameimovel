@@ -20,8 +20,8 @@ $app['db.options'] = array(
     'host'     => '127.0.0.1',
     'port'     => '3306',
     'dbname'   => 'condominio',
-    'user'     => 'admin',
-    'password' => 'w3bt1n3t',
+    'user'     => 'root',
+    'password' => 'datasus',
 );
 // SwiftMailer
 // See http://silex.sensiolabs.org/doc/providers/swiftmailer.html
