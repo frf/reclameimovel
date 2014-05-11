@@ -126,7 +126,7 @@ class EmpreendimentoRepository implements RepositoryInterface
      *
      * @return array A collection of empreendimento, keyed by empreendimento id.
      */
-    public function findAll($limit, $offset = 0, $orderBy = array())
+    public function findAll($limit, $offset = 0, $like = '', $orderBy = array())
     {
         // Provide a default orderBy.
         if (!$orderBy) {

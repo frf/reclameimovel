@@ -1,29 +1,48 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
-{% if app.user %}
-<div class="alert alert-success">
-    <strong>Olá <b>{{ app.user.username }}</b>,</strong> agora você já pode começar a reclamar, busque seu empreendimento e mãos a obra, registre o seu problema, e deixe que nós facilitamos a divulgação.
-</div>
-{% else %}
-<div class="alert alert-danger">
-    <strong>Olá venha fazer parte.</strong><a href="/login" class="alert-link"> Clique aqui e começe a reclamar, registre o seu problema, e deixe que nós facilitamos a divulgação.</a>
-</div>
-{% endif %}
-
-{% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
-    {% for alert in alertTypeAvaillable %}
-        {% for message in app.session.getFlashBag.get(alert) %}
-            <div class="alert alert-{{ alert }}" >
-                <button class="close" data-dismiss="alert">×</button>
-                {{ message|trans }}
-            </div>
+      {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
+        {% for alert in alertTypeAvaillable %}
+            {% for message in app.session.getFlashBag.get(alert) %}
+                <div class="alert alert-{{ alert }}" >
+                    <button class="close" data-dismiss="alert">×</button>
+                    {{ message|trans }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-<form class="form-inline" role="form">
-  <div class="form-group has-success has-feedback" style="width:90%">
-      <input type="text" class="form-control" id="autocomplete_emp" style="width:100%" placeholder="Procure agora seu empreendimento" onfocus="closeMsg()">
-  </div>
-  <button type="button" class="btn btn-success" id="buscar">Procurar</button>
-</form>
+        <h4>Busque o seu empreendimento aqui.</h4>
+        <form class="form-inline" role="form" action="/buscar" method="post">
+         
+             <div class="input-group">
+                <input type="text" class="form-control" id="busca" name="busca" placeholder="Procure agora seu empreendimento">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit">Buscar</button>
+                </span>
+              </div>
+        </form>
+        {% if numPages > 1 %}
+            <br>
+            <ul class="list-group">
+                {% for empreendimento in aLista %}
+                    <li class="list-group-item"> 
+                        <a href="/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% include "pagination.html.twig" %}
+        {% endif %}
+        <br>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>Empreendimentos mais procurados</b></div>
+            
+                <ul class="list-group">
+                    {% for empreendimento in aEmpMaisProcurados %}
+                        <li class="list-group-item"> 
+                            <a href="{{app.view_path}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            
+        </div>
 
-{% endblock %}
+        {% endblock %}

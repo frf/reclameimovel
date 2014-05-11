@@ -13,7 +13,7 @@ class IndexController
     {
         $ide = $request->get("ide");
         $id = $request->get("id");
-
+        
         $oEmp = $app['repository.empreendimento']->findIdNome($ide);
 
         if($oEmp){
@@ -51,8 +51,40 @@ class IndexController
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
         }else{
-            return $app['twig']->render('index.html.twig');
+            
+            $aEmpMaisProcurados = $app['repository.empreendimento']->findAll();  
+          
+            $data = array(
+                'aEmpMaisProcurados' => $aEmpMaisProcurados,
+                'aLista' => array(),
+                'currentPage' => 1,
+                'numPages' => 0,
+                'here' => $app['url_generator']->generate('principal'),
+            );
+            
+            return $app['twig']->render('index.html.twig',$data);
         }
+    }
+    public function buscarAction(Request $request, Application $app)
+    {
+
+        $limit = 1;
+        $total = $app['repository.empreendimento']->getCount();
+        $numPages = ceil($total / $limit);
+        $currentPage = $request->query->get('page', 1);
+        $offset = ($currentPage - 1) * $limit;
+
+        $aLista = $app['repository.empreendimento']->findAll($limit,$offset);
+        $aEmpMaisProcurados = $app['repository.empreendimento']->findAll();  
+        $data = array(
+            'aLista' => $aLista,
+            'aEmpMaisProcurados' => $aEmpMaisProcurados,
+            'currentPage' => $currentPage,
+            'numPages' => $numPages,
+            'here' => $app['url_generator']->generate('principal'),
+        );
+        return $app['twig']->render('index.html.twig',$data);
+        
     }
     public function viewAction(Request $request, Application $app)
     {        
