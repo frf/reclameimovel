@@ -52,7 +52,7 @@ class IndexController
             return $app['twig']->render('reclamacoes.html.twig', $data);
         }else{
             
-            $aEmpMaisProcurados = $app['repository.empreendimento']->findAll();  
+            $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
           
             $data = array(
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,
