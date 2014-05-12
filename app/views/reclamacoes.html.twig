@@ -37,6 +37,14 @@
         {% endfor %}
         </ul>
     </div>
-
+<script>
+    function setProductMeta(){
+ document.getElementById("description").setAttribute("content",
+"dynamic meta description");
+ document.getElementById("keywords").setAttribute("content",
+"dynamic meta description");
+ document.title = 'dynamic meta title';
+}
+</script>
     {% include "pagination.html.twig" %}
 {% endblock %}
