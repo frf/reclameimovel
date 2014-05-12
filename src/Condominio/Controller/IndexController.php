@@ -54,8 +54,9 @@ class IndexController
             return $app['twig']->render('reclamacoes.html.twig', $data);
             
         }else{
+            $limit = 5;
             
-            $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
+            $aEmpMaisProcurados = $app['repository.empreendimento']->findAll($limit);  
           
             $data = array(
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,
@@ -71,14 +72,17 @@ class IndexController
     public function buscarAction(Request $request, Application $app)
     {
 
-        $limit = 1;
+        $limit = 5;
         $total = $app['repository.empreendimento']->getCount();
         $numPages = ceil($total / $limit);
         $currentPage = $request->query->get('page', 1);
         $offset = ($currentPage - 1) * $limit;
+        $busca = $request->get("busca");
 
-        $aLista = $app['repository.empreendimento']->findAll($limit,$offset);
-        $aEmpMaisProcurados = $app['repository.empreendimento']->findAll();  
+        $aLista = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$like);
+        
+        $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
+        
         $data = array(
             'aLista' => $aLista,
             'aEmpMaisProcurados' => $aEmpMaisProcurados,

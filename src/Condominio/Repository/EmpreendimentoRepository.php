@@ -132,11 +132,11 @@ class EmpreendimentoRepository implements RepositoryInterface
      *
      * @return array A collection of empreendimento, keyed by empreendimento id.
      */
-    public function findAll($limit, $offset = 0, $like = '', $orderBy = array())
+    public function findAll($limit, $offset = 0, $orderBy = array())
     {
         // Provide a default orderBy.
         if (!$orderBy) {
-            $orderBy = array('id' => 'DESC');
+            $orderBy = array('visita' => 'DESC');
         }
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -146,6 +146,40 @@ class EmpreendimentoRepository implements RepositoryInterface
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->orderBy('a.' . key($orderBy), current($orderBy));
+        $statement = $queryBuilder->execute();
+        $empreendimentoData = $statement->fetchAll();
+
+        $empreendimento = array();
+        foreach ($empreendimentoData as $empreendimentoData) {
+            $empreendimentoId = $empreendimentoData['id'];
+            $empreendimento[$empreendimentoId] = $this->buildEmpreendimento($empreendimentoData);
+        }
+        return $empreendimento;
+    }
+    /**
+     * Returns a collection of empreendimento, sorted by name.
+     *
+     * @return array A collection of empreendimento, keyed by empreendimento id.
+     */
+    public function findAllWhere($limit, $offset = 0, $orderBy = array(), $like=null)
+    {
+        // Provide a default orderBy.
+        if (!$orderBy) {
+            $orderBy = array('visita' => 'DESC');
+        }
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('a.*')
+            ->from('empreendimento', 'a');
+            $queryBuilder->setMaxResults($limit);
+            $queryBuilder->setFirstResult($offset);
+            
+           if($like){
+                $queryBuilder->where("u.nome like '%?%'", $like);            
+           }
+            
+            $queryBuilder->orderBy('a.' . key($orderBy), current($orderBy));
         $statement = $queryBuilder->execute();
         $empreendimentoData = $statement->fetchAll();
 
