@@ -88,7 +88,13 @@ class EmpreendimentoRepository implements RepositoryInterface
     public function getCount() {
         return $this->db->fetchColumn('SELECT COUNT(id) FROM empreendimento');
     }
-
+    public function updateVisita($id)
+    {
+        $oRec = $this->find($id);
+        $visita = $oRec->getVisita() + 1;
+        
+        $this->db->update('empreendimento', array('visita'=>$visita), array('id' => $id));
+    }
     /**
      * Returns an empreendimento matching the supplied id.
      *
@@ -173,6 +179,7 @@ class EmpreendimentoRepository implements RepositoryInterface
         $empreendimento->setBairro($empreendimentoData['bairro']);
         $empreendimento->setCidade($empreendimentoData['cidade']);
         $empreendimento->setUf($empreendimentoData['uf']);
+        $empreendimento->setVisita($empreendimentoData['visita']);
         return $empreendimento;
     }
 }

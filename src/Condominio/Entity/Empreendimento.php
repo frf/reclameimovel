@@ -36,7 +36,7 @@ class Empreendimento
     
     protected $uf;
     protected $cidade;
-
+    protected $visita;
 
     /**
      * Bairro.
@@ -114,6 +114,14 @@ class Empreendimento
         $this->empresa = $empresa;
         return $this;
     }
+    public function getVisita() {
+        return $this->visita;
+    }
+
+    public function setVisita($visita) {
+        $this->visita = $visita;
+    }
+
 
 
 

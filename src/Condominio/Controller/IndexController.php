@@ -15,10 +15,12 @@ class IndexController
         $id = $request->get("id");
         
         $oEmp = $app['repository.empreendimento']->findIdNome($ide);
-
+        
+        
         if($oEmp){
+            $app['repository.empreendimento']->updateVisita($oEmp->getId());
             
-            if($id){
+            if($id){                
                 $aLista         = $app['repository.reclamacao']->find($id);
                  
                 $currentPage    = 0;
@@ -50,6 +52,7 @@ class IndexController
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
+            
         }else{
             
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
@@ -86,6 +89,7 @@ class IndexController
         return $app['twig']->render('index.html.twig',$data);
         
     }
+    
     public function viewAction(Request $request, Application $app)
     {        
         $ide = $request->get("ide");
@@ -95,7 +99,7 @@ class IndexController
 
         if($oEmp){            
             if($id){
-                $aLista         = $app['repository.reclamacao']->find($id);
+                $aLista = $app['repository.reclamacao']->find($id);
             
                 $app['repository.reclamacao']->updateVisita($id);
 
