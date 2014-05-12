@@ -82,6 +82,15 @@ class ReclamacaoRepository implements RepositoryInterface
     }
 
     /**
+     * Returns the total number of reclamacao.
+     *
+     * @return integer The total number of reclamacao.
+     */
+    public function getCountSolucao($ide) {
+        return $this->db->fetchColumn("SELECT COUNT(id) FROM reclamacao where ide = $ide");
+    }
+
+    /**
      * Returns an reclamacao matching the supplied id.
      *
      * @param integer $id

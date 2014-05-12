@@ -25,6 +25,7 @@ class IndexController
             
             $limit = 20;
             $total = $app['repository.reclamacao']->getCount();
+            $totalSolucao = $app['repository.reclamacao']->getCountSolucao($ide);
             $numPages = ceil($total / $limit);
             $currentPage = $request->query->get('page', 1);
             $offset = ($currentPage - 1) * $limit;
@@ -33,6 +34,8 @@ class IndexController
             
             $data = array(
                 'busca' => "",
+                'total' => $total,
+                'solucao' => $totalSolucao,
                 'aLista' => $aLista,
                 'nome_emp' => $nome_emp,
                 'nome_empresa' => $nome_empresa,
