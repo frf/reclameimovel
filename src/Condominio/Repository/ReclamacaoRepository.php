@@ -174,9 +174,11 @@ class ReclamacaoRepository implements RepositoryInterface
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
+        
         if($ide){
             $queryBuilder->where("r.ide = $ide");
         }
+        
         $statement = $queryBuilder->execute();
         $reclamacaoData = $statement->fetchAll();
 

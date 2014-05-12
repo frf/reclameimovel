@@ -80,15 +80,6 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     )
 ));
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.options' => array(
-        'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
-        'strict_variables' => true,
-    ),
-    'twig.form.templates' => array('form_div_layout.html.twig', 'common/form_div_layout.html.twig'),
-    'twig.path' => array(__DIR__ . '/../app/views'),
-    'title_layout'=>'Reclame Imóvel - Soluções para os seus problemas, divulgue já.'
-));
 
 $app['view_path'] = 'http://reclameimovel.com.br/view';
     
@@ -101,6 +92,17 @@ $app['repository.empreendimento'] = $app->share(function ($app) {
 $app['repository.reclamacao'] = $app->share(function ($app) {
     return new Condominio\Repository\ReclamacaoRepository($app['db'],$app['repository.empreendimento']);
 });
+
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.options' => array(
+        'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
+        'strict_variables' => true,
+    ),
+    'twig.form.templates' => array('form_div_layout.html.twig', 'common/form_div_layout.html.twig'),
+    'twig.path' => array(__DIR__ . '/../app/views')    
+));
+
+$app['title_layout'] = 'Reclame Imóvel - Soluções para os seus problemas, divulgue já.';
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $token = $app['security']->getToken();
