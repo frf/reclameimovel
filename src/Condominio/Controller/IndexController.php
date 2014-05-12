@@ -99,7 +99,7 @@ class IndexController
             if($id){
                 
                 
-                $aLista = $app['repository.reclamacao']->find($id);
+                $oReclamacao = $app['repository.reclamacao']->find($id);
             
                 $app['repository.reclamacao']->updateVisita($id);
 
@@ -107,12 +107,15 @@ class IndexController
                 $sub_titulo = ucwords($oEmp->getBairro());
                 $nome_empresa = $oEmp->getEmpresa()->getNome();
                 $nome_emp = $oEmp->getNome();
+                $descricao = $oReclamacao->getDescricao();
 
+                $txtReclamacao = "$nome_empresa - $nome_emp, $titulo -  $descricao";
+                
                 $data = array(
-                    'metaDescription' => "OKOKOKOKO",
+                    'metaDescription' => $txtReclamacao,
                     'nome_emp' => $nome_emp,
                     'nome_empresa' => $nome_empresa,
-                    'reclamacao' => $aLista,
+                    'reclamacao' => $oReclamacao,
                     'titulo_empreendimento' => $titulo,
                     'sub_titulo' => $sub_titulo,       
                     'ide' => $ide,
