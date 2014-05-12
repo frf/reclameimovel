@@ -212,7 +212,7 @@ class EmpreendimentoRepository implements RepositoryInterface
         $empreendimento->setId($empreendimentoData['id']);
         $empreendimento->setIdnome($empreendimentoData['idnome']);
         $empreendimento->setIde($empreendimentoData['ide']);
-        $empreendimento->setNome(utf8_decode($empreendimentoData['nome']));
+        $empreendimento->setNome(utf8_encode($empreendimentoData['nome']));
         $empreendimento->setBairro($empreendimentoData['bairro']);
         $empreendimento->setCidade($empreendimentoData['cidade']);
         $empreendimento->setUf($empreendimentoData['uf']);
