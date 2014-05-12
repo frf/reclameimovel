@@ -38,13 +38,10 @@
         </ul>
     </div>
 <script>
-    function setProductMeta(){
- document.getElementById("description").setAttribute("content",
-"dynamic meta description");
- document.getElementById("keywords").setAttribute("content",
-"dynamic meta description");
- document.title = 'dynamic meta title';
-}
+    $(function() {
+        alert('HELLLOOO');
+        $('#meta_desc').attr('content', 'my new meta description');
+    });
 </script>
     {% include "pagination.html.twig" %}
 {% endblock %}
