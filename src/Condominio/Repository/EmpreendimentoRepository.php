@@ -180,10 +180,10 @@ class EmpreendimentoRepository implements RepositoryInterface
             }
             
         $queryBuilder->orderBy('a.' . key($orderBy), current($orderBy));
-        
+        echo $queryBuilder->getSQL();
         $statement = $queryBuilder->execute();
         
-        echo $statement->__toString();
+        
         $empreendimentoData = $statement->fetchAll();
 
         $empreendimento = array();
