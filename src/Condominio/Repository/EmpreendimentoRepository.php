@@ -176,7 +176,7 @@ class EmpreendimentoRepository implements RepositoryInterface
             $queryBuilder->setFirstResult($offset);
             
            if($like){
-                $queryBuilder->where("u.nome like '$like'");            
+                $queryBuilder->where("a.nome like '$like'");            
            }
             
             $queryBuilder->orderBy('a.' . key($orderBy), current($orderBy));
