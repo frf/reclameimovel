@@ -5,7 +5,7 @@ $app->match('/logout', function () {})->bind('logout');
 $app->get('/morador', 'Condominio\Controller\MoradorController::indexAction')->bind('morador');
 $app->get('/adicionar/{ide}', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add')->value('ide',false);
 $app->get('/construtora', 'Condominio\Controller\IndexController::construtoraAction')->bind('construtora');
-$app->get('/{ide}', 'Condominio\Controller\IndexController::indexAction')->bind('principal')->value('ide',false);
+$app->get('/{idnome}', 'Condominio\Controller\IndexController::indexAction')->bind('principal')->value('idnome',false);
 
 $app->post('/buscar', 'Condominio\Controller\IndexController::buscarAction')->bind('buscar');
 

@@ -11,10 +11,9 @@ class IndexController
 {
     public function indexAction(Request $request, Application $app)
     {
-        $ide = $request->get("ide");
-        $id = $request->get("id");
+        $idnome = $request->get("idnome");
         
-        $oEmp = $app['repository.empreendimento']->findIdNome($ide);
+        $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         
         
         if($oEmp){
@@ -22,6 +21,7 @@ class IndexController
             
             $nome_empresa = $oEmp->getEmpresa()->getNome();
             $nome_emp = $oEmp->getNome();
+            $ide = $oEmp->getId();
             
             $limit = 20;
             $total = $app['repository.reclamacao']->getCount();
@@ -29,7 +29,7 @@ class IndexController
             $currentPage = $request->query->get('page', 1);
             $offset = ($currentPage - 1) * $limit;
             
-            $aLista = $app['repository.reclamacao']->findAll($limit, $offset);                
+            $aLista = $app['repository.reclamacao']->findReclamacaoEmpreendimento($limit, $offset,array(),$ide);                
             
             $data = array(
                 'busca' => "",
@@ -37,8 +37,7 @@ class IndexController
                 'nome_emp' => $nome_emp,
                 'nome_empresa' => $nome_empresa,
                 'currentPage' => $currentPage,
-                'numPages' => $numPages,                
-                'ide' => $ide,
+                'numPages' => $numPages, 
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);

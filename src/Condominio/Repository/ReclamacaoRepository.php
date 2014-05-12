@@ -147,6 +147,38 @@ class ReclamacaoRepository implements RepositoryInterface
         
         return $reclamacao;
     }
+    /**
+     * Returns a collection of reclamacao, sorted by name.
+     *
+     * @return array A collection of reclamacao, keyed by reclamacao id.
+     */
+    public function findReclamacaoEmpreendimento($limit, $offset = 0, $orderBy = array(),$ide=null)
+    {
+        // Provide a default orderBy.
+        if (!$orderBy) {
+            $orderBy = array('r.dt_cadastro' => 'DESC');
+        }
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->from('reclamacao', 'r')
+            ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
+            ->innerJoin('emp',"empresa","e","e.id = emp.ide");
+        if($ide){
+            $queryBuilder->where("r.ide = $ide");
+        }
+        $statement = $queryBuilder->execute();
+        $reclamacaoData = $statement->fetchAll();
+
+        $reclamacao = array();
+        foreach ($reclamacaoData as $reclamacaoData) {
+            $reclamacaoId = $reclamacaoData['id'];
+            $reclamacao[$reclamacaoId] = $this->buildReclamacao($reclamacaoData);
+        }
+        
+        return $reclamacao;
+    }
 
     /**
      * Instantiates an reclamacao entity and sets its properties using db data.
