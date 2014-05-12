@@ -84,6 +84,7 @@ class IndexController
         $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
         
         $data = array(
+            'busca' => $busca,
             'aLista' => $aLista,
             'aEmpMaisProcurados' => $aEmpMaisProcurados,
             'currentPage' => $currentPage,
