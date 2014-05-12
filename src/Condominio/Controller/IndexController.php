@@ -110,7 +110,7 @@ class IndexController
                 $descricao = $oReclamacao->getDescricao();
                 $titulo_reclamacao = $oReclamacao->getTitulo();
 
-                $txtReclamacao = "$nome_empresa - $nome_emp, $titulo_reclamacao -  $descricao";
+                $txtReclamacao = substr("$nome_empresa - $nome_emp, $titulo_reclamacao -  $descricao", 0, 155);
                 
                 $data = array(
                     'metaDescription' => $txtReclamacao,
