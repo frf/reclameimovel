@@ -86,7 +86,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
         'strict_variables' => true,
     ),
     'twig.form.templates' => array('form_div_layout.html.twig', 'common/form_div_layout.html.twig'),
-    'twig.path' => array(__DIR__ . '/../app/views')
+    'twig.path' => array(__DIR__ . '/../app/views'),
+    'title_layout'=>'Reclame Imóvel - Soluções para os seus problemas, divulgue já.'
 ));
 
 $app['view_path'] = 'http://reclameimovel.com.br/view';

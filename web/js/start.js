@@ -4,11 +4,6 @@ $(document).ready(function() {
             window.location = '/adicionar/' + $("#ide").val();
         }
     });
-    
-     alert('HELLLOOO');
-        $('#meta_title').html('content',META_TITLE);
-        $('#meta_desc').attr('content',META_DESC);
-
 });
 
 function closeMsg(){    
