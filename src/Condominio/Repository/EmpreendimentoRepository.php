@@ -175,12 +175,15 @@ class EmpreendimentoRepository implements RepositoryInterface
             $queryBuilder->setMaxResults($limit);
             $queryBuilder->setFirstResult($offset);
             
-           if($like){
-                $queryBuilder->where("a.nome like '$like'");            
-           }
+            if($like){
+                 $queryBuilder->where("a.nome like '$like'");
+            }
             
-            $queryBuilder->orderBy('a.' . key($orderBy), current($orderBy));
+        $queryBuilder->orderBy('a.' . key($orderBy), current($orderBy));
+        
         $statement = $queryBuilder->execute();
+        
+        echo $statement->__toString();
         $empreendimentoData = $statement->fetchAll();
 
         $empreendimento = array();
