@@ -20,32 +20,21 @@ class IndexController
         if($oEmp){
             $app['repository.empreendimento']->updateVisita($oEmp->getId());
             
-            if($id){                
-                $aLista         = $app['repository.reclamacao']->find($id);
-                 
-                $currentPage    = 0;
-                $numPages       = 0;
-            }else{
-                $nome_empresa = $oEmp->getEmpresa()->getNome();
-                $nome_emp = $oEmp->getNome();
-                // Perform pagination logic.
-                $limit = 20;
-                $total = $app['repository.reclamacao']->getCount();
-                $numPages = ceil($total / $limit);
-                $currentPage = $request->query->get('page', 1);
-                $offset = ($currentPage - 1) * $limit;
-                $aLista = $app['repository.reclamacao']->findAll($limit, $offset);                
-            }
+            $nome_empresa = $oEmp->getEmpresa()->getNome();
+            $nome_emp = $oEmp->getNome();
             
-            $titulo = ucwords(str_replace("-"," ",$ide));
-            $sub_titulo = ucwords($oEmp->getBairro());
-                
+            $limit = 20;
+            $total = $app['repository.reclamacao']->getCount();
+            $numPages = ceil($total / $limit);
+            $currentPage = $request->query->get('page', 1);
+            $offset = ($currentPage - 1) * $limit;
+            
+            $aLista = $app['repository.reclamacao']->findAll($limit, $offset);                
+            
             $data = array(
                 'aLista' => $aLista,
                 'nome_emp' => $nome_emp,
                 'nome_empresa' => $nome_empresa,
-                'titulo_empreendimento' => $titulo,
-                'sub_titulo' => $sub_titulo,
                 'currentPage' => $currentPage,
                 'numPages' => $numPages,                
                 'ide' => $ide,
