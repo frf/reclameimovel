@@ -79,7 +79,7 @@ class IndexController
         $offset = ($currentPage - 1) * $limit;
         $busca = $request->get("busca");
 
-        $aLista = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$like);
+        $aLista = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$busca);
         
         $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
         
