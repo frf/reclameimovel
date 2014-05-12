@@ -97,6 +97,8 @@ class IndexController
 
         if($oEmp){            
             if($id){
+                
+                
                 $aLista = $app['repository.reclamacao']->find($id);
             
                 $app['repository.reclamacao']->updateVisita($id);
@@ -107,6 +109,7 @@ class IndexController
                 $nome_emp = $oEmp->getNome();
 
                 $data = array(
+                    'metaDescription' => "OKOKOKOKO",
                     'nome_emp' => $nome_emp,
                     'nome_empresa' => $nome_empresa,
                     'reclamacao' => $aLista,
