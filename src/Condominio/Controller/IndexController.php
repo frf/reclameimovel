@@ -120,6 +120,7 @@ class IndexController
                 $data = array(
                     'metaDescription' => $txtReclamacao,
                     'nome_emp' => $nome_emp,
+                    'descricao' => nl2br($$descricao),
                     'nome_empresa' => $nome_empresa,
                     'reclamacao' => $oReclamacao,
                     'titulo_empreendimento' => $titulo,
