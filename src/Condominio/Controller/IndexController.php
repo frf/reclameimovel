@@ -33,6 +33,7 @@ class IndexController
             $aLista = $app['repository.reclamacao']->findReclamacaoEmpreendimento($limit, $offset,array(),$ide);                
             
             $data = array(
+                'metaDescription' => "",
                 'busca' => "",
                 'total' => $total,
                 'solucao' => $totalSolucao,
@@ -51,6 +52,7 @@ class IndexController
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAll($limit);  
           
             $data = array(
+                'metaDescription' => "",
                 'busca' => "",
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,
                 'aLista' => array(),
@@ -77,6 +79,7 @@ class IndexController
         $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
         
         $data = array(
+            'metaDescription' => $metaDescription,
             'busca' => $busca,
             'aLista' => $aLista,
             'aEmpMaisProcurados' => $aEmpMaisProcurados,
