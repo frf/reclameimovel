@@ -12,7 +12,7 @@ class LoginController
     public function loginAction(Request $request, Application $app)
     {
 
-        return $app['twig']->render('login.html.twig');
+        return $app['twig']->render('login.html.twig',array('metaDescription'=>''));
         
     }
     
