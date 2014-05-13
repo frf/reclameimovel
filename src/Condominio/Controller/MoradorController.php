@@ -29,6 +29,7 @@ class MoradorController {
         $aLista = $app['repository.reclamacao']->findAll($limit, $offset);
 
         $data = array(
+            'metaDescription' => '',
             'active' => 'morador',
             'aLista' => $aLista,
             'ide' => $ide,
@@ -40,8 +41,8 @@ class MoradorController {
     }
 
     public function adicionarAction(Request $request, Application $app) {
-        $ide = $request->get("ide");
-        $oEmp = $app['repository.empreendimento']->findIdNome($ide);
+        $idnome = $request->get("idnome");
+        $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         
         $reclamacao = new Reclamacao();
         
@@ -110,6 +111,7 @@ class MoradorController {
             $sub_titulo = ucwords(str_replace("-", " ", $ide) . " - " . $oEmp->getBairro());
 
             $data = array(
+                'metaDescription' => '',
                 'form' => $form->createView(),
                 'title' => 'Nova reclamação',
                 'sub_titulo' => $sub_titulo,
