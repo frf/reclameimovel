@@ -68,7 +68,10 @@ class Reclamacao
     protected $dt_cadastro;
     
     protected $visita;
+    protected $imagem;
+    protected $youtube;
     
+
     public function getId() {
         return $this->id;
     }
@@ -157,11 +160,20 @@ class Reclamacao
         $this->visita = $visita;
         return $this;
     }
+    public function getYoutube() {
+        return $this->youtube;
+    }
 
+    public function setYoutube($youtube) {
+        $this->youtube = $youtube;
+    }
 
+    public function getImagem() {
+        return $this->imagem;
+    }
 
-
-
-
+    public function setImagem($imagem) {
+        $this->imagem = $imagem;
+    }
 
 }

@@ -98,23 +98,26 @@ class IndexController
         $ide = $request->get("ide");
         $id = $request->get("id");
 
-        $oEmp = $app['repository.empreendimento']->findIdNome($ide);
+        if(is_numeric($ide)){
+            $oEmp = $app['repository.empreendimento']->find($ide);
+        }else{
+            $oEmp = $app['repository.empreendimento']->findIdNome($ide);    
+        }
 
         if($oEmp){            
             if($id){
-                
-                
                 $oReclamacao = $app['repository.reclamacao']->find($id);
             
                 $app['repository.reclamacao']->updateVisita($id);
 
-                $titulo = ucwords(str_replace("-"," ",$ide));
-                $sub_titulo = ucwords($oEmp->getBairro());
-                $nome_empresa = $oEmp->getEmpresa()->getNome();
-                $nome_emp = $oEmp->getNome();
-                $descricao = $oReclamacao->getDescricao();
-                $titulo_reclamacao = $oReclamacao->getTitulo();
-
+                $titulo             = ucwords(str_replace("-"," ",$ide));
+                $sub_titulo         = ucwords($oEmp->getBairro());
+                $nome_empresa       = $oEmp->getEmpresa()->getNome();
+                $nome_emp           = $oEmp->getNome();
+                $descricao          = $oReclamacao->getDescricao();
+                $titulo_reclamacao  = $oReclamacao->getTitulo();
+                $imagem             = $oReclamacao->getImagem();
+                
                 $txtReclamacao = substr("$nome_empresa - $nome_emp, $titulo_reclamacao -  $descricao", 0, 155);
                 
                 $data = array(
@@ -127,6 +130,7 @@ class IndexController
                     'sub_titulo' => $sub_titulo,       
                     'ide' => $ide,
                     'id' => $id,
+                    'imagem' => $imagem,
                 );
                 return $app['twig']->render('view.html.twig', $data);
                

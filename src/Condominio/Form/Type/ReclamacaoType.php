@@ -54,7 +54,18 @@ class ReclamacaoType extends AbstractType
                 ),
                 'label'=>'Descrição'
                 
-            ))->add('Salvar', 'submit', array(
+            ))->add('youtube', 'text', array(
+                'attr' => array(
+                    'class'=>'form-control',
+                    'placeholder'=>'http://youtu.be/W1CSdYsJIWQ',
+                ),
+                'required' => FALSE,
+                'label'=>'Copie e cole o link do youtube com seu vídeo, basta clicar em compartilhar la no youtube.'
+            ))->add('imagem', 'file', array(
+                'required' => FALSE,
+                'label' => 'Imagem',
+            ))
+                ->add('Salvar', 'submit', array(
                 'attr' => array(
                     'class'=>'btn btn-primary'
                 )));

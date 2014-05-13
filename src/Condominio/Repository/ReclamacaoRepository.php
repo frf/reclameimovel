@@ -18,11 +18,13 @@ class ReclamacaoRepository implements RepositoryInterface
      * @var \Condominio\Repository\EmpreendimentoRepository
      */
     protected $empreendimentoRepository;
+    protected $imagemRepository;
 
-    public function __construct(Connection $db,$empreendimentoRepository)
+    public function __construct(Connection $db,$empreendimentoRepository,$imagemRepository)
     {
         $this->db = $db;
         $this->empreendimentoRepository = $empreendimentoRepository;
+        $this->imagemRepository = $imagemRepository;
     }
 
     /**
@@ -39,6 +41,7 @@ class ReclamacaoRepository implements RepositoryInterface
             'dados' => $reclamacao->getDados(),
             'idassunto' => $reclamacao->getIdassunto(),
             'descricao' => $reclamacao->getDescricao(),
+            'youtube' => $reclamacao->getYoutube(),
             'dt_cadastro'=>date('Y-m-d H:i:s')
         );
 
@@ -46,9 +49,43 @@ class ReclamacaoRepository implements RepositoryInterface
             $this->db->update('reclamacao', $reclamacaoData, array('id' => $reclamacao->getId()));
         }
         else {
-
             $this->db->insert('reclamacao', $reclamacaoData);
+             
+            $id = $this->db->lastInsertId();
+            $reclamacao->setId($id);
+
+            // If a new image was uploaded, update the artist with the new
+            // filename.
+            $newFile = $this->handleFileUpload($reclamacao);
+            
+            if ($newFile) {
+                $newData = array('idr'=>$id,'file' => $reclamacao->getImagem());
+                $this->db->insert('imagem', $newData);
+            }
+            
         }
+    }
+    
+    /**
+     * Handles the upload of an artist image.
+     *
+     * @param \MusicBox\Entity\Artist $artist
+     *
+     * @param boolean TRUE if a new artist image was uploaded, FALSE otherwise.
+     */
+    protected function handleFileUpload($reclamacao) {
+        // If a temporary file is present, move it to the correct directory
+        // and set the filename on the artist.
+        $file = $reclamacao->getImagem();
+        
+        if ($file) {
+            $newFilename = md5($reclamacao->getId().date('YmdHm')) . '.' . $file->guessExtension();
+            $file->move(COND_PUBLIC_ROOT . '/images/reclamacao', $newFilename);
+            $reclamacao->setImagem($newFilename);
+            return TRUE;
+        }
+
+        return FALSE;
     }
     public function updateVisita($id)
     {
@@ -105,7 +142,7 @@ class ReclamacaoRepository implements RepositoryInterface
         
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide")
@@ -140,7 +177,7 @@ class ReclamacaoRepository implements RepositoryInterface
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
@@ -170,7 +207,7 @@ class ReclamacaoRepository implements RepositoryInterface
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
@@ -201,21 +238,25 @@ class ReclamacaoRepository implements RepositoryInterface
      */
     protected function buildReclamacao($reclamacaoData)
     {
-        $empreendimento = $this->empreendimentoRepository->find($reclamacaoData['ide']);
+        $empreendimento     = $this->empreendimentoRepository->find($reclamacaoData['ide']);
+        $collectionImagem   = $this->imagemRepository->findAllByReclamacao($reclamacaoData['id']);
         
         $reclamacao = new Reclamacao();
         $reclamacao->setId($reclamacaoData['id']);
         $reclamacao->setIdu($reclamacaoData['idu']);
         $reclamacao->setIde($reclamacaoData['ide']);
-        $reclamacao->setVisita($reclamacaoData['visita']);
-        $reclamacao->setEmpreendimento($empreendimento);
+        $reclamacao->setVisita($reclamacaoData['visita']);        
         $reclamacao->setTitulo($reclamacaoData['titulo']);
         $reclamacao->setDescricao($reclamacaoData['descricao']);
         $reclamacao->setDados($reclamacaoData['dados']);
         $reclamacao->setIdassunto($reclamacaoData['idassunto']);
-        $createdAt = new \DateTime($reclamacaoData['dt_cadastro']);
+        $reclamacao->setYoutube($reclamacaoData['youtube']);
         
+        $createdAt = new \DateTime($reclamacaoData['dt_cadastro']);        
         $reclamacao->setDt_cadastro($createdAt);
+        
+        $reclamacao->setEmpreendimento($empreendimento);
+        $reclamacao->setImagem($collectionImagem);
         return $reclamacao;
     }
 }

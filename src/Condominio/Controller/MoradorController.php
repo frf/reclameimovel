@@ -41,6 +41,7 @@ class MoradorController {
     }
 
     public function adicionarAction(Request $request, Application $app) {
+        
         $idnome = $request->get("idnome");
         $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         
@@ -63,37 +64,18 @@ class MoradorController {
         /*
          * Pegar id da sessao
          */
+        if($app['token']){
+            $uid = $app['token']->getUid();
+        }else{
+            $uid = 1;
+        }
         
-        $reclamacao->setIdu($app['token']->getUid());
-
+        $reclamacao->setIdu($uid);
+        
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
 
         if ($request->isMethod('POST')) {
-            /*$token = $app['token']->getAccessToken()->getAccessToken();
-            $session = new FacebookSession($token);            
-            
-            if($session) {
-
-              try {
-                
-                $request = new FacebookRequest(
-                    $session, 'POST', '/me/feed', array(
-                      'link' => 'www.fabiofarias.com.br',
-                      'message' => 'User provided message'
-                    ));
-                $response = $request->execute();
-                $graphObject = $response->getGraphObject();
-                
-              } catch(FacebookRequestException $e) {
-
-                echo "Exception occured, code: " . $e->getCode();
-                echo " with message: " . $e->getMessage();
-
-              }   
-
-            }
-            */
-            
+                 
             $form->bind($request);
 
             if ($form->isValid()) {
@@ -101,9 +83,9 @@ class MoradorController {
                 $message = 'Reclamação salva com sucesso.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
-                $redirect = $app['url_generator']->generate('principal');
+                $redirect = $app['url_generator']->generate('view');
                 
-                return $app->redirect($redirect);
+                return $app->redirect($redirect."/".$reclamacao->getIde()."/".$reclamacao->getId());
             }
 
             return false;
