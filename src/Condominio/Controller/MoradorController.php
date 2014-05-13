@@ -108,7 +108,11 @@ class MoradorController {
 
             return false;
         } else {
-            $sub_titulo = ucwords(str_replace("-", " ", $ide) . " - " . $oEmp->getBairro());
+            $nome_empresa   = $oEmp->getEmpresa()->getNome();
+            $nome_emp       = $oEmp->getNome();
+            $bairro         = $oEmp->getBairro();
+            
+            $sub_titulo     = $nome_empresa. " - " . $nome_emp . " - " . $bairro;
 
             $data = array(
                 'metaDescription' => '',
