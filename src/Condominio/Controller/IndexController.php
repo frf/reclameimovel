@@ -34,6 +34,7 @@ class IndexController
             
             $data = array(
                 'metaDescription' => "",
+                'idnome' => $idnome,
                 'busca' => "",
                 'total' => $total,
                 'solucao' => $totalSolucao,
@@ -52,6 +53,7 @@ class IndexController
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAll($limit);  
           
             $data = array(
+                'idnome' => $idnome,
                 'metaDescription' => "",
                 'busca' => "",
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,

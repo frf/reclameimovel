@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $("#adicionar").click(function() {
-        if ($("#ide").val() != "") {
-            window.location = '/adicionar/' + $("#ide").val();
+        if ($("#idnome").val() != "") {
+            window.location = '/adicionar/' + $("#idnome").val();
         }
     });
 });
