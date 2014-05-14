@@ -28,41 +28,30 @@ class ImagemRepository implements RepositoryInterface
     public function save($imagem)
     {
         $imagemData = array(
-            'name' => $imagem->getName(),
-            'short_biography' => $imagem->getShortBiography(),
-            'biography' => $imagem->getBiography(),
-            'soundcloud_url' => $imagem->getSoundCloudUrl(),
-            'image' => $imagem->getImage(),
+            'id' => $imagem->getId(),
+            'idr' => $imagem->getIdr(),
+            'file' => $imagem->getFile(),
         );
-
+        
         if ($imagem->getId()) {
-            // If a new image was uploaded, make sure the filename gets set.
-            $newFile = $this->handleFileUpload($imagem);
-            if ($newFile) {
-                $imagemData['image'] = $imagem->getImage();
-            }
-
             $this->db->update('imagem', $imagemData, array('id' => $imagem->getId()));
-        }
-        else {
-            // The imagem is new, note the creation timestamp.
-            $imagemData['created_at'] = time();
-
-            $this->db->insert('imagem', $imagemData);
-            // Get the id of the newly created imagem and set it on the entity.
+        }else {
+            $this->db->insert('imagem', $imagemData);             
             $id = $this->db->lastInsertId();
             $imagem->setId($id);
-
-            // If a new image was uploaded, update the imagem with the new
-            // filename.
-            $newFile = $this->handleFileUpload($imagem);
-            if ($newFile) {
-                $newData = array('image' => $imagem->getImage());
-                $this->db->update('imagem', $newData, array('id' => $id));
-            }
         }
     }
+ 
+    public function handleFileUpload($File) {
 
+        if ($File) {
+            $newFilename = md5($File->getClientOriginalName().date('YmdHm')) . '.' . $File->guessExtension();   
+            $File->move(COND_PUBLIC_ROOT . '/images/reclamacao', $newFilename);
+            return $newFilename;
+        }
+
+        return false;
+    }
     /**
      * Deletes the imagem.
      *

@@ -3,7 +3,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-$app['view_path'] = 'http://reclameimovel.com.br/view';
+$app['view_path'] = 'http://localhost:8000/view';
     
 $app['repository.empresa'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpresaRepository($app['db']);
@@ -50,8 +50,9 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
             $app['token'] = $token;
         }
     $protected = array(
-        '/morador' => 'ROLE_USER',
+        #'/morador' => 'ROLE_USER',
         #'/adicionar' => 'ROLE_USER',
+        #'/minhas-reclamacoes' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
 

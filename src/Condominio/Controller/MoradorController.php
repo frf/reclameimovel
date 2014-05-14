@@ -8,40 +8,52 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Condominio\Entity\Reclamacao;
 use Condominio\Entity\Empreendimento;
+use Condominio\Entity\Imagem;
 use Condominio\Form\Type\ReclamacaoType;
 use Facebook\FacebookRequest;
 use Facebook\GraphObject;
 use Facebook\FacebookRequestException;
 use Facebook\FacebookSession;
 
+
 class MoradorController {
 
     public function indexAction(Request $request, Application $app) {
-
-        $ide = $request->get("ide");
         
+        $data = array(
+            'active'=>'morador',
+            'metaDescription'=>'',
+        );
+        
+        return $app['twig']->render('morador.html.twig',$data);
+    }
+    public function minhasReclamacoesAction(Request $request, Application $app) {
+
         // Perform pagination logic.
-        $limit = 20;
+        $limit = 2;
         $total = $app['repository.reclamacao']->getCount();
         $numPages = ceil($total / $limit);
         $currentPage = $request->query->get('page', 1);
+        
         $offset = ($currentPage - 1) * $limit;
+        
         $aLista = $app['repository.reclamacao']->findAll($limit, $offset);
 
         $data = array(
+            'active'=>'minhas_reclamacoes',
             'metaDescription' => '',
-            'active' => 'morador',
+            'active' => 'minhas_reclamacoes',
             'aLista' => $aLista,
-            'ide' => $ide,
             'currentPage' => $currentPage,
-            'numPages' => $numPages
+            'numPages' => $numPages,
+            'here' => $app['url_generator']->generate('minhas_reclamacoes'),
         );
 
         return $app['twig']->render('minhas_rec.html.twig', $data);
     }
-
     public function adicionarAction(Request $request, Application $app) {
-        
+        #$request = $app['request'];
+
         $idnome = $request->get("idnome");
         $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         
@@ -75,11 +87,30 @@ class MoradorController {
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
 
         if ($request->isMethod('POST')) {
-                 
+            
             $form->bind($request);
 
+            $reclamacao->setFiles($request->files);
+      
             if ($form->isValid()) {
                 $app['repository.reclamacao']->save($reclamacao);
+                
+                //$this->imagemRepository
+                if(count($reclamacao->getFiles())){
+                    $oImagens = $request->files->get('reclamacao');
+
+                    foreach($oImagens as $File){
+                        $newFile = $app['repository.imagem']->handleFileUpload($File);
+                        if($newFile){
+                            $imagem = new Imagem();
+                            $imagem->setFile($newFile);
+                            $imagem->setIdr($reclamacao->getId());
+                            $app['repository.imagem']->save($imagem);
+                        }
+                        
+                    }
+                }
+          
                 $message = 'Reclamação salva com sucesso.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.

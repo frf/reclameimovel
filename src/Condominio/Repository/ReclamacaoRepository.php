@@ -4,7 +4,6 @@ namespace Condominio\Repository;
 
 use Doctrine\DBAL\Connection;
 use Condominio\Entity\Reclamacao;
-
 /**
  * Reclamacao repository
  */
@@ -47,46 +46,13 @@ class ReclamacaoRepository implements RepositoryInterface
 
         if ($reclamacao->getId()) {
             $this->db->update('reclamacao', $reclamacaoData, array('id' => $reclamacao->getId()));
-        }
-        else {
-            $this->db->insert('reclamacao', $reclamacaoData);
-             
+        }else {
+            $this->db->insert('reclamacao', $reclamacaoData);             
             $id = $this->db->lastInsertId();
             $reclamacao->setId($id);
-
-            // If a new image was uploaded, update the artist with the new
-            // filename.
-            $newFile = $this->handleFileUpload($reclamacao);
-            
-            if ($newFile) {
-                $newData = array('idr'=>$id,'file' => $reclamacao->getImagem());
-                $this->db->insert('imagem', $newData);
-            }
-            
         }
     }
-    
-    /**
-     * Handles the upload of an artist image.
-     *
-     * @param \MusicBox\Entity\Artist $artist
-     *
-     * @param boolean TRUE if a new artist image was uploaded, FALSE otherwise.
-     */
-    protected function handleFileUpload($reclamacao) {
-        // If a temporary file is present, move it to the correct directory
-        // and set the filename on the artist.
-        $file = $reclamacao->getImagem();
-        
-        if ($file) {
-            $newFilename = md5($reclamacao->getId().date('YmdHm')) . '.' . $file->guessExtension();
-            $file->move(COND_PUBLIC_ROOT . '/images/reclamacao', $newFilename);
-            $reclamacao->setImagem($newFilename);
-            return TRUE;
-        }
-
-        return FALSE;
-    }
+  
     public function updateVisita($id)
     {
         $oRec = $this->find($id);
@@ -124,7 +90,10 @@ class ReclamacaoRepository implements RepositoryInterface
      * @return integer The total number of reclamacao.
      */
     public function getCountSolucao($ide) {
-        return $this->db->fetchColumn("SELECT COUNT(id) FROM reclamacao where ide = $ide and solucao=1");
+        return $this->db->fetchColumn("SELECT COUNT(id) FROM reclamacao where ide = '$ide' and solucao=1");
+    }
+    public function getCountReclamacao($ide) {
+        return $this->db->fetchColumn("SELECT COUNT(id) FROM reclamacao where ide = '$ide' ");
     }
 
     /**
@@ -181,6 +150,10 @@ class ReclamacaoRepository implements RepositoryInterface
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
+        
+        $queryBuilder->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy( key($orderBy), current($orderBy));
           
         $statement = $queryBuilder->execute();
         $reclamacaoData = $statement->fetchAll();
@@ -211,6 +184,10 @@ class ReclamacaoRepository implements RepositoryInterface
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
+        
+        $queryBuilder->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy( key($orderBy), current($orderBy));
         
         if($ide){
             $queryBuilder->where("r.ide = $ide");

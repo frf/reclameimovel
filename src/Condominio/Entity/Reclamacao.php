@@ -68,10 +68,18 @@ class Reclamacao
     protected $dt_cadastro;
     
     protected $visita;
+    
     protected $imagem;
+    
+    protected $files;
+    
+    protected $file1;
+    protected $file2;
+    protected $file3;
+    protected $file4;
+
     protected $youtube;
     
-
     public function getId() {
         return $this->id;
     }
@@ -175,5 +183,50 @@ class Reclamacao
     public function setImagem($imagem) {
         $this->imagem = $imagem;
     }
+    public function getFile1() {
+        return $this->file1;
+    }
+
+    public function getFile2() {
+        return $this->file2;
+    }
+
+    public function getFile3() {
+        return $this->file3;
+    }
+
+    public function getFile4() {
+        return $this->file4;
+    }
+
+    public function setFile1($file1) {
+        $this->file1 = $file1;
+        return $this;
+    }
+
+    public function setFile2($file2) {
+        $this->file2 = $file2;
+        return $this;
+    }
+
+    public function setFile3($file3) {
+        $this->file3 = $file3;
+        return $this;
+    }
+
+    public function setFile4($file4) {
+        $this->file4 = $file4;
+        return $this;
+    }
+    public function getFiles() {
+        return $this->files;
+    }
+
+    public function setFiles($files) {
+        $this->files = $files;
+        return $this;
+    }
+
+
 
 }

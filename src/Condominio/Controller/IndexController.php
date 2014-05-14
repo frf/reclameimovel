@@ -23,9 +23,11 @@ class IndexController
             $nome_emp = $oEmp->getNome();
             $ide = $oEmp->getId();
             
-            $limit = 20;
-            $total = $app['repository.reclamacao']->getCount();
+            $limit = 5;
+            
+            $total = $app['repository.reclamacao']->getCountReclamacao($ide);
             $totalSolucao = $app['repository.reclamacao']->getCountSolucao($ide);
+            
             $numPages = ceil($total / $limit);
             $currentPage = $request->query->get('page', 1);
             $offset = ($currentPage - 1) * $limit;
@@ -43,11 +45,13 @@ class IndexController
                 'nome_empresa' => $nome_empresa,
                 'currentPage' => $currentPage,
                 'numPages' => $numPages, 
+                'here' => $app['url_generator']->generate('principal'),
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
             
         }else{
+            
             $limit = 5;
             
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAll($limit);  

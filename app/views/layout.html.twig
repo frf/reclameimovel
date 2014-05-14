@@ -36,8 +36,13 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li  {% if 'morador' == active %}class="active"{% endif %}><a href="{{ path('morador') }}"><i class="icon-home"></i>  {{ 'Morador'|trans }}</a></li>
+            <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
+            <li  {% if 'morador' == active %}class="active"{% endif %}><a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
+            {% if app.user == false %}
+            <li  {% if 'minhas_reclamacoes' == active %}class="active"{% endif %}><a href="{{ path('minhas_reclamacoes') }}"><i class="icon-bullhorn"></i>  {{ 'Minhas Reclamações'|trans }}</a></li>
+            {% endif %}
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
+            <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('buscar') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
 	</ul>
            <ul class="nav navbar-nav  pull-right">
 	{% if app.user %}
@@ -68,11 +73,10 @@
     <!-- Placed at the end of the document so the pages load faster -->
     
     <script src="{{ app.request.basepath }}/js/jquery-2.0.3.min.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="{{ app.request.basepath }}/js/jquery-ui.js"></script>
     <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
     <script src="{{ app.request.basepath }}/js/start.js"></script>
-    <script src="{{ app.request.basepath }}/js/autocomplete.js"></script>    
-
+    
     <div id="fb-root"></div>
 
 </body>
