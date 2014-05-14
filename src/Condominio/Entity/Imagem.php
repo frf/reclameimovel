@@ -9,6 +9,21 @@ class Imagem
     private $id;
     private $idr;
     private $file;
+    public $files; 
+    
+      // GETTERS & SETTERS ...
+
+    public function getFiles() {
+        return $this->files;
+    }
+    public function setFiles(array $files) {
+        $this->files = $files;
+    }
+
+    public function __construct() {
+        $files = array();
+    }
+    
     
     public function getId() {
         return $this->id;
