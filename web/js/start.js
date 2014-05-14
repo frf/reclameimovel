@@ -13,7 +13,7 @@ $(document).ready(function() {
 function closeMsg(){    
     $('.alert').alert('close');
 }
-/*
+
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id))
@@ -23,7 +23,7 @@ function closeMsg(){
     js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId=237093413164290&version=v2.0";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-*/
+
 
 function resize_image(input, width, height, id) {
         if (input.files[0].type.match(/image.*/)) {
