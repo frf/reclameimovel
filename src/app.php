@@ -1,4 +1,7 @@
 <?php
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 $app['view_path'] = 'http://reclameimovel.com.br/view';
     
