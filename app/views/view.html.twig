@@ -23,7 +23,7 @@
 
             </div>
         </div>
-       
+        {% if imagem %}
         <div class="panel panel-default">
             <div class="panel-heading"><h3><b>Imagens</b></h3></div>
             <div>
@@ -35,8 +35,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        {% endif %}
+        {% if reclamacao.youtube %}
          <div class="panel panel-default">
             <div class="panel-heading"><h3><b>Vídeo</b></h3></div>
             <div>
@@ -46,8 +47,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        {% endif %}
     </div>
 
 {% endblock %}
