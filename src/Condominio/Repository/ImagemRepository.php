@@ -45,12 +45,12 @@ class ImagemRepository implements RepositoryInterface
     public function handleFileUpload($File) {
 
         if ($File) {
-            $newFilename = md5($File->getClientOriginalName().date('YmdHm')) . '.' . $File->guessExtension();   
-            $File->move(COND_PUBLIC_ROOT . '/images/reclamacao', $newFilename);
-            return $newFilename;
+            if (!copy(COND_PUBLIC_ROOT . '/tmp_send_image/' . $File, COND_PUBLIC_ROOT . '/images/reclamacao/' . $File)) {
+                return false;
+            }
+            unlink(COND_PUBLIC_ROOT . '/tmp_send_image/' . $File);
         }
-
-        return false;
+        return true;
     }
     /**
      * Deletes the imagem.

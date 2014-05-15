@@ -89,25 +89,19 @@ class MoradorController {
         if ($request->isMethod('POST')) {
             
             $form->bind($request);
-
-            $reclamacao->setFiles($request->files);
       
             if ($form->isValid()) {
                 $app['repository.reclamacao']->save($reclamacao);
+                $aImg = $request->get("imgReclamacao");
                 
                 //$this->imagemRepository
-                if(count($reclamacao->getFiles())){
-                    $oImagens = $request->files->get('reclamacao');
-
-                    foreach($oImagens as $File){
-                        $newFile = $app['repository.imagem']->handleFileUpload($File);
-                        if($newFile){
+                if(count($aImg)){
+                    foreach($aImg as $File){
                             $imagem = new Imagem();
-                            $imagem->setFile($newFile);
+                            $imagem->setFile($File);
                             $imagem->setIdr($reclamacao->getId());
                             $app['repository.imagem']->save($imagem);
-                        }
-                        
+                            $app['repository.imagem']->handleFileUpload($File);
                     }
                 }
           
@@ -137,7 +131,7 @@ class MoradorController {
         }
     }
     public function adicionarFotoAction(Request $request, Application $app) {
-        sleep(10);
+        
         // Generate filename
         $filename = md5(mt_rand()).'.jpg';
 
@@ -148,7 +142,7 @@ class MoradorController {
         $image = file_get_contents('data://'.substr($data, 5));
 
         // Save to disk
-        if ( ! file_put_contents(COND_PUBLIC_ROOT .'/images/reclamacao/'.$filename, $image)) {
+        if ( ! file_put_contents(COND_PUBLIC_ROOT .'/tmp_send_image/'.$filename, $image)) {
             header('HTTP/1.1 503 Service Unavailable');
             exit();
         }
@@ -158,7 +152,7 @@ class MoradorController {
         unset($image);
 
         // Return file URL
-        echo '/images/reclamacao/'.$filename;
+        echo $filename;
         return false;
     }
 
