@@ -43,10 +43,7 @@ class ReclamacaoType extends AbstractType {
                 ))->add('youtube', 'text', array('attr' => array('class' => 'form-control addDiv','placeholder' => 'http://youtu.be/W1CSdYsJIWQ',),'required' => FALSE,
                     'label' => 'Copie e cole o link do youtube com seu vídeo, basta clicar em compartilhar la no youtube.'
                 ))
-                ->add('file1', 'file', array('label' => 'Imagem',"attr" => array("accept" => "image/*","onchange"=>"resize_image(this, 400, 400,1)")))
-                ->add('file2', 'file', array('label' => 'Imagem',"attr" => array("accept" => "image/*","onchange"=>"resize_image(this, 400, 400,2)")))
-                ->add('file3', 'file', array('label' => 'Imagem',"attr" => array("accept" => "image/*","onchange"=>"resize_image(this, 400, 400,3)")))
-                ->add('file4', 'file', array('label' => 'Imagem',"attr" => array("accept" => "image/*","onchange"=>"resize_image(this, 400, 400,4)")))                
+                ->add('files', 'file', array('label' => 'Imagem',"attr" => array("accept" => "image/*","multiple"=>"multiple")))
                 ->add('Salvar', 'submit', array('label' =>"Enviar reclamação",'attr' => array('class' => 'btn btn-primary separar')));
     }
 

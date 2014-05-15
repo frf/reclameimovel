@@ -14,3 +14,4 @@ $app->get('/api/empreendimento', 'Condominio\Controller\EmpreendimentoController
 
 $app->post('/buscar', 'Condominio\Controller\IndexController::buscarAction')->bind('buscar');
 $app->post('/adicionar', 'Condominio\Controller\MoradorController::adicionarAction');
+$app->post('/adicionar/foto', 'Condominio\Controller\MoradorController::adicionarFotoAction');

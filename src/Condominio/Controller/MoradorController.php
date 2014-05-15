@@ -136,6 +136,31 @@ class MoradorController {
             return $app['twig']->render('form.html.twig', $data);
         }
     }
+    public function adicionarFotoAction(Request $request, Application $app) {
+        sleep(10);
+        // Generate filename
+        $filename = md5(mt_rand()).'.jpg';
+
+        // Read RAW data
+        $data = file_get_contents('php://input');
+
+        // Read string as an image file
+        $image = file_get_contents('data://'.substr($data, 5));
+
+        // Save to disk
+        if ( ! file_put_contents(COND_PUBLIC_ROOT .'/images/reclamacao/'.$filename, $image)) {
+            header('HTTP/1.1 503 Service Unavailable');
+            exit();
+        }
+
+        // Clean up memory
+        unset($data);
+        unset($image);
+
+        // Return file URL
+        echo '/images/reclamacao/'.$filename;
+        return false;
+    }
 
     public function editAction(Request $request, Application $app) {
         $reclamacao = $request->attributes->get('reclamacao');
