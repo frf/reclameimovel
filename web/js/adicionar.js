@@ -11,6 +11,8 @@ function deleteImg(id){
 
 var totalImg = 0;
 
+if(document.querySelector('form input[type=file]')){
+
 // Once files have been selected
 document.querySelector('form input[type=file]').addEventListener('change', function(event) {
 
@@ -116,3 +118,5 @@ document.querySelector('form input[type=file]').addEventListener('change', funct
    // Clear files
    // event.target.value = '';    
 });
+
+}
