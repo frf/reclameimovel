@@ -3,7 +3,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-$app['view_path'] = 'http://reclameimove.com.br/view';
+$app['view_path'] = 'http://reclameimovel.com.br/view';
     
 $app['repository.empresa'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpresaRepository($app['db']);
