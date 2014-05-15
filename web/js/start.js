@@ -105,7 +105,7 @@ document.querySelector('form input[type=file]').addEventListener('change', funct
                                     imageElement.parentNode.id = "tools"+totalImg;
                                     
                                     $("#tools"+totalImg).append("<button style='margin-left:41px' class='btn btn-danger btn-xs' type='button' onclick='deleteImg("+totalImg+")' >Remover</button>");
-                                    $("#inputImg").append("<input type='text' value='"+imgResponse+"' name='imgReclamacao["+totalImg+"]' id='imgReclamacao"+totalImg+"' />");
+                                    $("#inputImg").append("<input type='hidden' value='"+imgResponse+"' name='imgReclamacao["+totalImg+"]' id='imgReclamacao"+totalImg+"' />");
                                     //console.log('Image uploaded: ' + xhr.responseText);
                                     totalImg++;
                                     
