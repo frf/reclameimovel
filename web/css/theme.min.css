@@ -5409,33 +5409,27 @@ pre {
 }
 
 
-form {
-    background: #f0f0f0;
-    border: 1px #ccc solid;
-    border-radius: 3px;
-    margin-top: 5%;
-    padding: 5%;
-}
+
 form div.photos {
     margin-right: -19px;
     overflow: hidden;
 }
-form div.photos > img {
+form div.photos > div {
     border-radius: 3px;
     float: left;
-    height: 150px;
+    height: 100%;
     margin: 19px 19px 0 0;
     width: 150px;
 }
-form div.photos > img.uploading {
+form div.photos > div.uploading {
     border: 1px #cccccc solid;
 }
-form div.photos > img.uploaded {
+form div.photos > div.uploaded {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
-form div.photos > img.uploading span.progress {
+form div.photos > div.uploading span.progress {
     background: #cccccc;
     border-radius: 2px;
     display: block;
@@ -5443,7 +5437,7 @@ form div.photos > img.uploading span.progress {
     margin: 40px 5px;
     overflow: hidden;
 }
-form div.photos > img.uploading span.progress span {
+form div.photos > div.uploading span.progress span {
     background: #0087B9;
     display: block;
     height: 100%;

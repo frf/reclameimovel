@@ -4,16 +4,19 @@ $(document).ready(function() {
             window.location = '/adicionar/' + $("#idnome").val();
         }
     });
+    $("#deleteImg").click(function() {
+        console.log(this);
+    });
     $("#adicionar_busca").click(function() {
         window.location = '/buscar';
     });
-    $("<div class='photos'>&nbsp;</div>").insertAfter("#reclamacao_youtube");
+    $("<div><div id='inputImg'></div><div id='totalImg' style='margin-top: 15px;font-weight:700'></div><div  class='photos'></div></div>").insertAfter("#reclamacao_youtube");
 });
 
 function closeMsg() {
     $('.alert').alert('close');
 }
-/*
+
  (function(d, s, id) {
  var js, fjs = d.getElementsByTagName(s)[0];
  if (d.getElementById(id))
@@ -23,7 +26,7 @@ function closeMsg() {
  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId=237093413164290&version=v2.0";
  fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
- */
+ 
 /*
  function resize_image(input, width, height, id) {
  if (input.files[0].type.match(/image./)) {
@@ -64,16 +67,24 @@ function closeMsg() {
  } else {
  $("#message").html("File not a image");
  }
- }
- 
- */
+ } 
+*/
+
+function deleteImg(id){
+    $("#tools"+id).remove();
+    $("#imgReclamacao"+id).remove();
+    totalImg--;
+    $("#totalImg").html("Total de Imagens: " + totalImg);
+}
+
+var totalImg = 0;
 
 // Once files have been selected
 document.querySelector('form input[type=file]').addEventListener('change', function(event) {
 
 // Read files
     var files = event.target.files;
-
+    
 // Iterate through files
     for (var i = 0; i < files.length; i++) {
 
@@ -86,15 +97,20 @@ document.querySelector('form input[type=file]').addEventListener('change', funct
                 var image = new Image();
                 image.onload = function(imageEvent) {
 
-// Add elemnt to page
+                    // Add elemnt to page
                     var imageElement = document.createElement('img');
                     imageElement.classList.add('uploading');
                     imageElement.innerHTML = '<span class="progress"><span></span></span>';
+                    
                     var progressElement = imageElement.querySelector('span.progress span');
                     progressElement.style.width = 0;
-                    document.querySelector('form div.photos').appendChild(imageElement);
-
-// Resize image
+                    
+                    var divElement = document.createElement('div');
+                    divElement.appendChild(imageElement);
+                    document.querySelector('form div.photos').appendChild(divElement);
+                    
+                    
+                    // Resize image
                     var canvas = document.createElement('canvas'),
                             max_size = 1200,
                             width = image.width,
@@ -114,51 +130,58 @@ document.querySelector('form input[type=file]').addEventListener('change', funct
                     canvas.height = height;
                     canvas.getContext('2d').drawImage(image, 0, 0, width, height);
 
-// Upload image
+
+                    // Upload image
                     var xhr = new XMLHttpRequest();
                     if (xhr.upload) {
 
-// Update progress
+
+                        // Update progress
                         xhr.upload.addEventListener('progress', function(event) {
                             var percent = parseInt(event.loaded / event.total * 100);
                             progressElement.style.width = percent + '%';
                         }, false);
 
-// File uploaded / failed
+
+                        // File uploaded / failed
                         xhr.onreadystatechange = function(event) {
                             if (xhr.readyState == 4) {
                                 if (xhr.status == 200) {
-
+                                    
                                     imageElement.classList.remove('uploading');
                                     imageElement.classList.add('uploaded');
                                     imageElement.classList.add('img-thumbnail');
-                                    imageElement.src = xhr.responseText;
-
-                                    console.log('Image uploaded: ' + xhr.responseText);
-
+                                    
+                                    var imgResponse = xhr.responseText;
+                                    imageElement.src = "/tmp_send_image/"+imgResponse;
+                                    
+                                    imageElement.parentNode.id = "tools"+totalImg;
+                                    
+                                    $("#tools"+totalImg).append("<button style='margin-left:41px' class='btn btn-danger btn-xs' type='button' onclick='deleteImg("+totalImg+")' >Remover</button>");
+                                    $("#inputImg").append("<input type='text' value='"+imgResponse+"' name='imgReclamacao["+totalImg+"]' id='imgReclamacao"+totalImg+"' />");
+                                    //console.log('Image uploaded: ' + xhr.responseText);
+                                    totalImg++;
+                                    
+                                    $("#totalImg").html("Total de Imagens: " + totalImg);
                                 } else {
                                     imageElement.parentNode.removeChild(imageElement);
                                 }
                             }
                         }
 
-// Start upload
+                        // Start upload
                         xhr.open('post', '/adicionar/foto', true);
                         xhr.send(canvas.toDataURL('image/jpeg'));
-
                     }
 
                 }
-
                 image.src = readerEvent.target.result;
 
             }
             reader.readAsDataURL(files[i]);
         }
-
     }
-
-// Clear files
-    event.target.value = '';
-
+   // Clear files
+   // event.target.value = '';    
 });
+

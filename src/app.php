@@ -50,9 +50,9 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
             $app['token'] = $token;
         }
     $protected = array(
-        #'/morador' => 'ROLE_USER',
-        #'/adicionar' => 'ROLE_USER',
-        #'/minhas-reclamacoes' => 'ROLE_USER',
+        '/morador' => 'ROLE_USER',
+        '/adicionar' => 'ROLE_USER',
+        '/minhas-reclamacoes' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
 
