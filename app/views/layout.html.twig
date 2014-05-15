@@ -38,7 +38,7 @@
           <ul class="nav navbar-nav">
             <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
             <li  {% if 'morador' == active %}class="active"{% endif %}><a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
-            {% if app.user == false %}
+            {% if app.user %}
             <li  {% if 'minhas_reclamacoes' == active %}class="active"{% endif %}><a href="{{ path('minhas_reclamacoes') }}"><i class="icon-bullhorn"></i>  {{ 'Minhas Reclamações'|trans }}</a></li>
             {% endif %}
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
