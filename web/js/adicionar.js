@@ -12,6 +12,13 @@ function deleteImg(id){
 var totalImg = 0;
 
 if(document.querySelector('form input[type=file]')){
+    
+$(document).ready(function() {
+    $("#reclamacao_Salvar").click(function() {
+        var filesTarget = document.querySelector('form input[type=file]');
+        filesTarget.value = '';
+    });
+});
 
 // Once files have been selected
 document.querySelector('form input[type=file]').addEventListener('change', function(event) {
