@@ -9,7 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Condominio\Entity\Reclamacao;
 use Condominio\Entity\Empreendimento;
 use Condominio\Entity\Imagem;
-use Condominio\Form\Type\ReclamacaoType;
+use Condominio\Entity\User;
+use Condominio\Form\Type\UserType;
 use Facebook\FacebookRequest;
 use Facebook\GraphObject;
 use Facebook\FacebookRequestException;
@@ -50,6 +51,60 @@ class MoradorController {
         );
 
         return $app['twig']->render('minhas_rec.html.twig', $data);
+    }
+    public function dadosAction(Request $request, Application $app) {
+        
+        $user = new User();
+                
+        /*
+         * Pegar id da sessao
+         */
+        if($app['token']){
+            $uid = $app['token']->getUid();
+        }else{
+            $uid = 1;
+        }
+        
+        $user->setIdu($uid);
+        
+        $form = $app['form.factory']->create(new UserType(), $user);
+
+        if ($request->isMethod('POST')) {
+            
+            $form->bind($request);
+      
+            if ($form->isValid()) {
+                $app['repository.reclamacao']->save($reclamacao);
+                $aImg = $request->get("imgReclamacao");
+                
+                //$this->imagemRepository
+                if(count($aImg)){
+                    foreach($aImg as $File){
+                            $imagem = new Imagem();
+                            $imagem->setFile($File);
+                            $imagem->setIdr($reclamacao->getId());
+                            $app['repository.imagem']->save($imagem);
+                            $app['repository.imagem']->handleFileUpload($File);
+                    }
+                }
+          
+                $message = 'Reclamação salva com sucesso.';
+                $app['session']->getFlashBag()->add('success', $message);
+                // Redirect to the edit page.
+                $redirect = $app['url_generator']->generate('view');
+                
+                return $app->redirect($redirect."/".$reclamacao->getIde()."/".$reclamacao->getId());
+            }
+
+            return false;
+        } else {
+            
+            $data = array(
+                'metaDescription' => '',
+                'form' => $form->createView(),
+            );
+            return $app['twig']->render('mais_dados.html.twig', $data);
+        }
     }
     public function adicionarAction(Request $request, Application $app) {
         #$request = $app['request'];

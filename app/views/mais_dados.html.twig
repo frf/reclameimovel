@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+{% set active = 'form' %}
+
+{% block content %}
+<div id="main" role="main" class="container">
+        {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
+        {% for alert in alertTypeAvaillable %}
+            {% for message in app.session.getFlashBag.get(alert) %}
+    <div class="alert alert-{{ alert }}" >
+        <button class="close" data-dismiss="alert">×</button>
+                    {{ message|trans }}
+    </div>
+            {% endfor %}
+        {% endfor %}
+
+    <div class="page-header">
+        <h1>Informações adicionais.</h1>
+    </div>
+
+    <div class="alert alert-warning">
+         <button class="close" data-dismiss="alert">×</button>
+        <strong>Atenção:</strong> Será necessário complementar seus dados, pois estas informações não estão no facebook, e vamos necessitar no momento que a emrpesa entrar em contato conosco. Não se preocupe todos estes dados se manterão em segurança.
+    </div>
+    
+    <form action="/morador/dados-complementares" method="post" {{ form_enctype(form) }} class="form-horizontal" role="form">
+        {{ form_widget(form) }}        
+    </form>
+
+</div>
+{% endblock %}

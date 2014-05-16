@@ -8,6 +8,9 @@ $app['view_path'] = 'http://reclameimovel.com.br/view';
 $app['repository.empresa'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpresaRepository($app['db']);
 });  
+$app['repository.user'] = $app->share(function ($app) {
+    return new Condominio\Repository\UserRepository($app['db']);
+});  
 $app['repository.empreendimento'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpreendimentoRepository($app['db'],$app['repository.empresa']);
 });  
@@ -50,9 +53,9 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
             $app['token'] = $token;
         }
     $protected = array(
-        '/morador' => 'ROLE_USER',
+        #'/morador' => 'ROLE_USER',
         #'/adicionar' => 'ROLE_USER',
-        '/minhas-reclamacoes' => 'ROLE_USER',
+        #'/minhas-reclamacoes' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
 
@@ -72,13 +75,31 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
     switch ($code) {
         case 404:
-            $message = 'The requested page could not be found.';
+            $data = array('metaDescription'=>'Reclame Imóvel, página não encontrada.',
+                            'mensagem' => ' Desculpe o transtorno, estamos trabalhando para poder atender você melhor.',
+                            'titulo'=>'Página não encontrada','tipo'=>'danger');
+           
+            $message = $app['twig']->render('erro.html.twig',$data, 404);
             break;
         default:
-            $message = 'We are sorry, but something went terribly wrong.';
+            $data = array('metaDescription'=>'Reclame Imóvel, página não encontrada.',
+                            'mensagem' => ' Desculpe o transtorno, estamos trabalhando para poder atender você melhor.',
+                            'titulo'=>'Erro','tipo'=>'warning');
+           
+            $message = $app['twig']->render('erro.html.twig',$data);
     }
 
     return new Response($message, $code);
 });
 
+$app->before(function (Request $request) use ($app)
+{
+    if($app['token']){
+        if(!$app['repository.user']->isDados(1) && $request->get('_route') != "dados_usuario"){
+           $redirect = $app['url_generator']->generate('dados_usuario');
+           return $app->redirect($redirect);
+        }
+    }
+
+});
 return $app;

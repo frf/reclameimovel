@@ -13,7 +13,7 @@ class ReclamacaoType extends AbstractType {
                 ->add('id', 'hidden')
                 ->add('ide', 'hidden')
                 ->add('idu', 'hidden')
-                ->add('titulo', 'text', array('attr' => array('class' => 'form-control','placeholder' => 'Título da reclamação',),'label' => 'Título da Reclamação'))
+                ->add('titulo', 'text', array('attr' => array('class' => 'form-control','placeholder' => 'Título da reclamação',),'label' => 'Título'))
                 ->add('idassunto', 'choice', array(
                     'attr' => array(
                         'class' => 'form-control',
@@ -28,7 +28,7 @@ class ReclamacaoType extends AbstractType {
                         7 => 'Propaganda enganosa',
                         8 => 'Elogio a empresa',
                     ),
-                    'label' => 'Título da Reclamação',
+                    'label' => 'Tipo da Reclamação',
                     'data' => 1
                 ))
                 ->add('dados', 'text', array(

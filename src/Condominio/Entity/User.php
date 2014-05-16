@@ -5,6 +5,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 class User implements AdvancedUserInterface
 {
+    private $idu;
+    
     private $username;
     private $password;
     private $email;
@@ -13,24 +15,25 @@ class User implements AdvancedUserInterface
     private $credentialsNonExpired;
     private $accountNonLocked;
     private $roles;
+    
+    private $cpf;
+    private $dadosImovel;
+    private $telCelular;
+    private $telResidencial;
+    private $telContato;
 
-    public function __construct($username, $password, $email, array $roles = array(), $enabled = true, $userNonExpired = true, $credentialsNonExpired = true, $userNonLocked = true)
+    public function __construct()
     {
-        if (empty($username)) {
-            throw new \InvalidArgumentException('The username cannot be empty.');
-        }
-
-        $this->username = $username;
-        $this->password = $password;
-        $this->email = $email;
-        $this->enabled = $enabled;
-        $this->accountNonExpired = $userNonExpired;
-        $this->credentialsNonExpired = $credentialsNonExpired;
-        $this->accountNonLocked = $userNonLocked;
-        $this->roles = $roles;
+    }
+    public function getIdu() {
+        return $this->idu;
     }
 
-    /**
+    public function setIdu($idu) {
+        $this->idu = $idu;
+    }
+
+        /**
      * Gets the user email.
      *
      * @return string
@@ -109,6 +112,46 @@ class User implements AdvancedUserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    public function getCpf() {
+        return $this->cpf;
+    }
+
+    public function getDadosImovel() {
+        return $this->dadosImovel;
+    }
+
+    public function getTelCelular() {
+        return $this->telCelular;
+    }
+
+    public function getTelResidencial() {
+        return $this->telResidencial;
+    }
+
+    public function getTelContato() {
+        return $this->telContato;
+    }
+
+    public function setCpf($cpf) {
+        $this->cpf = $cpf;
+    }
+
+    public function setDadosImovel($dadosImovel) {
+        $this->dadosImovel = $dadosImovel;
+    }
+
+    public function setTelCelular($telCelular) {
+        $this->telCelular = $telCelular;
+    }
+
+    public function setTelResidencial($telResidencial) {
+        $this->telResidencial = $telResidencial;
+    }
+
+    public function setTelContato($telContato) {
+        $this->telContato = $telContato;
     }
 
 

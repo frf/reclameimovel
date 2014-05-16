@@ -36,38 +36,19 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
-            <li  {% if 'morador' == active %}class="active"{% endif %}><a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
-            {% if app.user %}
-            <li  {% if 'minhas_reclamacoes' == active %}class="active"{% endif %}><a href="{{ path('minhas_reclamacoes') }}"><i class="icon-bullhorn"></i>  {{ 'Minhas Reclamações'|trans }}</a></li>
-            {% endif %}
-            <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
-            <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('buscar') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
+            <li  class="active"><a href="/"><i class="icon-home"></i> Voltar para página principal</a></li>
 	</ul>
-           <ul class="nav navbar-nav  pull-right">
-	{% if app.user %}
-        <li>
-		<a href="{{ app.login.logout_path }}"><i class="glyphicon glyphicon-lock"></i> Sair</a>
-	</li>
-	{% else %}
-
-        <li>
-		<a href="/login"><i class="glyphicon glyphicon-upload"></i> Entrar</a>
-	</li>
-	{% endif %}
-        </ul> 
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
-    <br /><br /><br />
-    <!-- Begin page content -->
-    <div class="container" role="main">      
-        {% block secondaryNavigation %}
-        {% endblock %}
-        {% block content %}
-        {% endblock %}
+    
+    <div class="container" role="main">     
+        <div class="col-md-10" style="margin-top: 130px">
+            <div class="alert alert-{{tipo}}">
+                <strong>{{titulo}}:</strong>{{mensagem}}
+            </div>
+        </div>
     </div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
