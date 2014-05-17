@@ -5,10 +5,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 $app['view_path'] = 'http://reclameimovel.com.br/view';
 
-if ($app['debug']) {
-        $app['view_path'] = 'http://localhost:8000/view';
-        
-}
 $app['repository.empresa'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpresaRepository($app['db']);
 });  
@@ -63,9 +59,6 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
     );
     $path = $request->getPathInfo();
 
-    if ($app['debug']) {
-        $protected = array();
-    }
     foreach ($protected as $protectedPath => $role) {
         if (strpos($path, $protectedPath) !== FALSE && !$app['security']->isGranted($role)) {
             throw new AccessDeniedException();
@@ -101,8 +94,9 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
 $app->before(function (Request $request) use ($app)
 {
+
     if($app['token']){
-        if(!$app['repository.user']->isDados($app['user']->getUid()) && $request->get('_route') != "dados_usuario"){
+        if(!$app['repository.user']->isDados($app['token']->getUid()) && $request->get('_route') != "dados_usuario"){
            $redirect = $app['url_generator']->generate('dados_usuario');
            return $app->redirect($redirect);
         }
