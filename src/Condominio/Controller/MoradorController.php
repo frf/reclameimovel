@@ -66,8 +66,7 @@ class MoradorController {
         if (!$user) {
             $app->abort(404, 'Erro nenhum usuário encontrado.');
         }
-            
-        
+
         $user->setIdu($uid);
         
         $form = $app['form.factory']->create(new UserType(), $user);
@@ -88,6 +87,7 @@ class MoradorController {
             }
 
             return false;
+            
         } else {
             
             $data = array(
@@ -96,6 +96,42 @@ class MoradorController {
             );
             return $app['twig']->render('mais_dados.html.twig', $data);
         }
+    }
+    public function dadosUpdateAction(Request $request, Application $app) {
+        
+        /*
+         * Pegar id da sessao
+         */
+        if($app['token']){
+            $uid = $app['token']->getUid();
+            $user = $app['repository.user']->find($uid);
+        }
+        if (!$user) {
+            $app->abort(404, 'Erro nenhum usuário encontrado.');
+        }
+
+        $user->setIdu($uid);
+        
+        $form = $app['form.factory']->create(new UserType(), $user);
+
+        if ($request->isMethod('POST')) {
+            
+            $form->bind($request);
+      
+            if ($form->isValid()) {
+                $app['repository.user']->saveAdicional($user);
+                
+                $message = 'Informações adicionadas com sucesso. Você já esta liberado para reclamar.';
+                $app['session']->getFlashBag()->add('success', $message);
+                // Redirect to the edit page.
+                $redirect = $app['url_generator']->generate('principal');
+                
+                return $app->redirect($redirect);
+            }
+
+            return false;
+            
+        } 
     }
     public function adicionarAction(Request $request, Application $app) {
         #$request = $app['request'];
