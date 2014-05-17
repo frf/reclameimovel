@@ -76,7 +76,7 @@ class UserRepository implements RepositoryInterface
         if($userData['telCelular'] == ""){
             $aErro[2] = "Celular não informado.";
         }
-        if($userData['telResidencial'] == ""){
+        if(empty($userData['telResidencial'])){
             $aErro[3] = "Telefone residencial não informado.";
         }
         
