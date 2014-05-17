@@ -6,6 +6,7 @@ use Silex\Application;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
+use Condominio\Form\Type\EmpreendimentoType;
 
 class IndexController
 {
@@ -153,5 +154,58 @@ class IndexController
     {        
         return $app['twig']->render('construtora.html.twig');
         
+    }
+    
+    public function empNovoAction(Request $request, Application $app) {
+        
+        /*
+         * Pegar id da sessao
+         */
+        
+        $form = $app['form.factory']->create(new EmpreendimentoType());
+
+        $data = array(
+            'metaDescription' => '',
+            'form' => $form->createView(),
+        );
+        
+        return $app['twig']->render('emp.html.twig', $data);
+      
+    }
+    public function empCadastrarAction(Request $request, Application $app) {
+        
+        /*
+         * Pegar id da sessao
+         */
+        if($app['token']){
+            $uid = $app['token']->getUid();
+            $user = $app['repository.user']->find($uid);
+        }
+        if (!$user) {
+            $app->abort(404, 'Erro nenhum usuário encontrado.');
+        }
+
+        $user->setIdu($uid);
+        
+        $form = $app['form.factory']->create(new UserType(), $user);
+
+        if ($request->isMethod('POST')) {
+            
+            $form->bind($request);
+      
+            if ($form->isValid()) {
+                $app['repository.user']->saveAdicional($user);
+                
+                $message = 'Informações adicionadas com sucesso. Você já esta liberado para reclamar.';
+                $app['session']->getFlashBag()->add('success', $message);
+                // Redirect to the edit page.
+                $redirect = $app['url_generator']->generate('principal');
+                
+                return $app->redirect($redirect);
+            }
+
+            return false;
+            
+        } 
     }
 }

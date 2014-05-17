@@ -11,6 +11,7 @@ $app->match('/logout', function () {})->bind('logout');
 $app->get('/morador', 'Condominio\Controller\MoradorController::indexAction')->bind('morador');
 $app->get('/morador/minhas-reclamacoes', 'Condominio\Controller\MoradorController::minhasReclamacoesAction')->bind('minhas_reclamacoes');
 $app->get('/morador/dados-complementares', 'Condominio\Controller\MoradorController::dadosAction')->bind('dados_usuario');
+$app->get('/empreendimento/novo', 'Condominio\Controller\IndexController::empNovoAction')->bind('emp_novo');
 
 $app->get('/adicionar/{idnome}', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add')->value('idnome',false);
 $app->get('/construtora', 'Condominio\Controller\ConstrutoraController::indexAction')->bind('construtora');
@@ -23,4 +24,4 @@ $app->post('/buscar', 'Condominio\Controller\IndexController::buscarAction')->bi
 $app->post('/adicionar', 'Condominio\Controller\MoradorController::adicionarAction');
 $app->post('/adicionar/foto', 'Condominio\Controller\MoradorController::adicionarFotoAction');
 $app->post('/morador/dados-update', 'Condominio\Controller\MoradorController::dadosUpdateAction')->bind('dados_usuario_add');
-
+$app->post('/empeendimento/cadastrar', 'Condominio\Controller\IndexController::empCadastrarAction')->bind('emp_cad');
