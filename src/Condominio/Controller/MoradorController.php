@@ -55,15 +55,17 @@ class MoradorController {
     }
     public function dadosAction(Request $request, Application $app) {
         
-        $user = new User();
+        $user = $request->attributes->get('user');
+        
+        if (!$user) {
+            $app->abort(404, 'Erro nenhum usuário encontrado.');
+        }
                 
         /*
          * Pegar id da sessao
          */
         if($app['token']){
             $uid = $app['token']->getUid();
-        }else{
-            $uid = 1;
         }
         
         $user->setIdu($uid);
@@ -77,7 +79,6 @@ class MoradorController {
             if ($form->isValid()) {
                 $app['repository.user']->saveAdicional($user);
                 
-          
                 $message = 'Informações adicionadas com sucesso. Você já esta liberado para reclamar.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.

@@ -21,6 +21,7 @@ class User implements AdvancedUserInterface
     private $telCelular;
     private $telResidencial;
     private $telContato;
+    private $name;
 
     public function __construct()
     {
@@ -41,6 +42,10 @@ class User implements AdvancedUserInterface
     public function getEmail()
     {
         return $this->email;
+    }
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     /**
@@ -152,6 +157,15 @@ class User implements AdvancedUserInterface
 
     public function setTelContato($telContato) {
         $this->telContato = $telContato;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+        return $this;
     }
 
 

@@ -57,7 +57,7 @@ class UserRepository implements RepositoryInterface
      */
     public function find($id)
     {
-        $userData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE id = ?', array($id));
+        $userData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE idu = ?', array($id));
         return $userData ? $this->buildUser($userData) : FALSE;
     }
     
@@ -65,11 +65,26 @@ class UserRepository implements RepositoryInterface
     {
         $userData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE idu = ?', array($id));
         
+        $aErro = array();
+        
         if($userData['cpf'] == ""){
-            //throw new UsernameNotFoundException(sprintf('User with id %s not found', json_encode($id)));
+            $aErro[0] = "Cpf não informado.";
+        }
+        if($userData['dadosImovel'] == ""){
+            $aErro[1] = "Dados do imóvel não informado.";
+        }
+        if($userData['telCelular'] == ""){
+            $aErro[2] = "Celular não informado.";
+        }
+        if($userData['telResidencial'] == ""){
+            $aErro[3] = "Telefone residencial não informado.";
+        }
+        
+        if(count($aErro)){
             return false;
-        }        
-        return true;        
+        }else{
+            return true;
+        }
     }
     
     public function saveAdicional($user)
@@ -97,6 +112,17 @@ class UserRepository implements RepositoryInterface
 
     protected function buildUser($userData)
     {      
+        $user = new User();
+        $user->setIdu($userData['idu']);
+        $user->setName($userData['name']);
+        $user->setEmail($userData['email']);
+        $user->setCpf($userData['cpf']);
+        $user->setDadosImovel($userData['dadosImovel']);
+        $user->setTelCelular($userData['telCelular']);
+        $user->setTelContato($userData['telContato']);
+        $user->setTelResidencial($userData['telResidencial']);
+        
+        return $user;
     }
     
 

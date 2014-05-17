@@ -13,6 +13,8 @@ class UserType extends AbstractType {
                 ->add('cpf', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
+                        'placeholder' => '000.000.000-00',
+                        'maxlength'=>'14'
                     ),                   
                     'label' => 'CPF do proprietário.',
                 ))
@@ -20,25 +22,33 @@ class UserType extends AbstractType {
                     'attr' => array(
                         'class' => 'form-control',
                         'placeholder' => 'Ex: Bloco 2 Ap 303, Casa 1 Bloco 10',
+                        'maxlength'=>'100'
                     ),
                     'label' => 'Dados do Imovel',
                 ))
                 ->add('telCelular', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
+                        'placeholder' => '(21) 22229999',
+                        'maxlength'=>'15'
                     ),
                     'label' => 'Número Telefone Celular'
                 ))
                 ->add('telResidencial', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
+                        'placeholder' => '(21) 22229999',
+                        'maxlength'=>'15'
                     ),
                     'label' => 'Número Telefone Fixo',
                 ))
                 ->add('telContato', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
+                        'placeholder' => '(21) 22229999',
+                        'maxlength'=>'15'
                     ),
+                    'required' => FALSE,
                     'label' => 'Número Telefone Contato'
                 ))
                 ->add('Salvar', 'submit', array('label' => "Salvar informação", 'attr' => array('class' => 'btn btn-primary separar','style'=>'margin-top:20px')));
