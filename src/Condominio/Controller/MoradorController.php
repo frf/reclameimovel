@@ -55,18 +55,18 @@ class MoradorController {
     }
     public function dadosAction(Request $request, Application $app) {
         
-        $user = $request->attributes->get('user');
-        
-        if (!$user) {
-            $app->abort(404, 'Erro nenhum usuário encontrado.');
-        }
-                
+           
         /*
          * Pegar id da sessao
          */
         if($app['token']){
             $uid = $app['token']->getUid();
+            $user = $app['repository.user']->find($uid);
         }
+        if (!$user) {
+            $app->abort(404, 'Erro nenhum usuário encontrado.');
+        }
+            
         
         $user->setIdu($uid);
         

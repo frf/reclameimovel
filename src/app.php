@@ -54,7 +54,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         }
     $protected = array(
         #'/morador' => 'ROLE_USER',
-        '/adicionar' => 'ROLE_USER',
+        #'/adicionar' => 'ROLE_USER',
         #'/minhas-reclamacoes' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
@@ -99,7 +99,7 @@ $app->before(function (Request $request) use ($app)
         $idu = $app['token']->getUid();
         
         if(!$app['repository.user']->isDados($idu) && $request->get('_route') != "dados_usuario"){
-           $redirect = $app['url_generator']->generate('dados_usuario', array('user' => $idu));
+           $redirect = $app['url_generator']->generate('dados_usuario');
            return $app->redirect($redirect);
         }
     }
