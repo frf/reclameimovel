@@ -67,13 +67,13 @@ class UserRepository implements RepositoryInterface
         
         $aErro = array();
         
-        if(empty($userData['cpf']) == ""){
+        if(empty($userData['cpf'])){
             $aErro[0] = "Cpf não informado.";
         }
-        if(empty($userData['dadosImovel']) == ""){
+        if(empty($userData['dadosImovel'])){
             $aErro[1] = "Dados do imóvel não informado.";
         }
-        if(empty($userData['telCelular']) == ""){
+        if(empty($userData['telCelular'])){
             $aErro[2] = "Celular não informado.";
         }
         if(empty($userData['telResidencial'])){
