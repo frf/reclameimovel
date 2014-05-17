@@ -75,26 +75,15 @@ class MoradorController {
             $form->bind($request);
       
             if ($form->isValid()) {
-                $app['repository.reclamacao']->save($reclamacao);
-                $aImg = $request->get("imgReclamacao");
+                $app['repository.user']->saveAdicional($user);
                 
-                //$this->imagemRepository
-                if(count($aImg)){
-                    foreach($aImg as $File){
-                            $imagem = new Imagem();
-                            $imagem->setFile($File);
-                            $imagem->setIdr($reclamacao->getId());
-                            $app['repository.imagem']->save($imagem);
-                            $app['repository.imagem']->handleFileUpload($File);
-                    }
-                }
           
-                $message = 'Reclamação salva com sucesso.';
+                $message = 'Informações adicionadas com sucesso.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
-                $redirect = $app['url_generator']->generate('view');
+                $redirect = $app['url_generator']->generate('principal');
                 
-                return $app->redirect($redirect."/".$reclamacao->getIde()."/".$reclamacao->getId());
+                return $app->redirect($redirect);
             }
 
             return false;
