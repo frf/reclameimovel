@@ -55,7 +55,6 @@ class MoradorController {
     }
     public function dadosAction(Request $request, Application $app) {
         
-           
         /*
          * Pegar id da sessao
          */
@@ -71,31 +70,12 @@ class MoradorController {
         
         $form = $app['form.factory']->create(new UserType(), $user);
 
-        if ($request->isMethod('POST')) {
-            
-            $form->bind($request);
+        $data = array(
+            'metaDescription' => '',
+            'form' => $form->createView(),
+        );
+        return $app['twig']->render('mais_dados.html.twig', $data);
       
-            if ($form->isValid()) {
-                $app['repository.user']->saveAdicional($user);
-                
-                $message = 'Informações adicionadas com sucesso. Você já esta liberado para reclamar.';
-                $app['session']->getFlashBag()->add('success', $message);
-                // Redirect to the edit page.
-                $redirect = $app['url_generator']->generate('principal');
-                
-                return $app->redirect($redirect);
-            }
-
-            return false;
-            
-        } else {
-            
-            $data = array(
-                'metaDescription' => '',
-                'form' => $form->createView(),
-            );
-            return $app['twig']->render('mais_dados.html.twig', $data);
-        }
     }
     public function dadosUpdateAction(Request $request, Application $app) {
         
