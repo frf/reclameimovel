@@ -78,7 +78,7 @@ class MoradorController {
                 $app['repository.user']->saveAdicional($user);
                 
           
-                $message = 'Informações adicionadas com sucesso.';
+                $message = 'Informações adicionadas com sucesso. Você já esta liberado para reclamar.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
                 $redirect = $app['url_generator']->generate('principal');
