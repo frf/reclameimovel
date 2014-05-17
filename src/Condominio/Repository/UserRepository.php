@@ -65,24 +65,38 @@ class UserRepository implements RepositoryInterface
     {
         $userData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE idu = ?', array($id));
         
-             
         if($userData['cpf'] == ""){
             //throw new UsernameNotFoundException(sprintf('User with id %s not found', json_encode($id)));
             return false;
+        }        
+        return true;        
+    }
+    
+    public function saveAdicional($user)
+    {
+        $userData = array(
+            'cpf'=>$user->getCpf(),
+            'dadosImovel'=>$user->getDadosImovel(),
+            'telCelular'=>$user->getTelCelular(),
+            'telResidencial'=>$user->getTelResidencial(),
+            'telContato'=>$user->getTelContato()
+        );
+
+        if ($user->getIdu()) {
+            $this->db->update('usuario', $userData, array('idu' => $user->getIdu()));
+        }else {
+            $this->db->insert('usuario', $userData);             
+            $id = $this->db->lastInsertId();
+            $user->setIdu($id);
         }
-        
-        return true;
-        
     }
 
     public function findAll($limit, $offset = 0, $orderBy = array())
-    {
-        
+    {        
     }
 
     protected function buildUser($userData)
-    {
-      
+    {      
     }
     
 

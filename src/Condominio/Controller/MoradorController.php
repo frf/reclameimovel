@@ -11,6 +11,7 @@ use Condominio\Entity\Empreendimento;
 use Condominio\Entity\Imagem;
 use Condominio\Entity\User;
 use Condominio\Form\Type\UserType;
+use Condominio\Form\Type\ReclamacaoType;
 use Facebook\FacebookRequest;
 use Facebook\GraphObject;
 use Facebook\FacebookRequestException;
