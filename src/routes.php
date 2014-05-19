@@ -16,11 +16,11 @@ $app->get('/empreendimento/novo', 'Condominio\Controller\IndexController::empNov
 $app->get('/adicionar/{idnome}', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add')->value('idnome',false);
 $app->get('/construtora', 'Condominio\Controller\ConstrutoraController::indexAction')->bind('construtora');
 
-$app->get('/{idnome}/{page}', 'Condominio\Controller\IndexController::indexAction')->bind('principalemp')
+$app->get('/empreendimento/{idnome}/{page}', 'Condominio\Controller\IndexController::indexAction')->bind('principalemp')
                                                                                     ->value('idnome',false)
                                                                                     ->value('page',1);
 
-$app->get('/buscar/{page}/{busca}', 'Condominio\Controller\IndexController::indexAction')->bind('principalbuscar')
+$app->get('/empreendimento/buscar/{page}/{busca}', 'Condominio\Controller\IndexController::indexAction')->bind('principalbuscar')
                                                                                                 ->value('page',1)
                                                                                                 ->value('busca',0);
 

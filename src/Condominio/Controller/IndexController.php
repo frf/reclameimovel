@@ -14,10 +14,10 @@ class IndexController
     public function indexAction(Request $request, Application $app)
     {
         $idnome     = $request->get("idnome");
-        $page       = $request->get("page");
-        $busca      = $request->get("busca",false);
+        $page       = $request->get("page",1);
+        $busca      = $request->get("busca");
         
-        if($idnome != "buscar"){
+        if($idnome != "buscar" && $idnome != ""){
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         }
         
@@ -50,8 +50,9 @@ class IndexController
                 'nome_empresa' => $nome_empresa,
                 'currentPage' => $currentPage,
                 'numPages' => $numPages, 
-                'here' => "/" . $idnome,
-                'adjacentes'=>2
+                'here' => $idnome,
+                'adjacentes'=>2,
+                'uri'=>'/empreendimento'
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
@@ -75,8 +76,9 @@ class IndexController
                 'aLista' => $aLista,
                 'currentPage' => $currentPage,
                 'numPages' => $numPages,
-                'here' => "/buscar",
-                'adjacentes'=>1
+                'here' => "buscar",
+                'adjacentes'=>1,
+                'uri'=>'/empreendimento'
             );
             
             return $app['twig']->render('index.html.twig',$data);
@@ -85,14 +87,14 @@ class IndexController
     public function buscarAction(Request $request, Application $app)
     {
         
-        $busca = $request->get("busca");
-        $page = $request->get("page",1);
+        $busca  = $request->get("busca","");
+        $page   = $request->get("page",1);
           
-        $limit = 5;
-        $total              = $app['repository.empreendimento']->getCountBusca($busca);
-        $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('page', 1);
-        $offset = ($currentPage - 1) * $limit;
+        $limit          = 5;
+        $total          = $app['repository.empreendimento']->getCountBusca($busca);
+        $numPages       = ceil($total / $limit);
+        $currentPage    = $request->query->get('page', 1);
+        $offset         = ($currentPage - 1) * $limit;
         
         $aLista             = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$busca);        
         $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
@@ -104,9 +106,11 @@ class IndexController
             'aEmpMaisProcurados' => $aEmpMaisProcurados,
             'currentPage' => $currentPage,
             'numPages' => $numPages,
-            'here' => "/buscar",
-            'adjacentes'=>1
+            'here' => "buscar",
+            'adjacentes'=>1,
+            'uri'=>'/empreendimento'
         );
+        
         return $app['twig']->render('index.html.twig',$data);
         
     }

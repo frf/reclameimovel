@@ -20,16 +20,18 @@
               </div>
             <a href="/empreendimento/novo"><b style="color:#b92c28;font-size: 12px">Seu empreendimento não está aqui ? Cadastre agora.</b></a>
         </form>
-        {% if numPages > 1 %}
-            <br>
-            <ul class="list-group">
-                {% for empreendimento in aLista %}
-                    <li class="list-group-item"> 
-                        <a href="/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+        <br />
+        {% if numPages >= 1 %}
+         <div class="list-group">
+            <a href="#" class="list-group-item active" style="cursor: default">
+              <b>Resultado da busca</b>
+            </a>
+            {% for empreendimento in aLista %}
+             <a href="{{uri}}/{{empreendimento.idnome}}" class="list-group-item list-group-item-success"><b>{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</b></a>
+            {% endfor %}
+            <br />
             {% include "pagination_busca.html.twig" %}
+            </div>
         {% endif %}
         <br>
         

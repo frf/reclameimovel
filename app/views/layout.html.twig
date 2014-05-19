@@ -42,7 +42,7 @@
             <li  {% if 'minhas_reclamacoes' == active %}class="active"{% endif %}><a href="{{ path('minhas_reclamacoes') }}"><i class="icon-bullhorn"></i>  {{ 'Minhas Reclamações'|trans }}</a></li>
             {% endif %}
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
-            <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('buscar') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
+            <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
 	</ul>
            <ul class="nav navbar-nav  pull-right">
 	{% if app.user %}
