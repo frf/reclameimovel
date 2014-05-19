@@ -58,28 +58,28 @@ class IndexController
             return $app['twig']->render('reclamacoes.html.twig', $data);
             
         }else{
-
-            $limit = 5;
-            $total = $app['repository.empreendimento']->getCountBusca($busca);
-            $numPages = ceil($total / $limit);            
-            $currentPage = $page;
-            $offset = ($currentPage - 1) * $limit;
-            $aLista = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$busca);
-            
-            $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);  
-          
-            $data = array(
-                'idnome' => $idnome,
-                'metaDescription' => "Busca os empreendimentos",
-                'busca' => $busca,
-                'aEmpMaisProcurados' => $aEmpMaisProcurados,
-                'aLista' => $aLista,
-                'currentPage' => $currentPage,
-                'numPages' => $numPages,
-                'here' => "buscar",
-                'adjacentes'=>1,
-                'uri'=>'/empreendimento'
-            );
+            if($busca){
+                $limit = 5;
+                $total = $app['repository.empreendimento']->getCountBusca($busca);
+                $numPages = ceil($total / $limit);            
+                $currentPage = $page;
+                $offset = ($currentPage - 1) * $limit;
+                $aLista = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$busca);
+            }
+                $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);  
+                
+                $data = array(
+                    'idnome' => $idnome,
+                    'metaDescription' => "Busca os empreendimentos",
+                    'busca' => $busca,
+                    'aEmpMaisProcurados' => $aEmpMaisProcurados,
+                    'aLista' => $aLista,
+                    'currentPage' => $currentPage,
+                    'numPages' => $numPages,
+                    'here' => "buscar",
+                    'adjacentes'=>1,
+                    'uri'=>'/empreendimento'
+                );
             
             return $app['twig']->render('index.html.twig',$data);
         }
