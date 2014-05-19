@@ -10,46 +10,81 @@ class EmpreendimentoType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('cpf', 'text', array(
+                ->add('idu', 'hidden')
+                ->add('nomecons', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => '000.000.000-00',
-                        'maxlength'=>'14'
+                        'placeholder' => 'Nome da Construtora',
                     ),                   
-                    'label' => 'CPF do proprietário.',
+                    'label' => 'Nome da Construtora',
                 ))
-                ->add('dadosImovel',  'text', array(
+                ->add('nome', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Ex: Bloco 2 Ap 303, Casa 1 Bloco 10',
-                        'maxlength'=>'100'
+                        'placeholder' => 'Nome do condomínio',
+                    ),                   
+                    'label' => 'Nome do Condomínio',
+                ))
+                ->add('rua',  'text', array(
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Rua x número 10',
                     ),
-                    'label' => 'Dados do Imovel',
+                    'label' => 'Logradouro',
+                    'required' => FALSE,
                 ))
-                ->add('telCelular', 'text', array(
+                ->add('bairro', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => '(21) 22229999',
-                        'maxlength'=>'15'
+                        'placeholder' => 'Centro',
                     ),
-                    'label' => 'Número Telefone Celular'
+                    'label' => 'Bairro',
+                    'required' => FALSE,
                 ))
-                ->add('telResidencial', 'text', array(
+                ->add('uf', 'choice', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => '(21) 22229999',
-                        'maxlength'=>'15'
                     ),
-                    'label' => 'Número Telefone Fixo',
+                    'choices' => array(
+                        "AC"=> "Acre",
+                        "AL"=> "Alagoas",
+                        "AM"=> "Amazonas",
+                        "AP"=> "Amapá",
+                        "BA"=> "Bahia",
+                        "CE"=> "Ceará",
+                        "DF"=> "Distrito Federal",
+                        "ES"=> "Espirito Santo",
+                        "GO"=> "Goiás",
+                        "MA"=> "Maranhão",
+                        "MG"=> "Minas Gerais",
+                        "MS"=> "Mato Grosso do Sul",
+                        "MT"=> "Mato Grosso",
+                        "PA"=> "Pará",
+                        "PB"=> "Paraíba",
+                        "PE"=> "Pernambuco",
+                        "PI"=> "Piauí",
+                        "PR"=> "Paraná",
+                        "RJ"=> "Rio de Janeiro",
+                        "RN"=> "Rio Grande do Norte",
+                        "RO"=> "Rondônia",
+                        "RR"=> "Roraima",
+                        "RS"=> "Rio Grande do Sul",
+                        "SC"=> "Santa Catarina",
+                        "SE"=> "Sergipe",
+                        "SP"=> "São Paulo",
+                        "TO"=> "Tocantins",
+                    ),
+                    'label' => 'Estado',
+                    'data' => 'RJ',
+                    'required' => FALSE,
                 ))
-                ->add('telContato', 'text', array(
+                ->add('cidade', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => '(21) 22229999',
-                        'maxlength'=>'15'
+                        'placeholder' => 'Rio de Janeiro',
                     ),
                     'required' => FALSE,
-                    'label' => 'Número Telefone Contato'
+                    'label' => 'Cidade'
                 ))
                 ->add('Salvar', 'submit', array('label' => "Salvar informação", 'attr' => array('class' => 'btn btn-primary separar','style'=>'margin-top:20px')));
     }

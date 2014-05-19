@@ -2,15 +2,15 @@
         <ul class="pager">
             <li {% if currentPage == 1 %}class="disabled"{% endif %}>
                 {% if currentPage == 1 %}<a href="#">Anterior</a>{% endif %}
-                {% if currentPage != 1 %}<a href="{{ here }}?page={{ currentPage - 1 }}">Anterior</a>{% endif %}
+                {% if currentPage != 1 %}<a href="{{ here }}/{{ currentPage - 1 }}">Anterior</a>{% endif %}
             </li>
             {% for i in 1..numPages %}
                 <li {% if currentPage == i %}class="active"{% endif %}>
-                    <a href="{{ here }}?page={{ i }}">{{ i }} </a>
+                    <a href="{{ here }}/{{ i }}">{{ i }} </a>
                 </li>
             {% endfor %}
             <li {% if currentPage == numPages %}class="disabled"{% endif %}>
-                {% if currentPage != numPages %}<a href="{{ here }}?page={{ currentPage + 1 }}">Próximo</a>{% endif %}
+                {% if currentPage != numPages %}<a href="{{ here }}/{{ currentPage + 1 }}">Próximo</a>{% endif %}
                 {% if currentPage == numPages %}<a href="#">Próximo</a>{% endif %}
             </li>
         </ul>

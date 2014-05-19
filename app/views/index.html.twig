@@ -18,7 +18,7 @@
                     <button class="btn btn-success" type="submit">Buscar</button>
                 </span>
               </div>
-                <a href="/empreendimento/novo">Seu empreendimento não está aqui ? Cadastre agora.</a>
+            <a href="/empreendimento/novo"><b style="color:#b92c28;font-size: 12px">Seu empreendimento não está aqui ? Cadastre agora.</b></a>
         </form>
         {% if numPages > 1 %}
             <br>
@@ -29,7 +29,7 @@
                     </li>
                 {% endfor %}
             </ul>
-            {% include "pagination.html.twig" %}
+            {% include "pagination_busca.html.twig" %}
         {% endif %}
         <br>
         

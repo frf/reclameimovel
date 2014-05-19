@@ -26,42 +26,42 @@ class EmpreendimentoRepository implements RepositoryInterface
      * Saves the empreendimento to the database.
      *
      * @param \Condominio\Entity\Empreendimento $empreendimento
+     *   protected 'empresa' => null
+  protected 'id' => null
+  protected 'idnome' => null
+  protected 'idu' => string '1' (length=1)
+  protected 'nome' => string 'aaaaaaaaaaaaaaaaa' (length=17)
+  protected 'nomecons' => string 'aaaaaaaaaaaa' (length=12)
+  protected 'rua' => null
+  protected 'latilong' => null
+  protected 'bairro' => null
+  protected 'uf' => string 'RJ' (length=2)
+  protected 'cidade' => null
+  protected 'ide' => null
+  protected 'visita' => null
      */
-    public function save($empreendimento)
+    public function save($emp){        
+    }
+    
+    public function saveTmp($emp)
     {
-        $empreendimentoData = array(
-            'name' => $empreendimento->getName(),
-            'short_biography' => $empreendimento->getShortBiography(),
-            'biography' => $empreendimento->getBiography(),
-            'soundcloud_url' => $empreendimento->getSoundCloudUrl(),
-            'image' => $empreendimento->getImage(),
+        $empData = array(
+            'idu' => $emp->getIdu(),
+            'idnome' => $emp->getIdNome(),
+            'nome' => $emp->getNome(),
+            'nomecons' => $emp->getNomecons(),
+            'rua' => $emp->getRua(),
+            'bairro' => $emp->getBairro(),
+            'uf' => $emp->getUf(),
+            'cidade' => $emp->getCidade(),
         );
 
-        if ($empreendimento->getId()) {
-            // If a new image was uploaded, make sure the filename gets set.
-            $newFile = $this->handleFileUpload($empreendimento);
-            if ($newFile) {
-                $empreendimentoData['image'] = $empreendimento->getImage();
-            }
-
-            $this->db->update('empreendimento', $empreendimentoData, array('id' => $empreendimento->getId()));
-        }
-        else {
-            // The empreendimento is new, note the creation timestamp.
-            $empreendimentoData['created_at'] = time();
-
-            $this->db->insert('empreendimento', $empreendimentoData);
-            // Get the id of the newly created empreendimento and set it on the entity.
+        if ($emp->getId()) {
+            $this->db->update('tmp_empreendimento', $empData, array('id' => $emp->getId()));
+        }else {
+            $this->db->insert('tmp_empreendimento', $empData);             
             $id = $this->db->lastInsertId();
-            $empreendimento->setId($id);
-
-            // If a new image was uploaded, update the empreendimento with the new
-            // filename.
-            $newFile = $this->handleFileUpload($empreendimento);
-            if ($newFile) {
-                $newData = array('image' => $empreendimento->getImage());
-                $this->db->update('empreendimento', $newData, array('id' => $id));
-            }
+            $emp->setId($id);
         }
     }
 
@@ -87,6 +87,9 @@ class EmpreendimentoRepository implements RepositoryInterface
      */
     public function getCount() {
         return $this->db->fetchColumn('SELECT COUNT(id) FROM empreendimento');
+    }
+    public function getCountBusca($busca) {
+        return $this->db->fetchColumn("SELECT COUNT(id) FROM empreendimento where nome like '%$busca%'");
     }
     public function updateVisita($id)
     {

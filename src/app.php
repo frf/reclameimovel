@@ -56,6 +56,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         '/morador' => 'ROLE_USER',
         '/adicionar' => 'ROLE_USER',
         '/minhas-reclamacoes' => 'ROLE_USER',
+        '/empreendimento/novo' => 'ROLE_USER',
     );
     $path = $request->getPathInfo();
 

@@ -4862,6 +4862,10 @@ body.login .login-container-footer a {
     color:#FFFFFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+.pager > li >  a.active {
+    background-color: #428BCA;
+    color: #ffffff;
+}
 .btn, .btn-group > .btn:first-child, .btn-group > .btn:last-child, .btn-group > .dropdown-toggle {
     border-radius: 0 !important;
 }
