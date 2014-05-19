@@ -76,7 +76,7 @@ class EmpreendimentoType extends AbstractType {
                     ),
                     'label' => 'Estado',
                     'data' => 'RJ',
-                    'required' => FALSE,
+                    'required' => true,
                 ))
                 ->add('cidade', 'text', array(
                     'attr' => array(
