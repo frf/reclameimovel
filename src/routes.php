@@ -20,10 +20,11 @@ $app->get('/{idnome}/{page}', 'Condominio\Controller\IndexController::indexActio
                                                                                     ->value('idnome',false)
                                                                                     ->value('page',1);
 
-$app->get('/buscar/{page}/{busca}', 'Condominio\Controller\IndexController::indexAction')->bind('principal')
+$app->get('/buscar/{page}/{busca}', 'Condominio\Controller\IndexController::indexAction')->bind('principalbuscar')
                                                                                                 ->value('page',1)
                                                                                                 ->value('busca',0);
 
+$app->get('/','Condominio\Controller\IndexController::indexAction')->bind('principal');
 $app->get('/view/{ide}/{id}', 'Condominio\Controller\IndexController::viewAction')->bind('view')->value('ide',false)->value('id',false);
 $app->get('/api/empreendimento', 'Condominio\Controller\EmpreendimentoController::apiAction')->bind('api_emp');
 
