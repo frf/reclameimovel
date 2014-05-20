@@ -9,36 +9,35 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Condominio\Form\Type\EmpreendimentoType;
 use Condominio\Entity\Empreendimento;
 
-class IndexController
-{
-    public function indexAction(Request $request, Application $app)
-    {
-        $idnome     = $request->get("idnome");
-        $page       = $request->get("page",1);
-        $busca      = $request->get("busca");
-        
-        if($idnome != "buscar" && $idnome != ""){
+class IndexController {
+
+    public function indexAction(Request $request, Application $app) {
+        $idnome = $request->get("idnome");
+        $page = $request->get("page", 1);
+        $busca = $request->get("busca");
+
+        if ($idnome != "buscar" && $idnome != "") {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         }
-        
-        if($oEmp){
+
+        if ($oEmp) {
             $app['repository.empreendimento']->updateVisita($oEmp->getId());
-            
+
             $nome_empresa = $oEmp->getEmpresa()->getNome();
             $nome_emp = $oEmp->getNome();
             $ide = $oEmp->getId();
-            
+
             $limit = 5;
-            
+
             $total = $app['repository.reclamacao']->getCountReclamacao($ide);
             $totalSolucao = $app['repository.reclamacao']->getCountSolucao($ide);
-            
+
             $numPages = ceil($total / $limit);
             $currentPage = $page;
             $offset = ($currentPage - 1) * $limit;
-            
-            $aLista = $app['repository.reclamacao']->findReclamacaoEmpreendimento($limit, $offset,array(),$ide);                
-            
+
+            $aLista = $app['repository.reclamacao']->findReclamacaoEmpreendimento($limit, $offset, array(), $ide);
+
             $data = array(
                 'metaDescription' => "",
                 'idnome' => $idnome,
@@ -49,99 +48,105 @@ class IndexController
                 'nome_emp' => $nome_emp,
                 'nome_empresa' => $nome_empresa,
                 'currentPage' => $currentPage,
-                'numPages' => $numPages, 
+                'numPages' => $numPages,
                 'here' => $idnome,
-                'adjacentes'=>2,
-                'uri'=>'/empreendimento'
+                'adjacentes' => 2,
+                'uri' => '/empreendimento'
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
-            
-        }else{
-            if($busca){
+        } else {
+            if ($busca) {
                 $limit = 5;
                 $total = $app['repository.empreendimento']->getCountBusca($busca);
-                $numPages = ceil($total / $limit);            
+                $numPages = ceil($total / $limit);
                 $currentPage = $page;
                 $offset = ($currentPage - 1) * $limit;
-                $aLista = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$busca);
+                $aLista = $app['repository.empreendimento']->findAllWhere($limit, $offset, array(), $busca);
             }
-                $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);  
-                
-                $data = array(
-                    'idnome' => $idnome,
-                    'metaDescription' => "Busca os empreendimentos",
-                    'busca' => $busca,
-                    'aEmpMaisProcurados' => $aEmpMaisProcurados,
-                    'aLista' => $aLista,
-                    'currentPage' => $currentPage,
-                    'numPages' => $numPages,
-                    'here' => "buscar",
-                    'adjacentes'=>1,
-                    'uri'=>'/empreendimento'
-                );
+            $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);
+
+            $data = array(
+                'idnome' => $idnome,
+                'metaDescription' => "Busca os empreendimentos",
+                'busca' => $busca,
+                'aEmpMaisProcurados' => $aEmpMaisProcurados,
+                'currentPage' => $currentPage,
+                'numPages' => $numPages,
+                'here' => "buscar",
+                'adjacentes' => 1,
+                'uri' => '/empreendimento'
+            );
+
+            $data['aLista'] = $aLista;
+            $data['exibeErro'] = false;
             
-            return $app['twig']->render('index.html.twig',$data);
+            return $app['twig']->render('index.html.twig', $data);
         }
     }
-    public function buscarAction(Request $request, Application $app)
-    {
-        
-        $busca  = $request->get("busca","");
-        $page   = $request->get("page",1);
-          
-        $limit          = 5;
-        $total          = $app['repository.empreendimento']->getCountBusca($busca);
-        $numPages       = ceil($total / $limit);
-        $currentPage    = $request->query->get('page', 1);
-        $offset         = ($currentPage - 1) * $limit;
-        
-        $aLista             = $app['repository.empreendimento']->findAllWhere($limit,$offset,array(),$busca);        
-        $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);  
-        
+
+    public function buscarAction(Request $request, Application $app) {
+
+        $busca = $request->get("busca", "");
+        $page = $request->get("page", 1);
+
+        $limit = 5;
+        $total = $app['repository.empreendimento']->getCountBusca($busca);
+        $numPages = ceil($total / $limit);
+        $currentPage = $request->query->get('page', 1);
+        $offset = ($currentPage - 1) * $limit;
+
+        $aLista = $app['repository.empreendimento']->findAllWhere($limit, $offset, array(), $busca);
+        $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);
+
         $data = array(
             'metaDescription' => $metaDescription,
             'busca' => $busca,
-            'aLista' => $aLista,
             'aEmpMaisProcurados' => $aEmpMaisProcurados,
             'currentPage' => $currentPage,
             'numPages' => $numPages,
             'here' => "buscar",
-            'adjacentes'=>1,
-            'uri'=>'/empreendimento'
+            'adjacentes' => 1,
+            'uri' => '/empreendimento'
         );
-        
-        return $app['twig']->render('index.html.twig',$data);
-        
+
+        if ($aLista) {
+            $data['aLista'] = $aLista;
+            $data['exibeErro'] = false;
+        } else {
+            $data['aLista'] = false;
+            $data['exibeErro'] = true;
+        }
+
+        return $app['twig']->render('index.html.twig', $data);
     }
-    
-    public function viewAction(Request $request, Application $app)
-    {        
+
+    public function viewAction(Request $request, Application $app) {
         $ide = $request->get("ide");
         $id = $request->get("id");
 
-        if(is_numeric($ide)){
+        if (is_numeric($ide)) {
             $oEmp = $app['repository.empreendimento']->find($ide);
-        }else{
-            $oEmp = $app['repository.empreendimento']->findIdNome($ide);    
+        } else {
+            $oEmp = $app['repository.empreendimento']->findIdNome($ide);
         }
 
-        if($oEmp){            
-            if($id){
+        if ($oEmp) {
+            if ($id) {
                 $oReclamacao = $app['repository.reclamacao']->find($id);
-            
+
                 $app['repository.reclamacao']->updateVisita($id);
 
-                $titulo             = ucwords(str_replace("-"," ",$ide));
-                $sub_titulo         = ucwords($oEmp->getBairro());
-                $nome_empresa       = $oEmp->getEmpresa()->getNome();
-                $nome_emp           = $oEmp->getNome();
-                $descricao          = $oReclamacao->getDescricao();
-                $titulo_reclamacao  = $oReclamacao->getTitulo();
-                $imagem             = $oReclamacao->getImagem();
-                
+                $titulo = ucwords(str_replace("-", " ", $ide));
+                $sub_titulo = ucwords($oEmp->getBairro());
+                $nome_empresa = $oEmp->getEmpresa()->getNome();
+                $nome_emp = $oEmp->getNome();
+                $descricao = $oReclamacao->getDescricao();
+                $titulo_reclamacao = $oReclamacao->getTitulo();
+                $imagem = $oReclamacao->getImagem();
+
                 $txtReclamacao = substr("$nome_empresa - $nome_emp, $titulo_reclamacao -  $descricao", 0, 155);
-                
+
                 $data = array(
                     'metaDescription' => $txtReclamacao,
                     'nome_emp' => $nome_emp,
@@ -149,85 +154,82 @@ class IndexController
                     'nome_empresa' => $nome_empresa,
                     'reclamacao' => $oReclamacao,
                     'titulo_empreendimento' => $titulo,
-                    'sub_titulo' => $sub_titulo,       
+                    'sub_titulo' => $sub_titulo,
                     'ide' => $ide,
                     'id' => $id,
                     'imagem' => $imagem,
                 );
                 return $app['twig']->render('view.html.twig', $data);
-               
-            }else{
+            } else {
                 return $app->redirect("/$ide");
             }
         }
         return false;
     }
-    public function moradorAction(Request $request, Application $app)
-    {        
+
+    public function moradorAction(Request $request, Application $app) {
         return $app['twig']->render('morador.html.twig');
-        
     }
-    public function construtoraAction(Request $request, Application $app)
-    {        
+
+    public function construtoraAction(Request $request, Application $app) {
         return $app['twig']->render('construtora.html.twig');
-        
     }
-    
+
     public function empNovoAction(Request $request, Application $app) {
-    
+
         $emp = new Empreendimento();
-        
-        if($app['token']){
+
+        if ($app['token']) {
             $uid = $app['token']->getUid();
             $user = $app['repository.user']->find($uid);
-        }else{
+        } else {
             $uid = 1;
         }
-        
+
         $emp->setIdu($uid);
-        
-        $form = $app['form.factory']->create(new EmpreendimentoType(),$emp);
+
+        $form = $app['form.factory']->create(new EmpreendimentoType(), $emp);
 
         $data = array(
             'metaDescription' => '',
             'form' => $form->createView(),
         );
-        
+
         return $app['twig']->render('emp.html.twig', $data);
-      
     }
+
     public function empCadastrarAction(Request $request, Application $app) {
-        
+
         $emp = new Empreendimento();
-        
-        if($app['token']){
+
+        if ($app['token']) {
             $uid = $app['token']->getUid();
             $user = $app['repository.user']->find($uid);
-        }else{
+        } else {
             $uid = 1;
         }
-        
+
         $emp->setIdu($uid);
-        
-        $form = $app['form.factory']->create(new EmpreendimentoType(),$emp);
+
+        $form = $app['form.factory']->create(new EmpreendimentoType(), $emp);
 
         if ($request->isMethod('POST')) {
-            
+
             $form->bind($request);
-            
+
             if ($form->isValid()) {
                 $app['repository.empreendimento']->saveTmp($emp);
-                
+
                 $message = 'Informações adicionadas com sucesso. Em até 24hs entraremos em contato para liberar cadastro das reclamações do seu empreendimento.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
                 $redirect = $app['url_generator']->generate('principal');
-                
+
                 return $app->redirect($redirect);
             }
 
             return false;
-            
-        } 
+        }
     }
+
 }
