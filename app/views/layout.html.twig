@@ -43,6 +43,9 @@
             {% endif %}
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
             <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
+            
+            <li {% if 'quemsomos' == active %}class="active"{% endif %}><a href="{{ path('quemsomos') }}"><i class="icon-th-large"></i>  {{ 'Quem Somos'|trans }}</a></li>
+            <li {% if 'termo' == active %}class="active"{% endif %}><a href="{{ path('termo') }}"><i class="icon-link"></i>  {{ 'Termo'|trans }}</a></li>
 	</ul>
            <ul class="nav navbar-nav  pull-right">
 	{% if app.user %}

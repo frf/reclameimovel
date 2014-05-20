@@ -51,7 +51,7 @@
                 <ul class="list-group">
                     {% for empreendimento in aEmpMaisProcurados %}
                         <li class="list-group-item"> 
-                            <a href="{{app.view_path}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
+                            <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
                         </li>
                     {% endfor %}
                 </ul>

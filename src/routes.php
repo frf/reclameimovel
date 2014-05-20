@@ -25,7 +25,9 @@ $app->get('/empreendimento/buscar/{page}/{busca}', 'Condominio\Controller\IndexC
                                                                                                 ->value('busca',0);
 
 $app->get('/','Condominio\Controller\IndexController::indexAction')->bind('principal');
-$app->get('/view/{ide}/{id}', 'Condominio\Controller\IndexController::viewAction')->bind('view')->value('ide',false)->value('id',false);
+$app->get('/termo-de-uso','Condominio\Controller\IndexController::termoAction')->bind('termo');
+$app->get('/quem-somos','Condominio\Controller\IndexController::quemsomosAction')->bind('quemsomos');
+$app->get('/empreendimento/view/{ide}/{id}', 'Condominio\Controller\IndexController::viewAction')->bind('view')->value('ide',false)->value('id',false);
 $app->get('/api/empreendimento', 'Condominio\Controller\EmpreendimentoController::apiAction')->bind('api_emp');
 
 $app->post('/buscar', 'Condominio\Controller\IndexController::buscarAction')->bind('buscar');

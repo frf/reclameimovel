@@ -34,7 +34,7 @@
             <li class="list-group-item"> 
                 <span class="label label-danger left" style="border-radius:10px;float: right;margin-left: 20px">Pendente</span> 
                 <span class="badge" title="Visualizações">{{reclamacao.visita}}</span>
-                <a href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.dt_cadastro.date|date('d/m/Y H:i')}} - {{reclamacao.titulo}}</a>
+                <a href="{{uri}}/view/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.dt_cadastro.date|date('d/m/Y H:i')}} - {{reclamacao.titulo}}</a>
             </li>
         {% endfor %}
         </ul>

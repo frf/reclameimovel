@@ -55,6 +55,7 @@ class IndexController {
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
+            
         } else {
             if ($busca) {
                 $limit = 5;
@@ -173,6 +174,12 @@ class IndexController {
 
     public function construtoraAction(Request $request, Application $app) {
         return $app['twig']->render('construtora.html.twig');
+    }
+    public function termoAction(Request $request, Application $app) {
+        return $app['twig']->render('termo.html.twig',array('metaDescription'=>'Termo de uso do Reclame Imóvel'));
+    }
+    public function quemsomosAction(Request $request, Application $app) {
+        return $app['twig']->render('quemsomos.html.twig',array('metaDescription'=>'Quem somos?'));
     }
 
     public function empNovoAction(Request $request, Application $app) {
