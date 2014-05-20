@@ -8,7 +8,7 @@ $(document).ready(function() {
         console.log(this);
     });
     $("#adicionar_busca").click(function() {
-        window.location = '/buscar';
+        window.location = '/';
     });
     
     //$("#user_cpf").mask("999.999.999-99",{clearIfNotMatch: true});    // Máscara para CNPJ
