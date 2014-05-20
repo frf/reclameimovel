@@ -92,6 +92,9 @@ class ReclamacaoRepository implements RepositoryInterface
     public function getCountSolucao($ide) {
         return $this->db->fetchColumn("SELECT COUNT(id) FROM reclamacao where ide = '$ide' and solucao=1");
     }
+    public function getCountUsuario($idu) {
+        return $this->db->fetchColumn("SELECT COUNT(id) FROM reclamacao where idu = '$idu'");
+    }
     public function getCountReclamacao($ide) {
         return $this->db->fetchColumn("SELECT COUNT(id) FROM reclamacao where ide = '$ide' ");
     }
@@ -191,6 +194,39 @@ class ReclamacaoRepository implements RepositoryInterface
         
         if($ide){
             $queryBuilder->where("r.ide = $ide");
+        }
+        
+        $statement = $queryBuilder->execute();
+        $reclamacaoData = $statement->fetchAll();
+
+        $reclamacao = array();
+        foreach ($reclamacaoData as $reclamacaoData) {
+            $reclamacaoId = $reclamacaoData['id'];
+            $reclamacao[$reclamacaoId] = $this->buildReclamacao($reclamacaoData);
+        }
+        
+        return $reclamacao;
+    }
+    public function findReclamacaoUsuario($limit, $offset = 0, $orderBy = array(),$idu=null)
+    {
+        // Provide a default orderBy.
+        if (!$orderBy) {
+            $orderBy = array('r.dt_cadastro' => 'DESC');
+        }
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->from('reclamacao', 'r')
+            ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
+            ->innerJoin('emp',"empresa","e","e.id = emp.ide");
+        
+        $queryBuilder->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy( key($orderBy), current($orderBy));
+        
+        if($idu){
+            $queryBuilder->where("r.idu = $idu");
         }
         
         $statement = $queryBuilder->execute();

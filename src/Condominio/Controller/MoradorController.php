@@ -31,16 +31,23 @@ class MoradorController {
     }
     public function minhasReclamacoesAction(Request $request, Application $app) {
 
-        // Perform pagination logic.
-        $limit = 2;
-        $total = $app['repository.reclamacao']->getCount();
-        $numPages = ceil($total / $limit);
-        $currentPage = $request->query->get('page', 1);
+        if($app['token']){
+            $idu = $app['token']->getUid();
+        }else{
+            $idu = 1;
+        }
         
+        $page = $request->get("page", 1);
+        
+        $limit = 10;
+        $total = $app['repository.reclamacao']->getCountUsuario($idu);
+        
+        $numPages = ceil($total / $limit);
+        $currentPage = $page;
         $offset = ($currentPage - 1) * $limit;
         
-        $aLista = $app['repository.reclamacao']->findAll($limit, $offset);
-
+        $aLista = $app['repository.reclamacao']->findReclamacaoUsuario($limit, $offset,array(),$idu);
+        
         $data = array(
             'active'=>'minhas_reclamacoes',
             'metaDescription' => '',
@@ -48,7 +55,10 @@ class MoradorController {
             'aLista' => $aLista,
             'currentPage' => $currentPage,
             'numPages' => $numPages,
-            'here' => $app['url_generator']->generate('minhas_reclamacoes'),
+            'adjacentes' => 2,
+            'busca'=>false,
+            'uri'=>'/morador',
+            'here' => "minhas-reclamacoes",
         );
 
         return $app['twig']->render('minhas_rec.html.twig', $data);

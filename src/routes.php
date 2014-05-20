@@ -9,7 +9,7 @@ $app['controllers']->convert('user', function ($id) use ($app) {
 $app->get('/login', 'Condominio\Controller\LoginController::loginAction')->bind('login');
 $app->match('/logout', function () {})->bind('logout');
 $app->get('/morador', 'Condominio\Controller\MoradorController::indexAction')->bind('morador');
-$app->get('/morador/minhas-reclamacoes', 'Condominio\Controller\MoradorController::minhasReclamacoesAction')->bind('minhas_reclamacoes');
+$app->get('/morador/minhas-reclamacoes/{page}', 'Condominio\Controller\MoradorController::minhasReclamacoesAction')->bind('minhas_reclamacoes')->value('page',1);
 $app->get('/morador/dados-complementares', 'Condominio\Controller\MoradorController::dadosAction')->bind('dados_usuario');
 $app->get('/empreendimento/novo', 'Condominio\Controller\IndexController::empNovoAction')->bind('emp_novo');
 
