@@ -1504,7 +1504,7 @@ header .navbar .navbar-brand {
     vertical-align: middle;
 }
 header .navbar .navbar-brand:hover, header .navbar .navbar-brand:focus {
-    color: #FFFFFF;
+    color: #000000;
 }
 header .navbar .navbar-brand .logo {
     display: none;
@@ -5445,4 +5445,19 @@ form div.photos > div.uploading span.progress span {
     background: #0087B9;
     display: block;
     height: 100%;
+}
+.navbar-inverse{
+ background-color: #428BCA;
+}
+.navbar-inverse .navbar-nav > li > a{
+    color:#FFFFFF !important;
+}
+.navbar-inverse .navbar-nav > li > a:hover{
+    color:#000000 !important;
+}
+.navbar-inverse .navbar-nav > li > a:focus{
+    color:#000000 !important;
+}
+.navbar-brand{
+    color:#FFFFFF !important;
 }
