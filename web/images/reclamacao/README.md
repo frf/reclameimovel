@@ -1,2 +1,0 @@
-IMAGENS DE RECLAMACAO
-===============

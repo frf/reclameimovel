@@ -33,6 +33,7 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
             $enabled = isset($attributes['enabled']) ? $attributes['enabled'] : true;
             $roles = isset($attributes['roles']) ? (array) $attributes['roles'] : array();
             $user = new User($username, $password, $email, $roles, $enabled, true, true, true);
+		exit;
             $this->createUser($user);
         }
 
