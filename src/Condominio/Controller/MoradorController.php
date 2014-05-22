@@ -195,30 +195,31 @@ class MoradorController {
                    $uid = $app['token']->getUid();
                    $oUser = $app['repository.user']->find($uid);
                    
-                $body = $app['twig']->render('emailCadastroReclamacao.html.twig',
-                        array(
-                            'name' => $oUser->getName(),
-                            'mail' => $oUser->getEmail(),
-                            'idreclamacao'=>str_pad($reclamacao->getId(), 10, "0", STR_PAD_LEFT),
-                            'titulo'=>$reclamacao->getTitulo(),
-                            'reclamacao'=>$reclamacao
-                        ));
+                    $body = $app['twig']->render('emailCadastroReclamacao.html.twig',
+                            array(
+                                'name' => $oUser->getName(),
+                                'mail' => $oUser->getEmail(),
+                                'idreclamacao'=>str_pad($reclamacao->getId(), 10, "0", STR_PAD_LEFT),
+                                'titulo'=>$reclamacao->getTitulo(),
+                                'reclamacao'=>$reclamacao
+                            ));
 
-                $message = \Swift_Message::newInstance()
-                                ->setSubject('[Reclame Imóvel] Parabéns reclamação cadastrada com sucesso. ')
-                                ->setFrom(array('contato@reclameimovel.com.br'=>'Reclame Imóvel'))
-                                ->setTo(array($oUser->getEmail()=>$oUser->getName()))
-                                ->setBody($body)
-                                ->setContentType("text/html");
+                    $message = \Swift_Message::newInstance()
+                                    ->setSubject('[Reclame Imóvel] Parabéns reclamação cadastrada com sucesso. ')
+                                    ->setFrom(array('contato@reclameimovel.com.br'=>'Reclame Imóvel'))
+                                    ->setTo(array($oUser->getEmail()=>$oUser->getName()))
+                                    ->setBody($body)
+                                    ->setContentType("text/html");
 
-                $app['mailer']->send($message);      
-        
-                $message = 'Reclamação salva com sucesso.';
-                $app['session']->getFlashBag()->add('success', $message);
-                // Redirect to the edit page.
-                $redirect = $app['url_generator']->generate('view');
-                
-                return $app->redirect($redirect."/".$reclamacao->getIde()."/".$reclamacao->getId());
+                    $app['mailer']->send($message);   
+               }
+
+                    $message = 'Reclamação salva com sucesso.';
+                    $app['session']->getFlashBag()->add('success', $message);
+                    // Redirect to the edit page.
+                    $redirect = $app['url_generator']->generate('view');
+
+                    return $app->redirect($redirect."/".$reclamacao->getIde()."/".$reclamacao->getId());
             }
 
             return false;
