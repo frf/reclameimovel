@@ -177,6 +177,15 @@ class IndexController {
     public function moradorAction(Request $request, Application $app) {
         return $app['twig']->render('morador.html.twig');
     }
+    public function emailbemvindoAction(Request $request, Application $app) {
+        
+        $data = array(
+            'mail'=>'fabio@fabiofarias.com.br',
+            'name'=>'Fabio'
+        );
+        
+        return $app['twig']->render('emailBemVindo.html.twig',$data);
+    }
 
     public function construtoraAction(Request $request, Application $app) {
         return $app['twig']->render('construtora.html.twig');

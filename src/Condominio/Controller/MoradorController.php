@@ -162,19 +162,7 @@ class MoradorController {
             $redirect = $app['url_generator']->generate('principal');
             //return $app->redirect($redirect);
         }
-            
-        $body = $app['twig']->render('emailBemVindo.html.twig',array('name' => $name));
-        var_dump($user);
-        exit;
-        $message = \Swift_Message::newInstance()
-                        ->setSubject('[Reclame Imóvel] Parabéns pelo cadastro. ')
-                        ->setFrom(array('contato@reclameimovel.com.br'=>'Reclame Imóvel'))
-                        ->setTo(array('fabio@fabiofarias.com.br'=>'Fabio'))
-                        ->setBody($body)
-                        ->setContentType("text/html");
-                        
-        $app['mailer']->send($message);
-  
+        
         $reclamacao->setIdu($uid);
         
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
@@ -197,7 +185,22 @@ class MoradorController {
                             $app['repository.imagem']->handleFileUpload($File);
                     }
                 }
-              
+                /*
+                 * Enviar email
+                 */
+                $body = $app['twig']->render('emailBemVindo.html.twig',
+                        array('name' => $user->getName()));
+
+                $message = \Swift_Message::newInstance()
+                                ->setSubject('[Reclame Imóvel] Parabéns pelo cadastro. ')
+                                ->setFrom(array('contato@reclameimovel.com.br'=>'Reclame Imóvel'))
+                                ->setTo(array($user->getEmail()=>$user->getName()))
+                                ->setBody($body)
+                                ->setContentType("text/html");
+
+                $app['mailer']->send($message);
+  
+        
                 $message = 'Reclamação salva com sucesso.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
