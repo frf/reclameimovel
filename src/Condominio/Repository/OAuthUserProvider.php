@@ -55,7 +55,6 @@ class OAuthUserProvider implements UserProviderInterface, OAuthUserProviderInter
     {
         if (isset($this->users[strtolower($username)])) {
             $user = $this->users[strtolower($username)];
-            echo "OKOKO";
         } else {
             $user = new User($username, '', $username . '@example.org', array('ROLE_USER'), true, true, true, true);
             $this->createUser($user);
