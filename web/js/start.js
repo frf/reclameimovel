@@ -7,15 +7,18 @@ $(document).ready(function() {
     $("#deleteImg").click(function() {
         console.log(this);
     });
+    $("#logoClick").click(function() {
+        window.location = '/';
+    });
     $("#adicionar_busca").click(function() {
         window.location = '/';
     });
     
-    //$("#user_cpf").mask("999.999.999-99",{clearIfNotMatch: true});    // Máscara para CNPJ
+    $("#user_cpf").mask("999.999.999-99",{clearIfNotMatch: true});    // Máscara para CNPJ
    
-    //$("#user_telCelular").mask("(99)99999-9999");    // Máscara para CNPJ
-    //$("#user_telResidencial").mask("(99)9999-9999");    // Máscara para CNPJ
-    //$("#user_telContato").mask("(99)9999-9999?9");    // Máscara para CNPJ
+    $("#user_telCelular").mask("(99)9?9999-9999");    // Máscara para CNPJ
+    $("#user_telResidencial").mask("(99)9999-9999");    // Máscara para CNPJ
+    $("#user_telContato").mask("(99)9999-9999?9");    // Máscara para CNPJ
 });
 
 function closeMsg() {

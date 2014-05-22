@@ -32,14 +32,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <img src="/images/SoCasinha400dpiLogo.png" style="width: 40px;height: 40px;float: left;margin-right: 10px;margin-left:10px;margin-top: 5px">
+            <img id="logoClick" src="/images/SoCasinha400dpiLogo.png" style="cursor:pointer; width: 40px;height: 40px;float: left;margin-right: 10px;margin-left:10px;margin-top: 5px">
             <a href="/" class="navbar-brand"> Reclame Imóvel</a>
-            
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
-            <li  {% if 'morador' == active %}class="active"{% endif %}><a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
             {% if app.user %}
             <li  {% if 'minhas_reclamacoes' == active %}class="active"{% endif %}><a href="{{ path('minhas_reclamacoes') }}"><i class="icon-bullhorn"></i>  {{ 'Minhas Reclamações'|trans }}</a></li>
             {% endif %}
@@ -47,10 +45,12 @@
             <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
             
             <li {% if 'quemsomos' == active %}class="active"{% endif %}><a href="{{ path('quemsomos') }}"><i class="icon-th-large"></i>  {{ 'Quem Somos'|trans }}</a></li>
-            <li {% if 'termo' == active %}class="active"{% endif %}><a href="{{ path('termo') }}"><i class="icon-link"></i>  {{ 'Termo'|trans }}</a></li>
 	</ul>
            <ul class="nav navbar-nav  pull-right">
 	{% if app.user %}
+		<li><img style="margin-top:5px;margin-right:5px" src="https://graph.facebook.com/{{app.token.uid}}/picture/picture?type=square" width="40px" heigth="40px"></li>
+            <li  {% if 'morador' == active %}class="active"{% endif %}>
+			<a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
         <li>
 		<a href="{{ app.login.logout_path }}"><i class="glyphicon glyphicon-lock"></i> Sair</a>
 	</li>

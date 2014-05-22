@@ -21,8 +21,7 @@ use Facebook\FacebookSession;
 class MoradorController {
 
     public function indexAction(Request $request, Application $app) {
-        
-        $data = array(
+	$data = array(        
             'active'=>'morador',
             'metaDescription'=>'',
         );

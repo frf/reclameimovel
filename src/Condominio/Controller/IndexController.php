@@ -148,7 +148,10 @@ class IndexController {
 
                 $txtReclamacao = substr("$nome_empresa - $nome_emp, $titulo_reclamacao -  $descricao", 0, 155);
 
+		$aYoutube = explode("=",$oReclamacao->getYoutube());
+
                 $data = array(
+                    'youtube' => $aYoutube[1],
                     'metaDescription' => $txtReclamacao,
                     'nome_emp' => $nome_emp,
                     'descricao' => $descricao,
@@ -167,6 +170,9 @@ class IndexController {
         }
         return false;
     }
+
+
+
 
     public function moradorAction(Request $request, Application $app) {
         return $app['twig']->render('morador.html.twig');
