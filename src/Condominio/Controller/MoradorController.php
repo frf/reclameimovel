@@ -188,6 +188,7 @@ class MoradorController {
                 /*
                  * Enviar email
                  */
+                /*
                 $body = $app['twig']->render('emailBemVindo.html.twig',
                         array('name' => $user->getName()));
 
@@ -199,7 +200,7 @@ class MoradorController {
                                 ->setContentType("text/html");
 
                 $app['mailer']->send($message);
-  
+                */
         
                 $message = 'Reclamação salva com sucesso.';
                 $app['session']->getFlashBag()->add('success', $message);

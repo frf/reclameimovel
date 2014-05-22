@@ -19,6 +19,16 @@ class IndexController {
         if ($idnome != "buscar" && $idnome != "") {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         }
+        
+        /*
+         * Pegar id da sessao
+         */
+        if($app['token']){
+            $uid = $app['token']->getUid();
+            $user = $app['repository.user']->bemVindo($uid);
+        }
+        
+        
 
         if ($oEmp) {
             $app['repository.empreendimento']->updateVisita($oEmp->getId());
