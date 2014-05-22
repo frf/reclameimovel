@@ -18,12 +18,14 @@ class ReclamacaoRepository implements RepositoryInterface
      */
     protected $empreendimentoRepository;
     protected $imagemRepository;
+    protected $userRepository;
 
-    public function __construct(Connection $db,$empreendimentoRepository,$imagemRepository)
+    public function __construct(Connection $db,$empreendimentoRepository,$imagemRepository,$userRepository)
     {
         $this->db = $db;
         $this->empreendimentoRepository = $empreendimentoRepository;
         $this->imagemRepository = $imagemRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -254,6 +256,7 @@ class ReclamacaoRepository implements RepositoryInterface
     {
         $empreendimento     = $this->empreendimentoRepository->find($reclamacaoData['ide']);
         $collectionImagem   = $this->imagemRepository->findAllByReclamacao($reclamacaoData['id']);
+        $collectionUser     = $this->userRepository->find($reclamacaoData['idu']);
         
         $reclamacao = new Reclamacao();
         $reclamacao->setId($reclamacaoData['id']);
@@ -272,6 +275,7 @@ class ReclamacaoRepository implements RepositoryInterface
         
         $reclamacao->setEmpreendimento($empreendimento);
         $reclamacao->setImagem($collectionImagem);
+        $reclamacao->setUser($collectionUser);
         return $reclamacao;
     }
 }

@@ -18,7 +18,7 @@ $app['repository.imagem'] = $app->share(function ($app) {
     return new Condominio\Repository\ImagemRepository($app['db']);
 });
 $app['repository.reclamacao'] = $app->share(function ($app) {
-    return new Condominio\Repository\ReclamacaoRepository($app['db'],$app['repository.empreendimento'],$app['repository.imagem']);
+    return new Condominio\Repository\ReclamacaoRepository($app['db'],$app['repository.empreendimento'],$app['repository.imagem'],$app['repository.user']);
 });
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(

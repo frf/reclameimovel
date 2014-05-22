@@ -13,6 +13,7 @@ class Reclamacao
      * @var \Condominio\Entity\Empreendimento
      */
     protected $empreendimento;
+    protected $user;
     /**
      * Reclamacao id.
      *
@@ -236,6 +237,14 @@ class Reclamacao
     public function setConfirmar($confirmar) {
         $this->confirmar = $confirmar;
     }
+    public function getUser() {
+        return $this->user;
+    }
+
+    public function setUser($user) {
+        $this->user = $user;
+    }
+
 
 
 
