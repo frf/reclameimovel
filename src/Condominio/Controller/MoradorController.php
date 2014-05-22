@@ -124,7 +124,7 @@ class MoradorController {
     }
     public function adicionarAction(Request $request, Application $app) {
         #$request = $app['request'];
-        var_dump($app['user']);
+        
         $idnome = $request->get("idnome");
         $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         
@@ -149,10 +149,11 @@ class MoradorController {
          */
         if($app['token']){
             $uid = $app['token']->getUid();
+            $user = $app['repository.user']->find($uid);
         }else{
             $uid = 1;
         }
-        
+        var_dump($user);
         $reclamacao->setIdu($uid);
         
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
