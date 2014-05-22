@@ -150,6 +150,7 @@ class MoradorController {
         if($app['token']){
             $uid = $app['token']->getUid();
             $user = $app['repository.user']->find($uid);
+            $reclamacao->setDados($user->getDadosImovel());
         }else{
             $uid = 1;
         }
@@ -217,7 +218,6 @@ class MoradorController {
 
             $data = array(
                 'metaDescription' => '',
-                'user'=>$user,
                 'form' => $form->createView(),
                 'title' => 'Nova reclamação',
                 'sub_titulo' => $sub_titulo,
