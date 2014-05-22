@@ -1,6 +1,7 @@
 <?php
 
 // Register service providers.
+
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
@@ -8,6 +9,16 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
+
+$app['swiftmailer.options'] = array(
+    'transport'=>'gmail',
+    'username' => 'contato@reclameimovel.com.br',
+    'password' => 'ch4ng3m3',
+    'host' => 'smtp.gmail.com',
+    'port' => '465',
+    'encryption' => 'ssl',
+    'auth_mode' => 'login'
+);
 
 $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
     'oauth.services' => array(

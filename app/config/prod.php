@@ -23,10 +23,6 @@ $app['db.options'] = array(
     'user'     => 'condominio',
     'password' => 'datasus',
 );
-// SwiftMailer
-// See http://silex.sensiolabs.org/doc/providers/swiftmailer.html
-$app['swiftmailer.options'] = array(
-    'transport'=>'gmail',
-    'username' => 'contato@reclameimovel.com.br',
-    'password' => 'ch4ng3m3',
-);
+
+
+

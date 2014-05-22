@@ -160,23 +160,18 @@ class MoradorController {
             $app['session']->getFlashBag()->add('warning', $message);
             // Redirect to the edit page.
             $redirect = $app['url_generator']->generate('principal');
-            return $app->redirect($redirect);
+            //return $app->redirect($redirect);
         }
             
-        
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Parabéns - Reclame Imóvel')
-                    ->setFrom('fabio@fabiofarias.com.br')
-                    ->setTo('contato@reclameimovel.com.br')
-                    ->setBody(
-                        $app['twig']->render(
-                            'emailBemVindo.html.twig',
-                            array('name' => $name)
-                        )
-                    )
-                ;
-                $this->get('mailer')->send($message);
-    
+        $body = $app['twig']->render('emailBemVindo.html.twig',array('name' => $name));
+        $message = \Swift_Message::newInstance()
+                        ->setSubject('[Reclame Imóvel] Parabéns pelo cadastro. ')
+                        ->setFrom(array('noreply@reclameimovel.com.br'))
+                        ->setTo(array('fabio@fabiofarias.com.br'))
+                        ->setBody($body);
+                        
+        $app['mailer']->send($message);
+  
         $reclamacao->setIdu($uid);
         
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
