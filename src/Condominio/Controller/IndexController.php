@@ -216,7 +216,7 @@ class IndexController {
             'name'=>'Fabio'
         );
         
-        return $app['twig']->render('emailBemVindo.html.twig',$data);
+        return $app['twig']->render('emailCadastroReclamacao.html.twig',$data);
     }
 
     public function construtoraAction(Request $request, Application $app) {
