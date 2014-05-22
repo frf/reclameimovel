@@ -26,17 +26,20 @@
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+            
+          <div class="fb-like" data-target="navbar-collapse" data-toggle="collapse" data-href="https://www.facebook.com/pages/Reclame-Im%C3%B3vel/747980351913888" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+            
+          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button" style="margin-right:4px">
             <span class="sr-only">Menu</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
             <img id="logoClick" src="/images/SoCasinha400dpiLogo.png" style="cursor:pointer; width: 40px;height: 40px;float: left;margin-right: 10px;margin-left:10px;margin-top: 5px">
-            <a href="/" class="navbar-brand"> Reclame Imóvel</a>
+                <a href="/" class="navbar-brand" style="padding: 15px 6px 0px 9px"> Reclame Imóvel</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" style="margin-left:5px">
             <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
             {% if app.user %}
             <li  {% if 'minhas_reclamacoes' == active %}class="active"{% endif %}><a href="{{ path('minhas_reclamacoes') }}"><i class="icon-bullhorn"></i>  {{ 'Minhas Reclamações'|trans }}</a></li>
@@ -47,11 +50,9 @@
             <li {% if 'quemsomos' == active %}class="active"{% endif %}><a href="{{ path('quemsomos') }}"><i class="icon-th-large"></i>  {{ 'Quem Somos'|trans }}</a></li>
 	</ul>
         <ul class="nav navbar-nav  pull-right">
-            <li>
-                <div class="fb-like" data-href="https://www.facebook.com/pages/Reclame-Im%C3%B3vel/747980351913888" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-            </li>
+           
 	{% if app.user %}
-		<li><img style="margin-top:5px;margin-right:5px" src="https://graph.facebook.com/{{app.token.uid}}/picture/picture?type=square" width="40px" heigth="40px"></li>
+		<li><img style="margin-top:5px;margin-right:0px" src="https://graph.facebook.com/{{app.token.uid}}/picture/picture?type=square" width="40px" heigth="40px"></li>
             <li  {% if 'morador' == active %}class="active"{% endif %}>
 			<a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
         <li>

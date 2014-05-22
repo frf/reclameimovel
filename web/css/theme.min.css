@@ -5468,6 +5468,8 @@ form div.photos > div.uploading span.progress span {
     color:#FFFFFF !important;
 }
 .fb-like{
+    float: right;
     margin-top: 15px;
-    margin-right: 5px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
