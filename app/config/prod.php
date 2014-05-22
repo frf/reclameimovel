@@ -26,10 +26,7 @@ $app['db.options'] = array(
 // SwiftMailer
 // See http://silex.sensiolabs.org/doc/providers/swiftmailer.html
 $app['swiftmailer.options'] = array(
-    'host' => 'host',
-    'port' => '25',
-    'username' => 'username',
-    'password' => 'password',
-    'encryption' => null,
-    'auth_mode' => null
+    'transport'=>'gmail',
+    'username' => 'contato@reclameimovel.com.br',
+    'password' => 'ch4ng3m3',
 );

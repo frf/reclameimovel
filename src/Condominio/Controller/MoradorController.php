@@ -175,7 +175,21 @@ class MoradorController {
                             $app['repository.imagem']->handleFileUpload($File);
                     }
                 }
-          
+                var_dump($app['user']);
+                exit;
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Parabéns - Reclame Imóvel')
+                    ->setFrom('fabio@fabiofarias.com.br')
+                    ->setTo('contato@reclameimovel.com.br')
+                    ->setBody(
+                        $this->renderView(
+                            'emailBemVindo.html.twig',
+                            array('name' => $name)
+                        )
+                    )
+                ;
+                $this->get('mailer')->send($message);
+    
                 $message = 'Reclamação salva com sucesso.';
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
