@@ -124,7 +124,7 @@ class MoradorController {
     }
     public function adicionarAction(Request $request, Application $app) {
         #$request = $app['request'];
-
+        var_dump($app['user']);
         $idnome = $request->get("idnome");
         $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         
