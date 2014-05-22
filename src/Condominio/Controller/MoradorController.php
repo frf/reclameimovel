@@ -194,8 +194,9 @@ class MoradorController {
                if($app['token']){
                    $uid = $app['token']->getUid();
                    $oUser = $app['repository.user']->find($uid);
+                   $reclamacao = $app['repository.reclamacao']->find($reclamacao->getId());
                    
-                    $body = $app['twig']->render('emailCadastroReclamacao.html.twig',
+                   $body = $app['twig']->render('emailCadastroReclamacao.html.twig',
                             array(
                                 'name' => $oUser->getName(),
                                 'mail' => $oUser->getEmail(),
