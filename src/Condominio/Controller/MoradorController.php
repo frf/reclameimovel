@@ -166,8 +166,8 @@ class MoradorController {
         $body = $app['twig']->render('emailBemVindo.html.twig',array('name' => $name));
         $message = \Swift_Message::newInstance()
                         ->setSubject('[Reclame Imóvel] Parabéns pelo cadastro. ')
-                        ->setFrom(array('noreply@reclameimovel.com.br'))
-                        ->setTo(array('fabio@fabiofarias.com.br'))
+                        ->setFrom(array('contato@reclameimovel.com.br'=>'Contato Reclame Imovel'))
+                        ->setTo(array('fabio@fabiofarias.com.br'=>'Fabio'))
                         ->setBody($body);
                         
         $app['mailer']->send($message);
