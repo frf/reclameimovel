@@ -17,11 +17,12 @@ class UserRepository implements RepositoryInterface
      * @var \Doctrine\DBAL\Connection
      */
     protected $db;
+    protected $app;
 
-
-    public function __construct(Connection $db)
+    public function __construct(Connection $db,$app)
     {
         $this->db = $db;
+        $this->app = $app;
     }
 
     /**
@@ -71,7 +72,7 @@ class UserRepository implements RepositoryInterface
                 /*
                 * Enviar email
                 */
-                $body = $app['twig']->render('emailBemVindo.html.twig',
+                $body = $this->app['twig']->render('emailBemVindo.html.twig',
                         array('name' => $user->getName()));
 
                 $message = \Swift_Message::newInstance()
@@ -81,7 +82,7 @@ class UserRepository implements RepositoryInterface
                                 ->setBody($body)
                                 ->setContentType("text/html");
 
-                $app['mailer']->send($message);
+                $this->app['mailer']->send($message);
                 
                 $userData['bemvindo'] = 1;
                 

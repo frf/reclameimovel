@@ -9,7 +9,7 @@ $app['repository.empresa'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpresaRepository($app['db']);
 });  
 $app['repository.user'] = $app->share(function ($app) {
-    return new Condominio\Repository\UserRepository($app['db']);
+    return new Condominio\Repository\UserRepository($app['db'],$app);
 });  
 $app['repository.empreendimento'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpreendimentoRepository($app['db'],$app['repository.empresa']);
