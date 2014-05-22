@@ -153,7 +153,15 @@ class MoradorController {
         }else{
             $uid = 1;
         }
-        var_dump($user);
+        
+        if (!$user) {
+            $message = 'Nenhum usuário logado para efetuar o envio de uma reclamação.';
+            $app['session']->getFlashBag()->add('warning', $message);
+            // Redirect to the edit page.
+            $redirect = $app['url_generator']->generate('principal');
+            return $app->redirect($redirect);
+        }
+            
         $reclamacao->setIdu($uid);
         
         $form = $app['form.factory']->create(new ReclamacaoType(), $reclamacao);
@@ -209,6 +217,7 @@ class MoradorController {
 
             $data = array(
                 'metaDescription' => '',
+                'user'=>$user,
                 'form' => $form->createView(),
                 'title' => 'Nova reclamação',
                 'sub_titulo' => $sub_titulo,
