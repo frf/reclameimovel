@@ -202,6 +202,7 @@ class MoradorController {
                                 'mail' => $oUser->getEmail(),
                                 'idreclamacao'=>str_pad($reclamacao->getId(), 10, "0", STR_PAD_LEFT),
                                 'titulo'=>$reclamacao->getTitulo(),
+                                'idnome'=>$reclamacao->getIdNome(),
                                 'reclamacao'=>$reclamacao
                             ));
 
