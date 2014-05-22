@@ -17,12 +17,10 @@ class UserRepository implements RepositoryInterface
      * @var \Doctrine\DBAL\Connection
      */
     protected $db;
-    protected $app;
 
-    public function __construct(Connection $db,$app)
+    public function __construct(Connection $db)
     {
         $this->db = $db;
-        $this->app = $app;
     }
 
     /**
@@ -63,37 +61,13 @@ class UserRepository implements RepositoryInterface
     }
     public function bemVindo($id)
     {
-        
-        if ($id) {
-            $userData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE idu = ? and bemvindo = 0', array($id));
-            if($userData){
-                $oUser = $this->buildUser($userData);
-
-                /*
-                * Enviar email
-                */
-                $body = $this->app['twig']->render('emailBemVindo.html.twig',
-                        array('name' => $user->getName()));
-
-                $message = \Swift_Message::newInstance()
-                                ->setSubject('[Reclame Imóvel] Parabéns pelo cadastro. ')
-                                ->setFrom(array('contato@reclameimovel.com.br'=>'Reclame Imóvel'))
-                                ->setTo(array($oUser->getEmail()=>$oUser->getName()))
-                                ->setBody($body)
-                                ->setContentType("text/html");
-
-                $this->app['mailer']->send($message);
-                
-                $userData['bemvindo'] = 1;
-                
-                $this->db->update('usuario', $userData, array('idu' => $id));
-            }
-            
-        }
-        
-        
-        
-       
+        $userData = $this->db->fetchAssoc('SELECT * FROM usuario WHERE idu = ? and bemvindo = 0', array($id));
+        return $userData ? $this->buildUser($userData) : FALSE;
+    }
+    public function updateBemVindo($id)
+    {
+        $userData['bemvindo'] = 1;
+        return $this->db->update('usuario', $userData, array('idu' => $id));
     }
     
     public function isDados($id)

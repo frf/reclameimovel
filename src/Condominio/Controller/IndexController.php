@@ -25,7 +25,29 @@ class IndexController {
          */
         if($app['token']){
             $uid = $app['token']->getUid();
-            $user = $app['repository.user']->bemVindo($uid);
+            $validBemVindo = $app['repository.user']->bemVindo($uid);
+            
+             if ($validBemVindo) {                
+                /*
+                * Enviar email
+                */
+                $body = $app['twig']->render('emailBemVindo.html.twig',
+                        array(
+                            'name' => $validBemVindo->getName(),
+                            'mail' => $validBemVindo->getEmail(),
+                        ));
+
+                $message = \Swift_Message::newInstance()
+                                ->setSubject('[Reclame Imóvel] Parabéns pelo cadastro. ')
+                                ->setFrom(array('contato@reclameimovel.com.br'=>'Reclame Imóvel'))
+                                ->setTo(array($validBemVindo->getEmail()=>$validBemVindo->getName()))
+                                ->setBody($body)
+                                ->setContentType("text/html");
+
+                $app['mailer']->send($message);                        
+                $app['repository.user']->updateBemVindo($uid);
+            }
+        
         }
         
         
