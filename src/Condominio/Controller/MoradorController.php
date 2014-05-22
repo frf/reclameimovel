@@ -169,7 +169,7 @@ class MoradorController {
                     ->setFrom('fabio@fabiofarias.com.br')
                     ->setTo('contato@reclameimovel.com.br')
                     ->setBody(
-                        $this->renderView(
+                        $app['twig']->renderView(
                             'emailBemVindo.html.twig',
                             array('name' => $name)
                         )
