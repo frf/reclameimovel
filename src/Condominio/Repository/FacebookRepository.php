@@ -37,9 +37,6 @@ class FacebookRepository
         // If you already have a valid access token:
         $this->session = new FacebookSession($this->token);
         $this->request = new FacebookRequest($this->session, 'GET', '/me');
-        $this->requestFriendly = new FacebookRequest($this->session, 'GET', '/me/friendlists');
-        
-   var_dump($this->requestFriendly);
        
         
    }
