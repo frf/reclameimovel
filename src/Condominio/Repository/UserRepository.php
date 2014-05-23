@@ -123,6 +123,7 @@ class UserRepository implements RepositoryInterface
     {      
         $user = new User();
         $user->setIdu($userData['idu']);
+        $user->setIdemp($userData['idemp']);
         $user->setName($userData['name']);
         $user->setEmail($userData['email']);
         $user->setCpf($userData['cpf']);
