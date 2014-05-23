@@ -36,7 +36,9 @@ class EmpreendimentoController {
             }else{
                 return false;
             }
-            $app['repository.user']->updateMeuCondominio($uid,$oEmp->getId());
+            
+            $userData = array('idemp'=>$oEmp->getId());
+            $app['repository.user']->updateMeuCondominio($uid,$userData);
              /*
                 * Enviar email
                 
