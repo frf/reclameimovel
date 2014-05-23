@@ -18,11 +18,11 @@
             <b>{{nome_empresa}} / {{nome_emp}}</b>
             {% if oUser %}
                 {% if oUser.idemp %}
-                    {% if oUser.idemp == reclamacao.empreendimento.id %}
-                        <a href="{{uri}}/{{reclamacao.empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                    {% if oUser.idemp == empreendimento.id %}
+                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                     {% endif %}
                 {% else %}
-                        <a href="/morador/update/{{reclamacao.empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                        <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                 {% endif %}
             {% endif %}
         </h3>

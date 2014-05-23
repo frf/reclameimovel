@@ -51,7 +51,8 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         'logout_path' => $app['url_generator']->generate('logout', array(
             '_csrf_token' => $app['form.csrf_provider']->generateCsrfToken('logout')
         )));
-        if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {
+        if ($token && !$app['security.trust_resolver']->isAnonymous($token)) {            
+            $app['oUser'] = $app['repository.user']->find($token->getUid());
             $app['user'] = $token->getUser();
             $app['token'] = $token;
         }
