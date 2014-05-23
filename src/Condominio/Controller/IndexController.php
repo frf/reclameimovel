@@ -26,6 +26,7 @@ class IndexController {
          */
         if($app['token']){
             $uid = $app['token']->getUid();
+            $oUser = $app['repository.user']->find($uid);
             $validBemVindo = $app['repository.user']->bemVindo($uid);
             
              if ($validBemVindo) {                
@@ -100,6 +101,10 @@ class IndexController {
             }
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);
 
+            if($oUser){
+                var_dump($oUser);
+            }
+            
             $data = array(
                 'idnome' => $idnome,
                 'metaDescription' => "Busca os empreendimentos",
