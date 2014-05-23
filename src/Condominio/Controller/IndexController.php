@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Condominio\Controller;
 
 use Silex\Application;
@@ -48,12 +47,9 @@ class IndexController {
 
                 $app['mailer']->send($message);                        
                 $app['repository.user']->updateBemVindo($uid);
-            }
-        
+            }        
         }
         
-        
-
         if ($oEmp) {
             $app['repository.empreendimento']->updateVisita($oEmp->getId());
 

@@ -31,6 +31,7 @@ class EmpreendimentoController {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         }
         if($oEmp){
+            
             if ($app['token']) {
                $uid = $app['token']->getUid();
             }else{
