@@ -38,7 +38,7 @@
 
         </div>
         <div class="navbar-collapse collapse">
-            {{app.user.idemp}}
+            {{app.oUser.idemp}}
             <ul class="nav navbar-nav" style="margin-left:5px">
             <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
             {% if app.user %}
