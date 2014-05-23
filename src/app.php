@@ -20,6 +20,9 @@ $app['repository.imagem'] = $app->share(function ($app) {
 $app['repository.reclamacao'] = $app->share(function ($app) {
     return new Condominio\Repository\ReclamacaoRepository($app['db'],$app['repository.empreendimento'],$app['repository.imagem'],$app['repository.user']);
 });
+$app['repository.facebook'] = $app->share(function ($app) {
+    return new Condominio\Repository\FacebookRepository($app);
+});
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.options' => array(
@@ -54,7 +57,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         }
     $protected = array(
         '/morador' => 'ROLE_USER',
-        //'/adicionar' => 'ROLE_USER',
+        '/adicionar' => 'ROLE_USER',
         '/minhas-reclamacoes' => 'ROLE_USER',
         '/empreendimento/novo' => 'ROLE_USER',
     );

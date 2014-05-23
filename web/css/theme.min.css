@@ -5467,9 +5467,8 @@ form div.photos > div.uploading span.progress span {
 .navbar-brand{
     color:#FFFFFF !important;
 }
-.fb-like{
-    float: right;
+.fb-like{    
     margin-top: 15px;
     margin-right: 0px;
-    margin-left: 0px;
+    margin-left: 6px;
 }

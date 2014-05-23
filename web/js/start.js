@@ -1,3 +1,6 @@
+var deviceAgent = navigator.userAgent.toLowerCase();
+var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
+
 $(document).ready(function() {
     $("#adicionar").click(function() {
         if ($("#idnome").val() != "") {
@@ -10,6 +13,9 @@ $(document).ready(function() {
     $("#logoClick").click(function() {
         window.location = '/';
     });
+    $("#moradorClick").click(function() {
+        window.location = '/morador';
+    });
     $("#adicionar_busca").click(function() {
         window.location = '/';
     });
@@ -19,6 +25,11 @@ $(document).ready(function() {
     $("#user_telCelular").mask("(99)9?9999-9999");    // Máscara para CNPJ
     $("#user_telResidencial").mask("(99)9999-9999");    // Máscara para CNPJ
     $("#user_telContato").mask("(99)9999-9999?9");    // Máscara para CNPJ
+    
+    if (agentID) {    
+        //$("#tituloSite").hide();
+        //$("#tituloSite").css({'display':'none'});
+    }
 });
 
 function closeMsg() {

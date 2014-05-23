@@ -16,34 +16,43 @@ use Facebook\FacebookCanvasLoginHelper;
  */
 class FacebookRepository
 {
-   var $key = "CAADXo9oqDpgBAFH4Lp4voyizEWTO7mCvYKMz3ZCdxjKTCT5VO0k518eUHMubxzNc3pHadVBgMvLdpBQBQZAf3beFw2SOOKAtuZARi19IqIaxldjPIoMYz6oGaMNx7QVa8Y1GBHXA9dOiiV1dgVieZBpV7mE2fJZA3z5qd6VHih0PcK6ZB9xIPRPFH2FyPuJGAZD";
-   public function __construct($app) {
-        FacebookSession::setDefaultApplication('237098739830424', '1269e70d03f172e6e2ccf67e6c4f10f0');
-        
-        echo "<br><br><br><br><br>---";
-        
-        // If you already have a valid access token:
-        $this->session = new FacebookSession($this->key);
-        $this->request = new FacebookRequest($this->session, 'GET', '/me');
-        
-        // If you're making app-level requests:
-        //$session = FacebookSession::newAppSession();
+    protected $session;
+    protected $request;
+    protected $token;
+    protected $api;
+    protected $secret;
 
-        // To validate the session:
-        try {
-          $this->session->validate();
-        } catch (FacebookRequestException $ex) {
-          // Session not valid, Graph API returned an exception with the reason.
-          echo $ex->getMessage();
-        } catch (\Exception $ex) {
-          // Graph API returned info, but it may mismatch the current app or have expired.
-          echo $ex->getMessage();
+
+    public function __construct($app) {
+     
+        $this->api      = "237093413164290";
+        $this->secret   = "8f94031a4b4a962543c33747c1a2e6e7";
+
+        if($app['token']){
+            $this->token = $app['token']->getCredentials();
+        }else{
+            throw new Exception("Erro ao solicitar usuario ao facebook!");
         }
-        
+
+        // If you already have a valid access token:
+        $this->session = new FacebookSession($this->token);
+        $this->request = new FacebookRequest($this->session, 'GET', '/me');
+       
         
    }
+   public function getToken(){
+       return $this->token;
+   }
    public function checkSession(){
-       
+       try {
+          return $this->session->validate($this->api,$this->secret);
+        } catch (FacebookRequestException $ex) {
+          // Sessão não é válido, Graph API retornou uma exceção com a razão.
+          echo "Sessao invalida: " . $ex->getMessage();
+        } catch (\Exception $ex) {
+          // API Graph voltou info, mas pode incompatibilidade do aplicativo atual ou ter expirado.
+          echo "mas pode incompatibilidade :" . $ex->getMessage();
+        }
    }
    public function getUser(){
        if($this->session) {
@@ -71,9 +80,9 @@ class FacebookRepository
        }
    }
    
-   public function getSession(){
+   public function graphObject(){
        
-       $this->session = new FacebookSession('CAADXo9oqDpgBAFH4Lp4voyizEWTO7mCvYKMz3ZCdxjKTCT5VO0k518eUHMubxzNc3pHadVBgMvLdpBQBQZAf3beFw2SOOKAtuZARi19IqIaxldjPIoMYz6oGaMNx7QVa8Y1GBHXA9dOiiV1dgVieZBpV7mE2fJZA3z5qd6VHih0PcK6ZB9xIPRPFH2FyPuJGAZD');
+       $this->session = new FacebookSession($this->token);
        $response = $this->request->execute();
        $graphObject = $response->getGraphObject();
        return $graphObject;
