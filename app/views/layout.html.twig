@@ -38,11 +38,11 @@
 
         </div>
         <div class="navbar-collapse collapse">
-            {{app.oUser.idemp}}
+            
             <ul class="nav navbar-nav" style="margin-left:5px">
             <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
-            {% if app.user %}
-            
+            {% if app.oUser.idemp %}
+                <li  {% if 'reclamacao_add' == active %}class="active"{% endif %}><a href="{{ path('reclamacao_add') }}"><i class="icon-bullhorn"></i>  {{ 'Reclamar'|trans }}</a></li>
             {% endif %}
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
             <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
