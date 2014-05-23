@@ -47,7 +47,7 @@ class IndexController {
             var_dump($session);
         }
 
-        
+        exit;
         if ($idnome != "buscar" && $idnome != "") {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         }
