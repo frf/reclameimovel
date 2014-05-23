@@ -27,7 +27,7 @@ class IndexController {
         $busca = $request->get("busca");
 
         if($app['token']){
-            var_dump($app['token']->AaccessToken());
+            var_dump($app['token']);
         }
         
         /*$session = new FacebookSession('access-token-here');
