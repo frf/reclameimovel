@@ -19,9 +19,15 @@ class FacebookRepository
     protected $session;
     protected $request;
     protected $token;
-    
+    protected $api;
+    protected $secret;
+
+
     public function __construct($app) {
      
+        $this->api      = "237093413164290";
+        $this->secret   = "8f94031a4b4a962543c33747c1a2e6e7";
+        
         if($app['token']){
             $this->token = $app['token']->getCredentials();
         }else{
@@ -38,13 +44,13 @@ class FacebookRepository
    }
    public function checkSession(){
        try {
-          return $this->session->validate();
+          return $this->session->validate($this->api,$this->secret);
         } catch (FacebookRequestException $ex) {
-          // Session not valid, Graph API returned an exception with the reason.
-          echo $ex->getMessage();
+          // Sessão não é válido, Graph API retornou uma exceção com a razão.
+          echo "Sessao invalida: " . $ex->getMessage();
         } catch (\Exception $ex) {
-          // Graph API returned info, but it may mismatch the current app or have expired.
-          echo $ex->getMessage();
+          // API Graph voltou info, mas pode incompatibilidade do aplicativo atual ou ter expirado.
+          echo "mas pode incompatibilidade :" . $ex->getMessage();
         }
    }
    public function getUser(){
