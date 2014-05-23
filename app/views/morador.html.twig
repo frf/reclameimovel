@@ -1,5 +1,11 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
     <div class="alert alert-success">Bem vindo!</strong> Divulgue sua reclamação agora. Clique em buscar empreendimento após encontrar seu empreendimento você pode cadastrar sua reclamação.</div>
-
+    
+    {% if app.user %}
+        <ul>
+            <li  {% if 'minhas_reclamacoes' == active %}class="active"{% endif %}><a href="{{ path('minhas_reclamacoes') }}"><i class="icon-bullhorn"></i>  {{ 'Minhas Reclamações'|trans }}</a></li>
+        </ul>
+    {% endif %}
+    
 {% endblock %}
