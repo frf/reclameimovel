@@ -30,8 +30,14 @@
             </a>
             {% for empreendimento in aLista %}
              {% if oUser %}
-                <button type="button" id="adicionar" class="btn btn-danger btn-xs"  title="CLIQUE AQUI">Meu Condomínio</button>
-             {% endif %}
+                {% if oUser.idemp %}
+                    {% if oUser.idemp == empreendimento.id %}
+                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                    {% endif %}
+                {% else %}
+                        <a href="{{uri}}/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                {% endif %}
+            {% endif %}
              <a href="{{uri}}/{{empreendimento.idnome}}" class="list-group-item list-group-item-success"><b>{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</b></a>
             {% endfor %}
             <br />
@@ -58,10 +64,10 @@
                             {% if oUser %}
                                 {% if oUser.idemp %}
                                     {% if oUser.idemp == empreendimento.id %}
-                                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                     {% endif %}
                                 {% else %}
-                                        <a href="{{uri}}/update/{{empreendimento.idnome}}" type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                        <a href="{{uri}}/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                 {% endif %}
                             {% endif %}
                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
