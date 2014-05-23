@@ -23,5 +23,14 @@ class EmpreendimentoController {
         }
         return $app->json($data);
     }
+    public function updateUsuarioAction(Request $request, Application $app) {
+
+        if ($idnome != "") {
+            $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
+        }
+        
+        var_dump($oEmp);
+
+    }
 
 }

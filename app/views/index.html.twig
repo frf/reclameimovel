@@ -58,10 +58,10 @@
                             {% if oUser %}
                                 {% if oUser.idemp %}
                                     {% if oUser.idemp == empreendimento.id %}
-                                        <button type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</button>
+                                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                     {% endif %}
                                 {% else %}
-                                        <button type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</button>
+                                        <a href="{{uri}}/update/{{empreendimento.idnome}}" type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                 {% endif %}
                             {% endif %}
                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
