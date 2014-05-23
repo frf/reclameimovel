@@ -135,6 +135,10 @@ class IndexController {
 
         $aLista = $app['repository.empreendimento']->findAllWhere($limit, $offset, array(), $busca);
         $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);
+        if($app['token']){
+            $uid = $app['token']->getUid();
+            $oUser = $app['repository.user']->find($uid);
+        }
 
         $data = array(
             'metaDescription' => $metaDescription,
@@ -144,7 +148,8 @@ class IndexController {
             'numPages' => $numPages,
             'here' => "buscar",
             'adjacentes' => 1,
-            'uri' => '/empreendimento'
+            'uri' => '/empreendimento',
+            'oUser'=>$oUser
         );
 
         if ($aLista) {
