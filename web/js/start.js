@@ -23,7 +23,7 @@ $(document).ready(function() {
     $("#user_telResidencial").mask("(99)9999-9999");    // Máscara para CNPJ
     $("#user_telContato").mask("(99)9999-9999?9");    // Máscara para CNPJ
     
-    if (!agentID) {    
+    if (agentID) {    
         $("#tituloSite").hide();
         $("#tituloSite").css({'display':'none'});
     }
