@@ -22,11 +22,11 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body text-justify">
-                            <a href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.descricao}}</a>
+                            <a href="{{uri}}/view/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.descricao}}</a>
                         </div>
                         <div style="padding: 11px;color:#080808">
                             <b style="float: left;margin-right: 5px">Avise ao seus amigos: </b>
-                            <div class="fb-share-button" data-href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}" data-type="button_count"></div>
+                            <div class="fb-share-button" data-href="{{uri}}/view/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}" data-type="button_count"></div>
                             <div style="float: right;font-size: 12px"><b>Autor:</b> {{reclamacao.user.name}}</div>    
                         </div>
                     </div>
