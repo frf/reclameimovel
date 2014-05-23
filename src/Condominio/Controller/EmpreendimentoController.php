@@ -31,7 +31,12 @@ class EmpreendimentoController {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         }
         if($oEmp){
-            
+            if ($app['token']) {
+               $uid = $app['token']->getUid();
+            }else{
+                return false;
+            }
+            $app['repository.user']->updateMeuCondominio($uid,$oEmp->getId());
              /*
                 * Enviar email
                 
@@ -52,7 +57,7 @@ class EmpreendimentoController {
               * */
             
             $message = 'Você não vai mais precisar procurar seu condomínio/empreendimento para poder reclamar pois agora ja sabem qual é o seu empreendimento.';
-            $app['session']->getFlashBag()->add('warning', $message);
+            $app['session']->getFlashBag()->add('info', $message);
 
             return $app->redirect("/empreendimento/$idnome");
         }
