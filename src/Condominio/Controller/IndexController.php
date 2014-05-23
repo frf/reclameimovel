@@ -279,7 +279,7 @@ class IndexController {
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
                 $redirect = $app['url_generator']->generate('principal');
-var_dump($emp);exit;
+
                 /*
                 * Pegar id da sessao
                 */
