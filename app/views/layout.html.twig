@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% if metaDescription %}
         <meta name="description" content="{{metaDescription}}">
+        <meta property="og:description" content="{{metaDescription}}" /> 
+            
         {% else %}
         <meta name="description" content="Antes de comprar seu imóvel consulte nosso site e evite dor de cabeça,Reclamações, Problemas, prazos inacabaveis, cobrança indevida, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular">
         {% endif %}
@@ -20,6 +22,8 @@
         <link href="{{ app.request.basepath }}/css/south-street/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
             
         <title>{{app.title_layout}}</title>        
+        <meta property="og:title" content="{{app.title_layout}}" />
+        <meta property="og:site_name" content="{{app.title_layout}}" />
     </head>
 <body role="document">
     {% set active = active|default(null) %}
