@@ -24,8 +24,8 @@ $(document).ready(function() {
     $("#user_telContato").mask("(99)9999-9999?9");    // Máscara para CNPJ
     
     if (agentID) {    
-        $("#tituloSite").hide();
-        $("#tituloSite").css({'display':'none'});
+        //$("#tituloSite").hide();
+        //$("#tituloSite").css({'display':'none'});
     }
 });
 
