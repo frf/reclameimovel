@@ -56,7 +56,13 @@
                     {% for empreendimento in aEmpMaisProcurados %}
                         <li class="list-group-item"> 
                             {% if oUser %}
-                            <button type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</button>
+                                {% if oUser.idemp %}
+                                    {% if oUser.idemp == empreendimento.id %}
+                                        <button type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</button>
+                                    {% endif %}
+                                {% else %}
+                                        <button type="button" id="adicionar" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</button>
+                                {% endif %}
                             {% endif %}
                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
                         </li>
