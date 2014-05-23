@@ -38,7 +38,7 @@ class FacebookRepository
    }
    public function checkSession(){
        try {
-          $this->session->validate();
+          return $this->session->validate();
         } catch (FacebookRequestException $ex) {
           // Session not valid, Graph API returned an exception with the reason.
           echo $ex->getMessage();
@@ -73,9 +73,9 @@ class FacebookRepository
        }
    }
    
-   public function getSession(){
+   public function graphObject(){
        
-       $this->session = new FacebookSession('CAADXo9oqDpgBAFH4Lp4voyizEWTO7mCvYKMz3ZCdxjKTCT5VO0k518eUHMubxzNc3pHadVBgMvLdpBQBQZAf3beFw2SOOKAtuZARi19IqIaxldjPIoMYz6oGaMNx7QVa8Y1GBHXA9dOiiV1dgVieZBpV7mE2fJZA3z5qd6VHih0PcK6ZB9xIPRPFH2FyPuJGAZD');
+       $this->session = new FacebookSession($this->token);
        $response = $this->request->execute();
        $graphObject = $response->getGraphObject();
        return $graphObject;
