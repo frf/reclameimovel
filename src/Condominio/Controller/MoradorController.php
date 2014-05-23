@@ -126,7 +126,13 @@ class MoradorController {
         #$request = $app['request'];
         
         $idnome = $request->get("idnome");
-        $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
+        
+        if(is_string($idnome)){
+            $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
+        }
+        if(is_numeric($idnome)){
+            $oEmp = $app['repository.empreendimento']->find($idnome);
+        }
         
         $reclamacao = new Reclamacao();
         
@@ -158,9 +164,8 @@ class MoradorController {
         if (!$user) {
             $message = 'Nenhum usuário logado para efetuar o envio de uma reclamação.';
             $app['session']->getFlashBag()->add('warning', $message);
-            // Redirect to the edit page.
             $redirect = $app['url_generator']->generate('principal');
-            //return $app->redirect($redirect);
+            return $app->redirect($redirect);
         }
         
         $reclamacao->setIdu($uid);
