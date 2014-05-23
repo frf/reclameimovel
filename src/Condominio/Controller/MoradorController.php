@@ -56,7 +56,7 @@ class MoradorController {
             'numPages' => $numPages,
             'adjacentes' => 2,
             'busca'=>false,
-            'uri'=>'/morador',
+            'uri'=>'/empreendimento',
             'here' => "minhas-reclamacoes",
         );
 
