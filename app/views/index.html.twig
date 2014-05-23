@@ -76,7 +76,7 @@
                                         <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                 {% endif %}
                             {% endif %}
-                            <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</a>
+                                        <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}} - <b>{{empreendimento.empresa.nome}}</b></a>
                         </li>
                     {% endfor %}
                 </ul>
