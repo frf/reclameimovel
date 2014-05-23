@@ -24,25 +24,24 @@
         <br />
 
         {% if numPages >= 1 and exibeErro == false %}
-         <div class="list-group">
-            <a href="#" class="list-group-item active" style="cursor: default">
-              <b>Resultado da busca</b>
-            </a>
+        
+        <ul class="list-group">
             {% for empreendimento in aLista %}
-                 {% if oUser %}
-                    {% if oUser.idemp %}
-                        {% if oUser.idemp == empreendimento.id %}
-                            <button href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</button>
-                        {% endif %}
-                    {% else %}
-                            <button href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</button>
-                    {% endif %}
-                {% endif %}
-                  <a href="{{uri}}/{{empreendimento.idnome}}" class="list-group-item list-group-item-success"><b>{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</b></a>
+            <li class="list-group-item list-group-item-success">
+                {% if oUser %}
+                                {% if oUser.idemp %}
+                                    {% if oUser.idemp == empreendimento.id %}
+                                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                    {% endif %}
+                                {% else %}
+                                        <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                {% endif %}
+                            {% endif %}
+                <a href="{{uri}}/{{empreendimento.idnome}}" class="list-group-item list-group-item-success"><b>{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</b></a>
+            </li>
             {% endfor %}
-            <br />
-            {% include "pagination_busca.html.twig" %}
-            </div>
+        </ul>
+        
         {% endif %}
         {% if exibeErro == true %}
             <div class="list-group">
