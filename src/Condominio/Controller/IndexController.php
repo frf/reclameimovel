@@ -26,9 +26,13 @@ class IndexController {
         $page = $request->get("page", 1);
         $busca = $request->get("busca");
 
+        if($app['token']){
+            var_dump($app['token']);
+        }
+        
+        /*$session = new FacebookSession('access-token-here');
         
         FacebookSession::setDefaultApplication('237093413164290', '8f94031a4b4a962543c33747c1a2e6e7');
-        
         
         $helper = new FacebookCanvasLoginHelper();
         try {
@@ -46,7 +50,7 @@ class IndexController {
           // Logged in
             var_dump($session);
         }
-
+*/
         exit;
         if ($idnome != "buscar" && $idnome != "") {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
