@@ -18,24 +18,7 @@ class FacebookRepository
 {
    //var $key = "CAADXo9oqDpgBAFH4Lp4voyizEWTO7mCvYKMz3ZCdxjKTCT5VO0k518eUHMubxzNc3pHadVBgMvLdpBQBQZAf3beFw2SOOKAtuZARi19IqIaxldjPIoMYz6oGaMNx7QVa8Y1GBHXA9dOiiV1dgVieZBpV7mE2fJZA3z5qd6VHih0PcK6ZB9xIPRPFH2FyPuJGAZD";
    public function __construct($app) {
-        FacebookSession::setDefaultApplication('237093413164290', '8f94031a4b4a962543c33747c1a2e6e7');
-        
-        
-        $helper = new FacebookCanvasLoginHelper();
-        try {
-          $session = $helper->getSession();
-        } catch(FacebookRequestException $ex) {
-          // When Facebook returns an error
-        } catch(\Exception $ex) {
-          // When validation fails or other local issues
-        }
-        if ($session) {
-          // Logged in
-            var_dump($session);
-        }
-
-
-        exit;
+     
         // If you already have a valid access token:
         #$this->session = new FacebookSession($this->key);
        # $this->request = new FacebookRequest($this->session, 'GET', '/me');
