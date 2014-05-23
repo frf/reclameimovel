@@ -39,6 +39,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
     $token = $app['security']->getToken();
     $app['user'] = null;
     $app['token'] = null;
+    $app['oUser'] = null;
 
     $services = array_keys($app['oauth.services']);
 	$app['login'] = array(
