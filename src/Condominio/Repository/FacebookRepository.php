@@ -20,8 +20,6 @@ class FacebookRepository
    public function __construct($app) {
         FacebookSession::setDefaultApplication('237098739830424', '1269e70d03f172e6e2ccf67e6c4f10f0');
         
-        echo "<br><br><br><br><br>---";
-        
         // If you already have a valid access token:
         $this->session = new FacebookSession($this->key);
         $this->request = new FacebookRequest($this->session, 'GET', '/me');
