@@ -50,7 +50,7 @@
         <ul class="nav navbar-nav  pull-right">
            
 	{% if app.user %}
-		<li><img style="margin-top:5px;margin-right:0px" src="https://graph.facebook.com/{{app.token.uid}}/picture/picture?type=square" width="40px" heigth="40px"></li>
+            <li><a href="{{ path('morador') }}"><img style="margin-top:5px;margin-right:0px;cursor:pointer" src="https://graph.facebook.com/{{app.token.uid}}/picture/picture?type=square" width="40px" heigth="40px" border="0" /></a></li>
             <li  {% if 'morador' == active %}class="active"{% endif %}>
 			<a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
         <li>
