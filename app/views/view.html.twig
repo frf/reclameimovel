@@ -17,6 +17,7 @@
                 <h3><b>{{reclamacao.titulo}}</b> - {{reclamacao.empreendimento.empresa.nome}}</h3>
                 <span style="font-size: 12px">{{reclamacao.empreendimento.cidade}} - {{reclamacao.empreendimento.uf}} </span><br />
                 <span style="font-size: 10px">{{reclamacao.dt_cadastro.date}}</span>
+                <div style="float: right;font-size: 12px"><b>Autor:</b> {{reclamacao.user.name}}</div>    
 
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
@@ -26,11 +27,9 @@
                 <div style="padding: 11px;color:#080808">
                     <b style="float: left;margin-right: 5px">Avise ao seus amigos: </b>
                     <div class="fb-share-button" data-href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}" data-type="button_count"></div>
-                </div>
-                <div style="padding: 11px;color:#080808">
                     <b style="float: left;margin-right: 5px">Avise ao seus amigos: </b>
                     <div class="fb-comments" data-href="{{app.view_path}}/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}" data-numposts="2" data-colorscheme="light"></div>
-                    <div style="float: right;font-size: 12px"><b>Autor:</b> {{reclamacao.user.name}}</div>    
+                    
                 </div>
 
             </div>
