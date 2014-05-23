@@ -35,7 +35,7 @@
                         <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                     {% endif %}
                 {% else %}
-                        <a href="{{uri}}/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                        <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                 {% endif %}
             {% endif %}
              <a href="{{uri}}/{{empreendimento.idnome}}" class="list-group-item list-group-item-success"><b>{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</b></a>
@@ -67,7 +67,7 @@
                                         <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                     {% endif %}
                                 {% else %}
-                                        <a href="{{uri}}/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                        <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                 {% endif %}
                             {% endif %}
                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
