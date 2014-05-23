@@ -55,6 +55,9 @@
                 <ul class="list-group">
                     {% for empreendimento in aEmpMaisProcurados %}
                         <li class="list-group-item"> 
+                            {% if oUser %}
+                                <button type="button" id="adicionar" class="btn btn-danger btn-xs">Adicionar Reclamação</button>
+                            {% endif %}
                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
                         </li>
                     {% endfor %}
