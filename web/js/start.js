@@ -1,3 +1,9 @@
+var deviceAgent = navigator.userAgent.toLowerCase();
+var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
+
+if (!agentID) {    
+    $("#tituloSite").hide();
+}
 $(document).ready(function() {
     $("#adicionar").click(function() {
         if ($("#idnome").val() != "") {
