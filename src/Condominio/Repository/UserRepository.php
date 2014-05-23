@@ -69,6 +69,10 @@ class UserRepository implements RepositoryInterface
         $userData['bemvindo'] = 1;
         return $this->db->update('usuario', $userData, array('idu' => $id));
     }
+    public function updateMeuCondominio($id,$userData)
+    {
+        return $this->db->update('usuario', $userData, array('idu' => $id));
+    }
     
     public function isDados($id)
     {
@@ -123,6 +127,7 @@ class UserRepository implements RepositoryInterface
     {      
         $user = new User();
         $user->setIdu($userData['idu']);
+        $user->setIdemp($userData['idemp']);
         $user->setName($userData['name']);
         $user->setEmail($userData['email']);
         $user->setCpf($userData['cpf']);
