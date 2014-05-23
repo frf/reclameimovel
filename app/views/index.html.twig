@@ -36,10 +36,10 @@
                         {% if oUser %}
                                         {% if oUser.idemp %}
                                             {% if oUser.idemp == empreendimento.id %}
-                                                <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                                <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                             {% endif %}
                                         {% else %}
-                                                <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                                <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                         {% endif %}
                                     {% endif %}
                         <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</a>
@@ -70,10 +70,10 @@
                             {% if oUser %}
                                 {% if oUser.idemp %}
                                     {% if oUser.idemp == empreendimento.id %}
-                                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                     {% endif %}
                                 {% else %}
-                                        <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-danger btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                        <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                 {% endif %}
                             {% endif %}
                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
