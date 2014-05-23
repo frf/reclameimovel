@@ -16,18 +16,30 @@ use Facebook\FacebookCanvasLoginHelper;
  */
 class FacebookRepository
 {
-   //var $key = "CAADXo9oqDpgBAFH4Lp4voyizEWTO7mCvYKMz3ZCdxjKTCT5VO0k518eUHMubxzNc3pHadVBgMvLdpBQBQZAf3beFw2SOOKAtuZARi19IqIaxldjPIoMYz6oGaMNx7QVa8Y1GBHXA9dOiiV1dgVieZBpV7mE2fJZA3z5qd6VHih0PcK6ZB9xIPRPFH2FyPuJGAZD";
-   public function __construct($app) {
+    protected $session;
+    protected $request;
+    
+    public function __construct($app) {
      
+       
+        if($app['token']){
+            var_dump($app['token']->getAccessToken());
+            var_dump($app['token']->getCredentials());
+        }
+
         // If you already have a valid access token:
-        #$this->session = new FacebookSession($this->key);
-       # $this->request = new FacebookRequest($this->session, 'GET', '/me');
+        $this->session = new FacebookSession($this->key);
+        $this->request = new FacebookRequest($this->session, 'GET', '/me');
         
         // If you're making app-level requests:
         //$session = FacebookSession::newAppSession();
 
         // To validate the session:
-        /*try {
+        
+        
+   }
+   public function checkSession(){
+       try {
           $this->session->validate();
         } catch (FacebookRequestException $ex) {
           // Session not valid, Graph API returned an exception with the reason.
@@ -36,11 +48,6 @@ class FacebookRepository
           // Graph API returned info, but it may mismatch the current app or have expired.
           echo $ex->getMessage();
         }
-        */
-        
-   }
-   public function checkSession(){
-       
    }
    public function getUser(){
        if($this->session) {

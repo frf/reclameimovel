@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Condominio\Controller;
 
 use Silex\Application;
@@ -9,16 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Condominio\Form\Type\EmpreendimentoType;
 use Condominio\Entity\Empreendimento;
 
-
-use Facebook\FacebookSession;
-use Facebook\FacebookRequest;
-use Facebook\GraphUser;
-use Facebook\GraphLocation;
-use Facebook\FacebookRequestException;
-use Facebook\FacebookRedirectLoginHelper;
-use Facebook\FacebookJavaScriptLoginHelper;
-use Facebook\FacebookCanvasLoginHelper;
-
 class IndexController {
 
     public function indexAction(Request $request, Application $app) {
@@ -26,32 +17,8 @@ class IndexController {
         $page = $request->get("page", 1);
         $busca = $request->get("busca");
 
-        if($app['token']){
-            var_dump($app['token']->getAccessToken());
-            var_dump($app['token']->getCredentials());
-        }
-
-        /*$session = new FacebookSession('access-token-here');
+        var_dump($app['repository.facebook']->getUser());
         
-        FacebookSession::setDefaultApplication('237093413164290', '8f94031a4b4a962543c33747c1a2e6e7');
-        
-        $helper = new FacebookCanvasLoginHelper();
-        try {
-          $session = $helper->getSession();
-        } catch(FacebookRequestException $ex) {
-          // When Facebook returns an error
-        } catch(\Exception $ex) {
-          // When validation fails or other local issues
-        }
-        
-        var_dump($session);
-        
-        
-        if ($session) {
-          // Logged in
-            var_dump($session);
-        }
-*/
         exit;
         if ($idnome != "buscar" && $idnome != "") {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
