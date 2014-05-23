@@ -56,9 +56,10 @@ document.querySelector('form input[type=file]').addEventListener('change', funct
                     
                     // Resize image
                     var canvas = document.createElement('canvas'),
-                            max_size = 700,
+                            max_size = 400,
                             width = image.width,
                             height = image.height;
+                    
                     if (width > height) {
                         if (width > max_size) {
                             height *= max_size / width;
