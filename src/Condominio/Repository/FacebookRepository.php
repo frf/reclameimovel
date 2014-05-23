@@ -28,6 +28,8 @@ class FacebookRepository
             throw new Exception("Erro ao solicitar usuario ao facebook!");
         }
 
+        FacebookSession::setDefaultApplication('237093413164290', '8f94031a4b4a962543c33747c1a2e6e7');
+
         // If you already have a valid access token:
         $this->session = new FacebookSession($this->key);
         $this->request = new FacebookRequest($this->session, 'GET', '/me');
