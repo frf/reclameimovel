@@ -86,7 +86,8 @@ class IndexController {
                 'here' => $idnome,
                 'adjacentes' => 2,
                 'uri' => '/empreendimento',
-                'oUser'=>$oUser
+                'oUser'=>$oUser,
+                'empreendimento'=>$oEmp
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
