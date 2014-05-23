@@ -25,11 +25,13 @@ class IndexController {
         $idnome = $request->get("idnome");
         $page = $request->get("page", 1);
         $busca = $request->get("busca");
-
+try{
         if($app['token']){
-            var_dump($app['token']->accessToken);
+            var_dump($app['token']->accessToken());
         }
-        
+}  catch (Exception $e){
+    var_dump($e->getMessage());
+}    
         /*$session = new FacebookSession('access-token-here');
         
         FacebookSession::setDefaultApplication('237093413164290', '8f94031a4b4a962543c33747c1a2e6e7');
