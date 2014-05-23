@@ -13,6 +13,9 @@ $(document).ready(function() {
     $("#logoClick").click(function() {
         window.location = '/';
     });
+    $("#moradorClick").click(function() {
+        window.location = '/morador';
+    });
     $("#adicionar_busca").click(function() {
         window.location = '/';
     });
