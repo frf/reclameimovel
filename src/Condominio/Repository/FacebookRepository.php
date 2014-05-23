@@ -35,7 +35,7 @@ class FacebookRepository
         }
 
 
-        
+        exit;
         // If you already have a valid access token:
         #$this->session = new FacebookSession($this->key);
        # $this->request = new FacebookRequest($this->session, 'GET', '/me');
