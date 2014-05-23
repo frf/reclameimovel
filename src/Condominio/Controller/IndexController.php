@@ -17,9 +17,8 @@ class IndexController {
         $page = $request->get("page", 1);
         $busca = $request->get("busca");
 
-        var_dump($app['repository.facebook']->checkSession());
+        $app['repository.facebook']->checkSession();
         
-        var_dump($app['repository.facebook']->graphObject());
         
         exit;
         if ($idnome != "buscar" && $idnome != "") {

@@ -27,9 +27,7 @@ class FacebookRepository
      
         $this->api      = "237093413164290";
         $this->secret   = "8f94031a4b4a962543c33747c1a2e6e7";
-        var_dump($app['token']);
-        
-        
+
         if($app['token']){
             $this->token = $app['token']->getCredentials();
         }else{
@@ -39,7 +37,11 @@ class FacebookRepository
         // If you already have a valid access token:
         $this->session = new FacebookSession($this->token);
         $this->request = new FacebookRequest($this->session, 'GET', '/me');
-   
+        $this->requestFriendly = new FacebookRequest($this->session, 'GET', '/me/friendlists');
+        
+   var_dump($this->requestFriendly);
+       
+        
    }
    public function getToken(){
        return $this->token;
