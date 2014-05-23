@@ -101,10 +101,6 @@ class IndexController {
             }
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);
 
-            if($oUser){
-                var_dump($oUser);
-            }
-            
             $data = array(
                 'idnome' => $idnome,
                 'metaDescription' => "Busca os empreendimentos",
@@ -114,9 +110,11 @@ class IndexController {
                 'numPages' => $numPages,
                 'here' => "buscar",
                 'adjacentes' => 1,
-                'uri' => '/empreendimento'
+                'uri' => '/empreendimento',
+                'oUser'=>$oUser            
             );
 
+            
             $data['aLista'] = $aLista;
             $data['exibeErro'] = false;
             
