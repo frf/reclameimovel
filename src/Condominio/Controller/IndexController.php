@@ -9,6 +9,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Condominio\Form\Type\EmpreendimentoType;
 use Condominio\Entity\Empreendimento;
 
+
+use Facebook\FacebookSession;
+use Facebook\FacebookRequest;
+use Facebook\GraphUser;
+use Facebook\GraphLocation;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookJavaScriptLoginHelper;
+use Facebook\FacebookCanvasLoginHelper;
+
 class IndexController {
 
     public function indexAction(Request $request, Application $app) {
