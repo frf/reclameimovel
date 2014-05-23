@@ -18,25 +18,23 @@ class FacebookRepository
 {
     protected $session;
     protected $request;
+    protected $token;
     
     public function __construct($app) {
      
-       
         if($app['token']){
-            var_dump($app['token']->getAccessToken());
-            var_dump($app['token']->getCredentials());
+            $this->token = $app['token']->getCredentials();
+        }else{
+            throw new Exception("Erro ao solicitar usuario ao facebook!");
         }
 
         // If you already have a valid access token:
         $this->session = new FacebookSession($this->key);
         $this->request = new FacebookRequest($this->session, 'GET', '/me');
-        
-        // If you're making app-level requests:
-        //$session = FacebookSession::newAppSession();
-
-        // To validate the session:
-        
-        
+   
+   }
+   public function getToken(){
+       return $this->token;
    }
    public function checkSession(){
        try {
