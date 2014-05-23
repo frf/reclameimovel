@@ -30,7 +30,7 @@
             </a>
             {% for empreendimento in aLista %}
              {% if oUser %}
-                <button type="button" id="adicionar" class="btn btn-danger btn-xs">Adicionar Reclamação</button>
+                <button type="button" id="adicionar" class="btn btn-danger btn-xs">Meu Condomínio</button>
              {% endif %}
              <a href="{{uri}}/{{empreendimento.idnome}}" class="list-group-item list-group-item-success"><b>{{empreendimento.nome}} - {{empreendimento.empresa.nome}}</b></a>
             {% endfor %}
@@ -56,7 +56,7 @@
                     {% for empreendimento in aEmpMaisProcurados %}
                         <li class="list-group-item"> 
                             {% if oUser %}
-                                <button type="button" id="adicionar" class="btn btn-danger btn-xs">Adicionar Reclamação</button>
+                                <button type="button" id="adicionar" class="btn btn-danger btn-xs">Meu Condomínio</button>
                             {% endif %}
                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}}</a>
                         </li>
