@@ -279,7 +279,37 @@ class IndexController {
                 $app['session']->getFlashBag()->add('success', $message);
                 // Redirect to the edit page.
                 $redirect = $app['url_generator']->generate('principal');
+var_dump($emp);exit;
+                /*
+                * Pegar id da sessao
+                */
+               if($app['token']){
+                   $uid = $app['token']->getUid();
+                   $oUser = $app['repository.user']->find($uid);
 
+                    if ($oUser) {                
+                       /*
+                       * Enviar email
+                       */
+                       $body = $app['twig']->render('emailCadEmp.html.twig',
+                               array(
+                                   'name' => $oUser->getName(),
+                                   'mail' => $oUser->getEmail(),
+                                   'emp'=>$emp
+                               ));
+
+                       $message = \Swift_Message::newInstance()
+                                       ->setSubject('[Reclame Imóvel] Obrigado pelo cadastro. ')
+                                       ->setFrom(array('contato@reclameimovel.com.br'=>'Reclame Imóvel'))
+                                       ->setTo(array($oUser->getEmail()=>$oUser->getName()))
+                                       ->setBody($body)
+                                       ->setContentType("text/html");
+
+                       $app['mailer']->send($message);            
+                   }
+
+               }
+        
                 return $app->redirect($redirect);
             }
 
