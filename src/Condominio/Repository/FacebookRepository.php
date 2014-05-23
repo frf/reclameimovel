@@ -27,6 +27,8 @@ class FacebookRepository
      
         $this->api      = "237093413164290";
         $this->secret   = "8f94031a4b4a962543c33747c1a2e6e7";
+        var_dump($app['token']);
+        
         
         if($app['token']){
             $this->token = $app['token']->getCredentials();
