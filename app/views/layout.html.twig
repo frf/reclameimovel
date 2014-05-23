@@ -41,8 +41,10 @@
             
             <ul class="nav navbar-nav" style="margin-left:5px">
             <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
-            {% if app.oUser.idemp %}
-                <li  {% if 'reclamacao_add' == active %}class="active"{% endif %}><a href="{{ path('reclamacao_add') }}"><i class="icon-bullhorn"></i>  {{ 'Reclamar'|trans }}</a></li>
+            {% if app.oUser %}
+                {% if app.oUser.idemp %}
+                    <li  {% if 'reclamacao_add' == active %}class="active"{% endif %}><a href="{{ path('reclamacao_add') }}/{{app.oUser.idemp}}"><i class="icon-bullhorn"></i>  {{ 'Reclamar'|trans }}</a></li>
+                {% endif %}
             {% endif %}
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
             <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
