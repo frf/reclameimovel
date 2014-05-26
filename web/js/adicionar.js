@@ -1,8 +1,6 @@
 $(document).ready(function() {
     $("<div><div id='inputImg'></div><div id='totalImg' style='margin-top: 15px;font-weight:700'></div><div  class='photos'></div></div>").insertAfter("#reclamacao_youtube");
     $('<p id="termoBotao">Clicando em "Enviar reclamação", você afirma estar de acordo com o <a href="/termo-de-uso">Termo de Uso</a></p>').insertBefore("#reclamacao_Salvar");
-    
-    
 });
  
 function deleteImg(id){
@@ -56,9 +54,10 @@ document.querySelector('form input[type=file]').addEventListener('change', funct
                     
                     // Resize image
                     var canvas = document.createElement('canvas'),
-                            max_size = 700,
+                            max_size = 400,
                             width = image.width,
                             height = image.height;
+                    
                     if (width > height) {
                         if (width > max_size) {
                             height *= max_size / width;

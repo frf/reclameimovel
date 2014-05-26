@@ -20,6 +20,8 @@ $app->get('/email/bemvindo', 'Condominio\Controller\IndexController::emailbemvin
 $app->get('/empreendimento/{idnome}/{page}', 'Condominio\Controller\IndexController::indexAction')->bind('principalemp')
                                                                                     ->value('idnome',false)
                                                                                     ->value('page',1);
+$app->get('/morador/update/{idnome}', 'Condominio\Controller\EmpreendimentoController::updateUsuarioAction')->bind('empupuser')
+                                                                                    ->value('idnome',false);
 
 $app->get('/empreendimento/buscar/{page}/{busca}', 'Condominio\Controller\IndexController::indexAction')->bind('principalbuscar')
                                                                                                 ->value('page',1)

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% if metaDescription %}
         <meta name="description" content="{{metaDescription}}">
+            
         {% else %}
         <meta name="description" content="Antes de comprar seu imóvel consulte nosso site e evite dor de cabeça,Reclamações, Problemas, prazos inacabaveis, cobrança indevida, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular">
         {% endif %}
@@ -24,13 +25,14 @@
         <link href="{{ app.request.basepath }}/css/south-street/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
             
         <title>{{app.title_layout}}</title>        
+        
     </head>
 <body role="document">
     {% set active = active|default(null) %}
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button" style="margin-right:6px;width:58px ">
+          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button" style="margin-right:6px;width:43px ">
             <span class="sr-only">Menu</span>
             <span class="icon-bar" style="width: 39px"></span>
             <span class="icon-bar" style="width: 39px"></span>
@@ -42,9 +44,14 @@
 
         </div>
         <div class="navbar-collapse collapse">
+            
             <ul class="nav navbar-nav" style="margin-left:5px">
             <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
-           
+            {% if app.oUser %}
+                {% if app.oUser.idemp %}
+                    <li  {% if 'reclamacao_add' == active %}class="active"{% endif %}><a href="{{ path('reclamacao_add') }}/{{app.oUser.idemp}}"><i class="icon-bullhorn"></i>  {{ 'Reclamar'|trans }}</a></li>
+                {% endif %}
+            {% endif %}
             <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
             <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
             
@@ -89,7 +96,5 @@
     <script src="{{ app.request.basepath }}/js/jquery.maskedinput.min.js"></script>
     <script src="{{ app.request.basepath }}/js/adicionar.js"></script>
     
-    <div id="fb-root"></div>
-
 </body>
 </html>

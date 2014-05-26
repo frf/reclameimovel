@@ -6,7 +6,9 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 class User implements AdvancedUserInterface
 {
     private $idu;
-    
+    private $idemp;
+
+
     private $username;
     private $password;
     private $email;
@@ -167,6 +169,14 @@ class User implements AdvancedUserInterface
         $this->name = $name;
         return $this;
     }
+    public function getIdemp() {
+        return $this->idemp;
+    }
+
+    public function setIdemp($idemp) {
+        $this->idemp = $idemp;
+    }
+
 
 
 

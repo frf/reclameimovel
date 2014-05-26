@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Condominio\Controller;
 
 use Silex\Application;
@@ -26,6 +25,7 @@ class IndexController {
          */
         if($app['token']){
             $uid = $app['token']->getUid();
+            $oUser = $app['repository.user']->find($uid);
             $validBemVindo = $app['repository.user']->bemVindo($uid);
             
              if ($validBemVindo) {                
@@ -47,12 +47,9 @@ class IndexController {
 
                 $app['mailer']->send($message);                        
                 $app['repository.user']->updateBemVindo($uid);
-            }
-        
+            }        
         }
         
-        
-
         if ($oEmp) {
             $app['repository.empreendimento']->updateVisita($oEmp->getId());
 
@@ -84,7 +81,9 @@ class IndexController {
                 'numPages' => $numPages,
                 'here' => $idnome,
                 'adjacentes' => 2,
-                'uri' => '/empreendimento'
+                'uri' => '/empreendimento',
+                'oUser'=>$oUser,
+                'empreendimento'=>$oEmp
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
@@ -109,9 +108,11 @@ class IndexController {
                 'numPages' => $numPages,
                 'here' => "buscar",
                 'adjacentes' => 1,
-                'uri' => '/empreendimento'
+                'uri' => '/empreendimento',
+                'oUser'=>$oUser            
             );
 
+            
             $data['aLista'] = $aLista;
             $data['exibeErro'] = false;
             
@@ -132,6 +133,10 @@ class IndexController {
 
         $aLista = $app['repository.empreendimento']->findAllWhere($limit, $offset, array(), $busca);
         $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);
+        if($app['token']){
+            $uid = $app['token']->getUid();
+            $oUser = $app['repository.user']->find($uid);
+        }
 
         $data = array(
             'metaDescription' => $metaDescription,
@@ -141,7 +146,8 @@ class IndexController {
             'numPages' => $numPages,
             'here' => "buscar",
             'adjacentes' => 1,
-            'uri' => '/empreendimento'
+            'uri' => '/empreendimento',
+            'oUser'=>$oUser
         );
 
         if ($aLista) {
