@@ -28,58 +28,64 @@
         <link href="{{ app.request.basepath }}/css/south-street/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />            
         <title>{{app.title_layout}}</title>        
     </head>
-<body role="document">
-    {% set active = active|default(null) %}
-    <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button" style="margin-right:6px;width:43px ">
-            <span class="sr-only">Menu</span>
-            <span class="icon-bar" style="width: 39px"></span>
-            <span class="icon-bar" style="width: 39px"></span>
-            <span class="icon-bar" style="width: 39px"></span>
-          </button>
-            <img id="logoClick" src="http://www.reclameimovel.com.br/images/logo100x100.png" style="cursor:pointer; width: 40px;height: 40px;float: left;margin-right: 10px;margin-left:10px;margin-top: 5px" alt="Logo Reclame Imóvel" />
-            <a href="/" id="tituloSite" class="navbar-brand" style="padding: 15px 6px 0px 9px">Reclame Imóvel</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            
-            <ul class="nav navbar-nav" style="margin-left:5px">
-            <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
-            {% if app.oUser %}
-                {% if app.oUser.idemp %}
-                    <li  {% if 'reclamacao_add' == active %}class="active"{% endif %}><a href="{{ path('reclamacao_add') }}/{{app.oUser.idemp}}"><i class="icon-bullhorn"></i>  {{ 'Reclamar'|trans }}</a></li>
-                {% endif %}
-            {% endif %}
-            <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
-            <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
-            
-            <li {% if 'quemsomos' == active %}class="active"{% endif %}><a href="{{ path('quemsomos') }}"><i class="icon-th-large"></i>  {{ 'Quem Somos'|trans }}</a></li>
-	</ul>
-        <ul class="nav navbar-nav  pull-right">
-           
-	{% if app.user %}
-            <li><img id="moradorClick" style="margin-top:5px;margin-right:0px;cursor:pointer" src="https://graph.facebook.com/{{app.token.uid}}/picture/picture?type=square" width="40px" heigth="40px" border="0" /></li>
-            <li  {% if 'morador' == active %}class="active"{% endif %}>
-			<a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
-        <li>
-		<a href="{{ app.login.logout_path }}"><i class="glyphicon glyphicon-lock"></i> Sair</a>
-	</li>
-	{% else %}
+    <body role="document">
+        {% set active = active|default(null) %}
+        <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button" style="margin-right:6px;width:43px ">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar" style="width: 39px"></span>
+                <span class="icon-bar" style="width: 39px"></span>
+                <span class="icon-bar" style="width: 39px"></span>
+              </button>
+                <img id="logoClick" src="http://www.reclameimovel.com.br/images/logo100x100.png" style="cursor:pointer; width: 40px;height: 40px;float: left;margin-right: 10px;margin-left:10px;margin-top: 5px" alt="Logo Reclame Imóvel" />
+                <a href="/" id="tituloSite" class="navbar-brand" style="padding: 15px 6px 0px 9px">Reclame Imóvel</a>
+            </div>
+            <div class="navbar-collapse collapse">
 
-        <li>
-		<a href="/login"><i class="glyphicon glyphicon-upload"></i> Entrar</a>
-	</li>
-	{% endif %}
-        </ul> 
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-    <br /><br /><br />
-    <!-- Begin page content -->
-    <div class="container" role="main">      
-        {% block content %}
-        {% endblock %}
-    </div>    
-</body>
+                <ul class="nav navbar-nav" style="margin-left:5px">
+                <li  {% if 'principal' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-home"></i>  {{ 'Principal'|trans }}</a></li>
+                {% if app.oUser %}
+                    {% if app.oUser.idemp %}
+                        <li  {% if 'reclamacao_add' == active %}class="active"{% endif %}><a href="{{ path('reclamacao_add') }}/{{app.oUser.idemp}}"><i class="icon-bullhorn"></i>  {{ 'Reclamar'|trans }}</a></li>
+                    {% endif %}
+                {% endif %}
+                <li {% if 'construtora' == active %}class="active"{% endif %}><a href="{{ path('construtora') }}"><i class="icon-th"></i>  {{ 'Construtora'|trans }}</a></li>
+                <li {% if 'buscar' == active %}class="active"{% endif %}><a href="{{ path('principal') }}"><i class="icon-search"></i>  {{ 'Buscar'|trans }}</a></li>
+
+                <li {% if 'quemsomos' == active %}class="active"{% endif %}><a href="{{ path('quemsomos') }}"><i class="icon-th-large"></i>  {{ 'Quem Somos'|trans }}</a></li>
+            </ul>
+            <ul class="nav navbar-nav  pull-right">
+
+            {% if app.user %}
+                <li><img id="moradorClick" style="margin-top:5px;margin-right:0px;cursor:pointer" src="https://graph.facebook.com/{{app.token.uid}}/picture/picture?type=square" width="40px" heigth="40px" border="0" /></li>
+                <li  {% if 'morador' == active %}class="active"{% endif %}>
+                            <a href="{{ path('morador') }}"><i class="icon-user"></i>  {{ 'Morador'|trans }}</a></li>
+            <li>
+                    <a href="{{ app.login.logout_path }}"><i class="glyphicon glyphicon-lock"></i> Sair</a>
+            </li>
+            {% else %}
+
+            <li>
+                    <a href="/login"><i class="glyphicon glyphicon-upload"></i> Entrar</a>
+            </li>
+            {% endif %}
+            </ul> 
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+        <br /><br /><br />
+        <!-- Begin page content -->
+        <div class="container" role="main">      
+            {% block content %}
+            {% endblock %}
+        </div>    
+        <script src="{{ app.request.basepath }}/js/jquery-2.0.3.min.js" type="text/javascript" ></script>
+        <script src="{{ app.request.basepath }}/js/jquery-ui.js" type="text/javascript" ></script>
+        <script src="{{ app.request.basepath }}/js/bootstrap.min.js" type="text/javascript" ></script>
+        <script src="{{ app.request.basepath }}/js/start.js" type="text/javascript" ></script>
+        <script src="{{ app.request.basepath }}/js/jquery.maskedinput.min.js" type="text/javascript" ></script>
+        <script src="{{ app.request.basepath }}/js/adicionar.js" type="text/javascript" ></script>    
+    </body>
 </html>
