@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt" lang="pt">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% if metaDescription %}
             <meta name="description" content="{{metaDescription}}" />
             <meta property="og:description" content="{{metaDescription}}" />            
@@ -13,23 +13,20 @@
         {% endif %}        
         <meta property="og:locale" content="pt_BR">
         <meta property="og:title" content="{{app.title_layout}}" />
-        <meta property="og:site_name" content="Reclame Imóvel">
+        <meta property="og:site_name" content="Reclame Imóvel" />
         <meta property="og:url" content="http://www.reclameimovel.com.br" />        
         <meta property="og:image" content="http://www.reclameimovel.com.br/images/logo100x100.png" />
-        <meta property="og:image:type" content="image/png">
-        <meta property="og:image:width" content="100">
-        <meta property="og:image:height" content="100">                
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="100" />
+        <meta property="og:image:height" content="100" />                
         <meta name="author" content="Reclame Imóvel" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />        
-        <meta name="language" content="pt" />
-        
+        <meta name="language" content="pt" />        
         <!-- Bootstrap core CSS -->
-        <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/theme.min.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/south-street/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
-            
+        <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="{{ app.request.basepath }}/css/theme.min.css" rel="stylesheet" />
+        <link href="{{ app.request.basepath }}/css/south-street/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />            
         <title>{{app.title_layout}}</title>        
-        
     </head>
 <body role="document">
     {% set active = active|default(null) %}
