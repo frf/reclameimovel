@@ -80,7 +80,6 @@ class Reclamacao
     protected $file4;
 
     protected $youtube;
-    protected $confirmar;
 
 
     public function getId() {
@@ -228,14 +227,6 @@ class Reclamacao
     public function setFiles($files) {
         $this->files = $files;
         return $this;
-    }
-
-    public function getConfirmar() {
-        return $this->confirmar;
-    }
-
-    public function setConfirmar($confirmar) {
-        $this->confirmar = $confirmar;
     }
     public function getUser() {
         return $this->user;

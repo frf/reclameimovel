@@ -43,7 +43,6 @@ class ReclamacaoRepository implements RepositoryInterface
             'idassunto' => $reclamacao->getIdassunto(),
             'descricao' => $reclamacao->getDescricao(),
             'youtube' => $reclamacao->getYoutube(),
-            'confirmar' => $reclamacao->getConfirmar(),
             'dt_cadastro'=>date('Y-m-d H:i:s')
         );
 
@@ -268,7 +267,6 @@ class ReclamacaoRepository implements RepositoryInterface
         $reclamacao->setDados($reclamacaoData['dados']);
         $reclamacao->setIdassunto($reclamacaoData['idassunto']);
         $reclamacao->setYoutube($reclamacaoData['youtube']);
-        $reclamacao->setConfirmar($reclamacaoData['confirmar']);
         
         $createdAt = new \DateTime($reclamacaoData['dt_cadastro']);        
         $reclamacao->setDt_cadastro($createdAt);
