@@ -101,7 +101,7 @@ class IndexController {
 
             $data = array(
                 'idnome' => $idnome,
-                'metaDescription' => "Busca os empreendimentos",
+                'metaDescription' => META_DESCRIPTION_DEFAULT,
                 'busca' => $busca,
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,
                 'currentPage' => $currentPage,
