@@ -69,7 +69,7 @@ class IndexController {
             $aLista = $app['repository.reclamacao']->findReclamacaoEmpreendimento($limit, $offset, array(), $ide);
 
             $data = array(
-                'metaDescription' => "",
+                'metaDescription' => META_DESCRIPTION_DEFAULT,
                 'idnome' => $idnome,
                 'busca' => "",
                 'total' => $total,
@@ -139,7 +139,7 @@ class IndexController {
         }
 
         $data = array(
-            'metaDescription' => $metaDescription,
+            'metaDescription' => META_DESCRIPTION_DEFAULT,
             'busca' => $busca,
             'aEmpMaisProcurados' => $aEmpMaisProcurados,
             'currentPage' => $currentPage,
@@ -230,13 +230,13 @@ class IndexController {
         return $app['twig']->render('construtora.html.twig');
     }
     public function termoAction(Request $request, Application $app) {
-        return $app['twig']->render('termo.html.twig',array('metaDescription'=>'Termo de uso do Reclame Imóvel'));
+        return $app['twig']->render('termo.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT));
     }
     public function quemsomosAction(Request $request, Application $app) {
-        return $app['twig']->render('quemsomos.html.twig',array('metaDescription'=>'Quem somos?'));
+        return $app['twig']->render('quemsomos.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT));
     }
     public function sugestaoAction(Request $request, Application $app) {
-        return $app['twig']->render('sugestao.html.twig',array('metaDescription'=>'Sugestão, nos ajude para possamos lhe ajudar - Reclame Imóvel'));
+        return $app['twig']->render('sugestao.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT));
     }
 
     public function empNovoAction(Request $request, Application $app) {
@@ -255,7 +255,7 @@ class IndexController {
         $form = $app['form.factory']->create(new EmpreendimentoType(), $emp);
 
         $data = array(
-            'metaDescription' => '',
+            'metaDescription' => META_DESCRIPTION_DEFAULT,
             'form' => $form->createView(),
         );
 
