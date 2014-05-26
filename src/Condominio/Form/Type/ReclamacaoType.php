@@ -44,10 +44,6 @@ class ReclamacaoType extends AbstractType {
                     'label' => 'Copie e cole o link do youtube com seu vídeo, basta clicar em compartilhar la no youtube.'
                 ))
                 ->add('files', 'file', array('label' => 'Imagem','required' => FALSE,"attr" => array("accept" => "image/*","multiple"=>"multiple")))
-                /*->add('confirmar', 'checkbox', array('attr' => array('class' => 'checkbox'),
-                    'required' => true,
-                    'label' => 'Eu aceito, que tudo que eu postar é de minha inteira responsalidade.'
-                ))*/
                 ->add('Salvar', 'submit', array('label' =>"Enviar reclamação",'attr' => array('class' => 'btn btn-primary separar')));
     }
 
