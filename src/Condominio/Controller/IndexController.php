@@ -235,6 +235,9 @@ class IndexController {
     public function quemsomosAction(Request $request, Application $app) {
         return $app['twig']->render('quemsomos.html.twig',array('metaDescription'=>'Quem somos?'));
     }
+    public function sugestaoAction(Request $request, Application $app) {
+        return $app['twig']->render('sugestao.html.twig',array('metaDescription'=>'Sugestão, nos ajude para possamos lhe ajudar - Reclame Imóvel'));
+    }
 
     public function empNovoAction(Request $request, Application $app) {
 

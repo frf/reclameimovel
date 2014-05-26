@@ -16,7 +16,7 @@ $app->get('/empreendimento/novo', 'Condominio\Controller\IndexController::empNov
 $app->get('/adicionar/{idnome}', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add')->value('idnome',false);
 $app->get('/construtora', 'Condominio\Controller\ConstrutoraController::indexAction')->bind('construtora');
 $app->get('/email/bemvindo', 'Condominio\Controller\IndexController::emailbemvindoAction')->bind('emailbemvindo');
-
+$app->get('/reclameimovel/sugestao', 'Condominio\Controller\IndexController::sugestaoAction')->bind('sugestao');
 $app->get('/empreendimento/{idnome}/{page}', 'Condominio\Controller\IndexController::indexAction')->bind('principalemp')
                                                                                     ->value('idnome',false)
                                                                                     ->value('page',1);
