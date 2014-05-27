@@ -241,7 +241,7 @@ class IndexController {
     public function videosAction(Request $request, Application $app) {
         
         $aList = $app['repository.video']->findAll();
-        var_dump($aList);
+        
         return $app['twig']->render('videos.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT,'aLista'=>$aList));
     }
 
