@@ -135,7 +135,6 @@ class VideoRepository implements RepositoryInterface
             ->orderBy('a.' . key($orderBy), current($orderBy));
         $statement = $queryBuilder->execute();
         $empresaData = $statement->fetchAll();
-   var_dump($empresaData);
         $empresa = array();
         foreach ($empresaData as $empresaData) {
             $empresaId = $empresaData['id'];
