@@ -119,7 +119,7 @@ class VideoRepository implements RepositoryInterface
         }
     }
 
-    public function findAll($limit, $offset = 0, $orderBy = array())
+    public function findAll($limit=30, $offset = 0, $orderBy = array())
     {        
          // Provide a default orderBy.
         if (!$orderBy) {
