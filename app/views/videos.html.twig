@@ -1,28 +1,19 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
-{% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
-        {% for alert in alertTypeAvaillable %}
-            {% for message in app.session.getFlashBag.get(alert) %}
-                <div class="alert alert-{{ alert }}" >
-                    <button class="close" data-dismiss="alert">×</button>
-                    {{ message|trans }}
-                </div>
-            {% endfor %}
-        {% endfor %}
 <div class="col-md-8">
     <div class="panel-group" >
-        {% if reclamacao.youtube %}
+        {% for video in aLista %}
          <div class="panel panel-default">
             <div class="panel-heading"><h3><b>Vídeo</b></h3></div>
             <div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body text-justify">
-                    <iframe  width="100%" height="315" src="//www.youtube.com/embed/{{youtube}}" frameborder="0" allowfullscreen></iframe>
+                    <iframe  width="100%" height="315" src="//www.youtube.com/embed/{{video.link}}" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
         </div>
-        {% endif %}
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
