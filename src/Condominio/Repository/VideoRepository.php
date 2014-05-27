@@ -141,6 +141,8 @@ class VideoRepository implements RepositoryInterface
             $empresaId = $empresaData['id'];
             $empresa[$empresaId] = $this->buildVideo($empresaData);
         }
+        
+        var_dump($empresa);
         return $empresa;
     }
 
