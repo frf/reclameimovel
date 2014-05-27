@@ -242,7 +242,7 @@ class IndexController {
         
         $aList = $app['repository.video']->findAll();
         
-        return $app['twig']->render('videos.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT,'aList'=>$aList));
+        return $app['twig']->render('videos.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT,'aLista'=>$aList));
     }
 
     public function empNovoAction(Request $request, Application $app) {
