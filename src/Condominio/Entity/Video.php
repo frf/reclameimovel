@@ -33,7 +33,7 @@ class Video
     }
 
     public function setDtCadastro($dtCadastro) {
-        $this->dtCadastro = date($dtCadastro,"d/m/Y");
+        $this->dtCadastro = $dtCadastro;
     }
 
 
