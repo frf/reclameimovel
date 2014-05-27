@@ -12,6 +12,7 @@ $app->get('/morador', 'Condominio\Controller\MoradorController::indexAction')->b
 $app->get('/morador/minhas-reclamacoes/{page}', 'Condominio\Controller\MoradorController::minhasReclamacoesAction')->bind('minhas_reclamacoes')->value('page',1);
 $app->get('/morador/dados-complementares', 'Condominio\Controller\MoradorController::dadosAction')->bind('dados_usuario');
 $app->get('/empreendimento/novo', 'Condominio\Controller\IndexController::empNovoAction')->bind('emp_novo');
+$app->get('/noticias/video', 'Condominio\Controller\IndexController::videosAction')->bind('noticiaVideo');
 
 $app->get('/adicionar/{idnome}', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add')->value('idnome',false);
 $app->get('/construtora', 'Condominio\Controller\ConstrutoraController::indexAction')->bind('construtora');

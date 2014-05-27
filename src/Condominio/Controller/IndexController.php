@@ -238,6 +238,12 @@ class IndexController {
     public function sugestaoAction(Request $request, Application $app) {
         return $app['twig']->render('sugestao.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT));
     }
+    public function videosAction(Request $request, Application $app) {
+        
+        $aList = $app['repository.video']->findAll();
+        
+        return $app['twig']->render('videos.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT,'aList'=>$aList));
+    }
 
     public function empNovoAction(Request $request, Application $app) {
 

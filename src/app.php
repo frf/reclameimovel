@@ -8,6 +8,9 @@ $app['view_path'] = 'http://reclameimovel.com.br/view';
 $app['repository.empresa'] = $app->share(function ($app) {
     return new Condominio\Repository\EmpresaRepository($app['db']);
 });  
+$app['repository.video'] = $app->share(function ($app) {
+    return new Condominio\Repository\VideoRepository($app['db']);
+});  
 $app['repository.user'] = $app->share(function ($app) {
     return new Condominio\Repository\UserRepository($app['db'],$app);
 });  
