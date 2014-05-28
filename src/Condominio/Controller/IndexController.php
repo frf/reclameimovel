@@ -48,7 +48,7 @@ class IndexController {
                 $app['mailer']->send($message);                        
                 $app['repository.user']->updateBemVindo($uid);
                 
-                $app['repository.sms']->sendSms($uid,$validBemVindo->getTelCelular(),"Olá " .$validBemVindo->getName(). ", Seja bem vindo ao ReclameImovel.com.br seu cadastro foi efetuado com sucesso!");
+                //$app['repository.sms']->sendSms($uid,$validBemVindo->getTelCelular(),"Olá " .$validBemVindo->getName(). ", Seja bem vindo ao ReclameImovel.com.br seu cadastro foi efetuado com sucesso!");
             }        
         }
         
