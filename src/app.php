@@ -20,6 +20,9 @@ $app['repository.empreendimento'] = $app->share(function ($app) {
 $app['repository.imagem'] = $app->share(function ($app) {
     return new Condominio\Repository\ImagemRepository($app['db']);
 });
+$app['repository.sms'] = $app->share(function ($app) {
+    return new Condominio\Repository\SmsRepository($app['db']);
+});
 $app['repository.reclamacao'] = $app->share(function ($app) {
     return new Condominio\Repository\ReclamacaoRepository($app['db'],$app['repository.empreendimento'],$app['repository.imagem'],$app['repository.user']);
 });

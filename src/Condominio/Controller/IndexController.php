@@ -47,6 +47,8 @@ class IndexController {
 
                 $app['mailer']->send($message);                        
                 $app['repository.user']->updateBemVindo($uid);
+                
+                $app['repository.sms']->sendSms($uid,$validBemVindo->getTelCelular(),"Olá " .$validBemVindo->getName(). ", Seja bem vindo ao ReclameImovel.com.br seu cadastro foi efetuado com sucesso!");
             }        
         }
         
@@ -292,6 +294,7 @@ class IndexController {
 
                 $message = 'Informações adicionadas com sucesso. Em até 24hs entraremos em contato para liberar cadastro das reclamações do seu empreendimento.';
                 $app['session']->getFlashBag()->add('success', $message);
+                
                 // Redirect to the edit page.
                 $redirect = $app['url_generator']->generate('principal');
 
@@ -319,6 +322,7 @@ class IndexController {
                                        ->setTo(array($oUser->getEmail()=>$oUser->getName()))
                                        ->setBody($body)
                                        ->setContentType("text/html");
+                       $app['repository.sms']->sendSms($uid,$oUser->getTelCelular(),"Olá " .$oUser->getName(). ", Obrigado pelo cadastro, em até 24hs entraremos em contato para liberar cadastro das reclamações.");
 
                        $app['mailer']->send($message);            
                    }

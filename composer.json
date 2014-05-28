@@ -20,6 +20,6 @@
         "symfony/dom-crawler"   : "~2.3"
     },
     "autoload": {
-        "psr-0": {"Condominio": "src/"}
+        "psr-0": {"Condominio": "src/","Sms":"src/"}
     }
 }
