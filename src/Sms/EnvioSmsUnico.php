@@ -11,10 +11,10 @@
 $urlSms = "http://api.directcallsoft.com/sms/send";
 
 // Numero de origem
-$origem = "554130686418";
+$origem = "5521992220009";
 
 // Numero de destino
-$destino = "554199504077";
+$destino = "5521992220009";
 
 // Tipo de envio, podendo ser "texto" ou "voz"
 $tipo = "texto"; 
