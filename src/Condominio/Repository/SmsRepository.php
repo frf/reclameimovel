@@ -57,60 +57,65 @@ class SmsRepository implements RepositoryInterface
     }
     public function sendSms($idu,$telCelular="",$texto="Seja bem vindo ao ReclameImovel.com.br"){
         
-        // URL que será feita a requisição
-        $urlSms = "http://api.directcallsoft.com/sms/send";
+        if($idu != "" && $telCelular != ""){
+            // URL que será feita a requisição
+            $urlSms = "http://api.directcallsoft.com/sms/send";
 
-        // Numero de origem
-        $origem = "5521992220009";
+            // Numero de origem
+            $origem = "5521992220009";
 
-        // Numero de destino
-        //$destino = "5521992220009";
+            // Numero de destino
+            //$destino = "5521992220009";
 
-        // Tipo de envio, podendo ser "texto" ou "voz"
-        $tipo = "texto"; 
+            // Tipo de envio, podendo ser "texto" ou "voz"
+            $tipo = "texto"; 
 
-        // Texto a ser enviado
-        //$texto = "Olá Mundo!";
+            // Texto a ser enviado
+            //$texto = "Olá Mundo!";
 
-        // Formato do retorno, pode ser JSON ou XML
-        $format = "JSON";
+            // Formato do retorno, pode ser JSON ou XML
+            $format = "JSON";
 
-        // Dados em formato QUERY_STRING
-        $data = http_build_query(array('origem'=>$origem, 'destino'=>$telCelular, 'tipo'=>$tipo, 'access_token'=>$this->geraToken(), 'texto'=>$texto));
+            // Dados em formato QUERY_STRING
+            $data = http_build_query(array('origem'=>$origem, 'destino'=>$telCelular, 'tipo'=>$tipo, 'access_token'=>$this->geraToken(), 'texto'=>$texto));
 
-        $ch = 	curl_init();
-        
-        curl_setopt($ch, CURLOPT_URL, $urlSms);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $ch = 	curl_init();
 
-        $return = curl_exec($ch);
+            curl_setopt($ch, CURLOPT_URL, $urlSms);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        curl_close($ch);
+            $return = curl_exec($ch);
 
-        // Converte os dados de JSON para ARRAY
-        $dados = json_decode($return, true);
+            curl_close($ch);
 
-        // Imprime o retorno
-        /*echo "API: ".			$dados['api']."\n";
-        echo "MODULO: ".		$dados['modulo']."\n";
-        echo "STATUS: ".		$dados['status']."\n";
-        echo "CODIGO: ".		$dados['codigo']."\n";
-        echo "MENSAGEM: ".		$dados['msg']."\n";
-        echo "CALLERID: ".		$dados['callerid']."\n";*/
-        
-        $userData = array(
-            'idu'=>$idu,
-            'status'=>$dados['status'],
-            'codigo'=>$dados['codigo'],
-            'msg'=>$dados['msg'],
-            'telCelular'=>$telCelular,
-            'dtCadastro'=>date('Y-m-d H:i:s')
-        );
-        
-        $this->db->insert("sms",$data);
+            // Converte os dados de JSON para ARRAY
+            $dados = json_decode($return, true);
+
+            // Imprime o retorno
+            /*echo "API: ".			$dados['api']."\n";
+            echo "MODULO: ".		$dados['modulo']."\n";
+            echo "STATUS: ".		$dados['status']."\n";
+            echo "CODIGO: ".		$dados['codigo']."\n";
+            echo "MENSAGEM: ".		$dados['msg']."\n";
+            echo "CALLERID: ".		$dados['callerid']."\n";*/
+
+            $userData = array(
+                'idu'=>$idu,
+                'status'=>$dados['status'],
+                'codigo'=>$dados['codigo'],
+                'msg'=>$dados['msg'],
+                'telCelular'=>$telCelular,
+                'dtCadastro'=>date('Y-m-d H:i:s')
+            );
+
+            $this->db->insert("sms",$userData);     
+            $id = $this->db->lastInsertId();
+        }else{
+            return false;
+        }
     }
     public function save($user)
     {       
