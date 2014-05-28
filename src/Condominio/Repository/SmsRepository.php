@@ -76,8 +76,12 @@ class SmsRepository implements RepositoryInterface
             // Formato do retorno, pode ser JSON ou XML
             $format = "JSON";
 
+            $telCelular = str_replace("(", "", $telCelular);
+            $telCelular = str_replace(")", "", $telCelular);
+            $telCelular = str_replace("-", "", $telCelular);
+            
             // Dados em formato QUERY_STRING
-            $data = http_build_query(array('origem'=>$origem, 'destino'=>$telCelular, 'tipo'=>$tipo, 'access_token'=>$this->geraToken(), 'texto'=>$texto));
+            $data = http_build_query(array('origem'=>$origem, 'destino'=>"55".$telCelular, 'tipo'=>$tipo, 'access_token'=>$this->geraToken(), 'texto'=>$texto));
 
             $ch = 	curl_init();
 
