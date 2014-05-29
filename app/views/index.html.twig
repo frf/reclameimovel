@@ -10,7 +10,7 @@
             {% endfor %}
         {% endfor %}
 
-        <h4>Busque o seu empreendimento aqui. <div class="fb-like" data-target="navbar-collapse" data-toggle="collapse" data-href="https://www.facebook.com/pages/Reclame-Im%C3%B3vel/747980351913888" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></h4>
+        <h4>Busque o seu empreendimento aqui. <div class="fb-like" data-href="https://www.facebook.com/reclameimovel" data-width="400" data-layout="standard" data-action="recommend" data-show-faces="false" data-share="true"></div></h4>
         
 
         <form class="form-inline" role="form" action="/buscar" method="post">
@@ -83,7 +83,8 @@
                                             <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}} - <b>{{empreendimento.empresa.nome}}</b></a>
                             </li>
                         {% endfor %}
-                    </ul>            
+                    </ul> 
+                    <div class="fb-share-button" data-href="http://reclameimovel.com.br/" data-type="button"></div>
             </div>
         </div>
         <div class="col-lg-6">
@@ -96,7 +97,8 @@
                                 <b>{{empresa.nome}}</b>
                             </li>
                         {% endfor %}
-                    </ul>            
+                    </ul>  
+                    <div class="fb-share-button" data-href="http://reclameimovel.com.br/" data-type="button"></div>
             </div>
         </div>
         </div>
@@ -129,7 +131,7 @@
                        </div>
                    </div>
                    {% endfor %}
-                
+                <div class="fb-share-button" data-href="http://reclameimovel.com.br/" data-type="button"></div>
             </div>
         </div>
         
