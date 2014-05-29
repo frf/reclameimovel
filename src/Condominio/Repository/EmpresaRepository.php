@@ -124,11 +124,11 @@ class EmpresaRepository implements RepositoryInterface
      *
      * @return array A collection of empresa, keyed by empresa id.
      */
-    public function findAll($limit, $offset = 0, $orderBy = array())
+    public function findAll($limit, $offset = 0, $orderBy = array(),$rand=false)
     {
         // Provide a default orderBy.
         if (!$orderBy) {
-            $orderBy = array('dt_cadastro' => 'DESC');
+            $orderBy = array('nome' => 'DESC');
         }
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -138,6 +138,10 @@ class EmpresaRepository implements RepositoryInterface
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->orderBy('a.' . key($orderBy), current($orderBy));
+        
+        if($rand){
+            $queryBuilder->orderBy("RAND()");
+        }
         $statement = $queryBuilder->execute();
         $empresaData = $statement->fetchAll();
 

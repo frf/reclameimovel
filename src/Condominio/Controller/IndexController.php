@@ -91,6 +91,7 @@ class IndexController {
             return $app['twig']->render('reclamacoes.html.twig', $data);
             
         } else {
+            
             if ($busca) {
                 $limit = 5;
                 $total = $app['repository.empreendimento']->getCountBusca($busca);
@@ -100,12 +101,16 @@ class IndexController {
                 $aLista = $app['repository.empreendimento']->findAllWhere($limit, $offset, array(), $busca);
             }
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);
-
+            $aEmpresas          = $app['repository.empresa']->findAll(5,0,array('nome' => 'DESC'),true);
+            $aVideo             = $app['repository.video']->findAll(1,0,array('dt_cadastro' => 'DESC'),true);
+            
             $data = array(
                 'idnome' => $idnome,
                 'metaDescription' => META_DESCRIPTION_DEFAULT,
                 'busca' => $busca,
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,
+                'aVideo' => $aVideo,
+                'aEmpresas' => $aEmpresas,
                 'currentPage' => $currentPage,
                 'numPages' => $numPages,
                 'here' => "buscar",
@@ -114,7 +119,6 @@ class IndexController {
                 'oUser'=>$oUser            
             );
 
-            
             $data['aLista'] = $aLista;
             $data['exibeErro'] = false;
             

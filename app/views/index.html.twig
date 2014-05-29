@@ -63,38 +63,74 @@
             </div>
         {% endif %}
         
-        <div class="panel panel-default">
-            <div class="panel-heading"><b>Empreendimentos mais procurados</b></div>
-            
-                <ul class="list-group">
-                    {% for empreendimento in aEmpMaisProcurados %}
-                        <li class="list-group-item"> 
-                            {% if oUser %}
-                                {% if oUser.idemp %}
-                                    {% if oUser.idemp == empreendimento.id %}
-                                        <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+        <div class="row marketing">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Empreendimentos mais procurados</b></div>
+
+                    <ul class="list-group">
+                        {% for empreendimento in aEmpMaisProcurados %}
+                            <li class="list-group-item"> 
+                                {% if oUser %}
+                                    {% if oUser.idemp %}
+                                        {% if oUser.idemp == empreendimento.id %}
+                                            <a href="{{uri}}/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
+                                        {% endif %}
+                                    {% else %}
+                                            <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                     {% endif %}
-                                {% else %}
-                                        <a href="/morador/update/{{empreendimento.idnome}}" type="button" class="btn btn-warning btn-xs" title="CLIQUE AQUI">Meu Condomínio</a>
                                 {% endif %}
-                            {% endif %}
-                                        <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}} - <b>{{empreendimento.empresa.nome}}</b></a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            
+                                            <a href="{{uri}}/{{empreendimento.idnome}}">{{empreendimento.nome}} - <b>{{empreendimento.empresa.nome}}</b></a>
+                            </li>
+                        {% endfor %}
+                    </ul>            
+            </div>
         </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Empresas</b></div>
 
-            <div class="list-group">
-            <a href="#" class="list-group-item active" style="cursor: default">
-              <b>Por que reclamar aqui?</b>
-            </a>
-                <a href="#" class="list-group-item" style="cursor: default">1 - <b style="color:#b92c28">Você cadastra sua reclamação. E nós fazemos o trabalho pesado</b>.</a>
-                <a href="#" class="list-group-item" style="cursor: default">2 - <b style="color:#b92c28">Nós divulgamos em todas as redes sociais, inclusive para o responsável do seu empreendimento.</b></a>
-                <a href="#" class="list-group-item" style="cursor: default">3 - <b style="color:#b92c28">Quer entrar na justiça mas não lembra o que tinha de problema ? Nós vamos lhe fornecer todo histórico de reclamações, onde você não se preocupa em guardar estes problemas, é só voltar no Reclameimovel.com.br que teremos um pdf com todas as suas reclamações.</b></a>
-                <a href="#" class="list-group-item" style="cursor: default">4 - <b style="color:#b92c28">Você pode reunir todas as reclamações do mesmo empreendimento, sendo assim fica mais fácil para todos os moradores.</b></a>
-                <a href="#" class="list-group-item" style="cursor: default">5 - <b style="color:#b92c28">Poder ter tudo em um lugar só e ainda poder divulgar isso para que a empresa tenha noção do que esta fazendo.</b></a>
-          </div>
-
+                    <ul class="list-group">
+                        {% for empresa in aEmpresas %}
+                            <li class="list-group-item"> 
+                                <b>{{empresa.nome}}</b>
+                            </li>
+                        {% endfor %}
+                    </ul>            
+            </div>
+        </div>
+        </div>
+                    
+                    
+        
+        
+        <div class="row marketing">
+            <div class="col-lg-6">            
+                <div class="list-group">
+                    <a href="#" class="list-group-item active" style="cursor: default">
+                      <b>Por que reclamar aqui?</b>
+                    </a>
+                        <a href="#" class="list-group-item" style="cursor: default">1 - <b style="color:#b92c28">Você cadastra sua reclamação. E nós fazemos o trabalho pesado</b>.</a>
+                        <a href="#" class="list-group-item" style="cursor: default">2 - <b style="color:#b92c28">Nós divulgamos em todas as redes sociais, inclusive para o responsável do seu empreendimento.</b></a>
+                        <a href="#" class="list-group-item" style="cursor: default">3 - <b style="color:#b92c28">Quer entrar na justiça mas não lembra o que tinha de problema ? Nós vamos lhe fornecer todo histórico de reclamações, onde você não se preocupa em guardar estes problemas, é só voltar no Reclameimovel.com.br que teremos um pdf com todas as suas reclamações.</b></a>
+                        <a href="#" class="list-group-item" style="cursor: default">4 - <b style="color:#b92c28">Você pode reunir todas as reclamações do mesmo empreendimento, sendo assim fica mais fácil para todos os moradores.</b></a>
+                        <a href="#" class="list-group-item" style="cursor: default">5 - <b style="color:#b92c28">Poder ter tudo em um lugar só e ainda poder divulgar isso para que a empresa tenha noção do que esta fazendo.</b></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                {% for video in aVideo %}
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active" style="cursor: default">
+                            <b>Vídeos selecionados</b>
+                        </a>                       
+                       <div class="list-group-item">
+                           <b>Vídeo publicado em: {{video.dtCadastro|date("d/m/Y")}}</b>
+                                <iframe  width="100%" height="315" src="//www.youtube.com/embed/{{video.link}}" frameborder="0" allowfullscreen></iframe>
+                       </div>
+                   </div>
+                   {% endfor %}
+                
+            </div>
+        </div>
         
 {% endblock %}
