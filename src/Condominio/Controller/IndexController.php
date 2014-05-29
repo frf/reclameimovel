@@ -106,7 +106,7 @@ class IndexController {
             
             $data = array(
                 'idnome' => $idnome,
-                'metaDescription' => META_DESCRIPTION_DEFAULT,
+                'metaDescription' => "Vídeos de problemas que outras pessoas tiveram ao comprar um imóvel, imperdível venha ver. " . META_DESCRIPTION_DEFAULT,
                 'busca' => $busca,
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,
                 'aVideo' => $aVideo,
