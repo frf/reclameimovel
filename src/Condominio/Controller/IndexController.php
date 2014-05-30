@@ -229,7 +229,7 @@ class IndexController {
             'name'=>'Fabio'
         );
         
-        return $app['twig']->render('emailCadastroReclamacao.html.twig',$data);
+        return $app['twig']->render('emailSeguranca.html.twig',$data);
     }
 
     public function construtoraAction(Request $request, Application $app) {
