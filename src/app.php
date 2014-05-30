@@ -23,6 +23,12 @@ $app['repository.imagem'] = $app->share(function ($app) {
 $app['repository.sms'] = $app->share(function ($app) {
     return new Condominio\Repository\SmsRepository($app['db']);
 });
+$app['repository.usuario'] = $app->share(function ($app) {
+    return new Condominio\Repository\UsuarioRepository($app['db']);
+});
+$app['repository.resposta'] = $app->share(function ($app) {
+    return new Condominio\Repository\RespostaRepository($app['db'],$app['repository.empreendimento'],$app['repository.usuario']);
+});
 $app['repository.reclamacao'] = $app->share(function ($app) {
     return new Condominio\Repository\ReclamacaoRepository($app['db'],$app['repository.empreendimento'],$app['repository.imagem'],$app['repository.user']);
 });
@@ -32,8 +38,8 @@ $app['repository.facebook'] = $app->share(function ($app) {
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.options' => array(
-        'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
-        'strict_variables' => true,
+        #'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
+        #'strict_variables' => true,
     ),
     'twig.form.templates' => array('form_div_layout.html.twig', 'common/form_div_layout.html.twig'),
     'twig.path' => array(__DIR__ . '/../app/views')    
