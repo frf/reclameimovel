@@ -73,7 +73,7 @@ class IndexController {
             $aLista = $app['repository.reclamacao']->findReclamacaoEmpreendimento($limit, $offset, array(), $ide);
 
             $data = array(
-                'metaDescription' => META_DESCRIPTION_DEFAULT,
+                'metaDescription' => "",
                 'idnome' => $idnome,
                 'busca' => "",
                 'total' => $total,
@@ -202,7 +202,7 @@ class IndexController {
                 $data = array(
                     'resposta' => $oResposta,
                     'youtube' => $aYoutube[1],
-                    'metaDescription' => $txtReclamacao,
+                    'metaDescription' => "",
                     'nome_emp' => $nome_emp,
                     'descricao' => $descricao,
                     'nome_empresa' => $nome_empresa,
