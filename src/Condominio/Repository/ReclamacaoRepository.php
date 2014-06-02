@@ -130,6 +130,25 @@ class ReclamacaoRepository implements RepositoryInterface
         
     }
 
+    public function findRand()
+    {
+        
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.cidade,emp.uf,e.nome as nome')
+            ->from('reclamacao', 'r')
+            ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
+            ->innerJoin('emp',"empresa","e","e.id = emp.ide")
+            ->orderBy("RAND()");
+          $queryBuilder->setMaxResults(1)
+            ->setFirstResult(0);
+        $statement = $queryBuilder->execute();
+        $reclamacaoData = $statement->fetch();
+
+        return $reclamacaoData ? $this->buildReclamacao($reclamacaoData) : FALSE;
+        
+        
+    }
     /**
      * Returns a collection of reclamacao, sorted by name.
      *

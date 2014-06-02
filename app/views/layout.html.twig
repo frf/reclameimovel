@@ -9,7 +9,7 @@
             <meta property="og:description" content="{{metaDescription}}" />            
         {% else %}
             <meta name="description" content="Antes de comprar seu imóvel consulte nosso site e evite dor de cabeça,Reclamações, Problemas, prazos inacabaveis, cobrança indevida, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular">
-            <meta property="og:description" content="Antes de comprar seu imóvel consulte nosso site e evite dor de cabeça,Reclamações, Problemas, prazos inacabaveis, cobrança indevida, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular" />
+            <meta property="og:description" content="{{app.reclamacao.descricao|slice(0,200)}}" />
         {% endif %}        
         <meta property="og:locale" content="pt_BR" />
         <meta property="og:title" content="{{app.title_layout}}" />
@@ -22,8 +22,11 @@
         <meta property="og:type" content="website" />
         <meta property="fb:app_id" content="237093413164290" /> 
         <meta name="author" content="Reclame Imóvel" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />        
-        <meta name="language" content="pt" />        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta property="og:image" content="http://convertaholics.com/convertaholics-og.png" />
+        
+        <link rel="shortcut icon" href="http://www.reclameimovel.com.br/images/logo100x100.ico" />
+        <meta name="language" content="pt" />      
         <!-- Bootstrap core CSS -->
         <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet" />
         <link href="{{ app.request.basepath }}/css/theme.min.css" rel="stylesheet" />
