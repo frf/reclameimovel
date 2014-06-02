@@ -4,7 +4,7 @@ var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
 $(document).ready(function() {
     $("#adicionar").click(function() {
         if ($("#idnome").val() != "") {
-            window.location = '/adicionar/' + $("#idnome").val();
+            window.location = '/reclamar/' + $("#idnome").val();
         }
     });
     $("#deleteImg").click(function() {

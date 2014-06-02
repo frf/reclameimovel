@@ -71,7 +71,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         }
     $protected = array(
         '/morador' => 'ROLE_USER',
-        '/adicionar' => 'ROLE_USER',
+        '/reclamar' => 'ROLE_USER',
         '/minhas-reclamacoes' => 'ROLE_USER',
         '/empreendimento/novo' => 'ROLE_USER',
     );

@@ -14,7 +14,7 @@ $app->get('/morador/dados-complementares', 'Condominio\Controller\MoradorControl
 $app->get('/empreendimento/novo', 'Condominio\Controller\IndexController::empNovoAction')->bind('emp_novo');
 $app->get('/noticias/video', 'Condominio\Controller\IndexController::videosAction')->bind('noticiaVideo');
 
-$app->get('/adicionar/{idnome}', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add')->value('idnome',false);
+$app->get('/reclamar/{idnome}', 'Condominio\Controller\MoradorController::adicionarAction')->bind('reclamacao_add')->value('idnome',false);
 $app->get('/construtora', 'Condominio\Controller\ConstrutoraController::indexAction')->bind('construtora');
 $app->get('/email/bemvindo', 'Condominio\Controller\IndexController::emailbemvindoAction')->bind('emailbemvindo');
 $app->get('/reclameimovel/sugestao', 'Condominio\Controller\IndexController::sugestaoAction')->bind('sugestao');

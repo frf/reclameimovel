@@ -119,7 +119,7 @@ class VideoRepository implements RepositoryInterface
         }
     }
 
-    public function findAll($limit=30, $offset = 0, $orderBy = array())
+    public function findAll($limit=30, $offset = 0, $orderBy = array(),$rand=false)
     {        
          // Provide a default orderBy.
         if (!$orderBy) {
@@ -133,6 +133,11 @@ class VideoRepository implements RepositoryInterface
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->orderBy('a.' . key($orderBy), current($orderBy));
+        
+        if($rand){
+            $queryBuilder->orderBy("RAND()");
+        }
+        
         $statement = $queryBuilder->execute();
         $empresaData = $statement->fetchAll();
         $empresa = array();
