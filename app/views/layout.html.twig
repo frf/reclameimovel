@@ -23,8 +23,11 @@
         <meta property="fb:app_id" content="237093413164290" /> 
         <meta name="author" content="Reclame Imóvel" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta property="og:image" content="http://convertaholics.com/convertaholics-og.png" />
-        
+        {% if app.reclamacao.imagem %}
+            {% for img in app.reclamacao.imagem %}
+                <meta property="og:image" content="http://reclameimovel.com.br/images/reclamacao/{{img.file}}" />
+            {% endfor %}
+        {% endif %}
         <link rel="shortcut icon" href="http://www.reclameimovel.com.br/images/favicon.ico" />
         <meta name="language" content="pt" />      
         <!-- Bootstrap core CSS -->
