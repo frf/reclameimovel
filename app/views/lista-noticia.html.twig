@@ -18,7 +18,7 @@
             <div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body text-justify">
-                        {{noticia.descricao|nl2br|slice(0, 350)}} <a href="/informacoes/view/{{noticia.id}}" class="btn btn-warning btn-xs">Leia mais</a>
+                        <a href="/informacoes/view/{{noticia.id}}">{{noticia.descricao|nl2br|slice(0, 350)}}</a> <a href="/informacoes/view/{{noticia.id}}" class="btn btn-warning btn-xs">Leia mais</a>
                     </div>
                 </div>
             </div>

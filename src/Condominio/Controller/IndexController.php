@@ -105,6 +105,7 @@ class IndexController {
             $aEmpMaisProcurados = $app['repository.empreendimento']->findAllWhere(5);
             $aEmpresas          = $app['repository.empresa']->findAll(5,0,array('nome' => 'DESC'),true);
             $aVideo             = $app['repository.video']->findAll(1,0,array('dt_cadastro' => 'DESC'),true);
+            $oNoticia             = $app['repository.noticia']->findRand();
             
             $data = array(
                 'idnome' => $idnome,
@@ -112,6 +113,7 @@ class IndexController {
                 'busca' => $busca,
                 'aEmpMaisProcurados' => $aEmpMaisProcurados,
                 'aVideo' => $aVideo,
+                'oNoticia' => $oNoticia,
                 'aEmpresas' => $aEmpresas,
                 'currentPage' => $currentPage,
                 'numPages' => $numPages,

@@ -122,7 +122,7 @@
             <div class="col-lg-6">
                 {% for video in aVideo %}
                     <div class="list-group">
-                        <a href="#" class="list-group-item active" style="cursor: default">
+                        <a href="/noticias/video" class="list-group-item active" style="cursor: default">
                             <b>Vídeos selecionados</b>
                         </a>                       
                        <div class="list-group-item">
@@ -131,7 +131,22 @@
                        </div>
                    </div>
                    {% endfor %}
-                <div class="fb-share-button" data-href="http://reclameimovel.com.br/noticias/video" data-type="button"></div>
+                   <!-- https://www.facebook.com/sharer/sharer.php?app_id=237093413164290&sdk=joey&u=http://www.reclameimovel.com.br -->
+            </div>
+                
+                <div class="col-lg-12">
+
+                    <div class="list-group">
+                        <a href="/informacoes/dica" class="list-group-item active" style="cursor: default">
+                            <b>Dicas / Notícias</b>
+                        </a>                       
+                       <div class="list-group-item">
+                           <b><span  style="text-transform: capitalize">{{oNoticia.categoria}}</span> publicado em: {{oNoticia.dtCadastro|date("d/m/Y")}}</b> 
+                           {{oNoticia.descricao|nl2br|slice(0, 350)}} <a href="/informacoes/view/{{oNoticia.id}}" class="btn btn-warning btn-xs">Leia mais</a>
+                       </div>
+                       
+                   </div>
+                
             </div>
         </div>
         
