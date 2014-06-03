@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+<div class="col-md-10">
+    <div class="panel-group" >
+        {% for noticia in oNoticia %}
+         <div class="panel panel-default">
+             <div class="panel-heading">
+                 <h4>
+                     <b><span  style="text-transform: capitalize">{{noticia.categoria}}</span> publicada em: {{noticia.dtCadastro|date("d/m/Y")}}</b>
+                 </h4>
+                 {% if noticia.autor %}
+                     <h5>Autor: {{noticia.autor}}</h5>                    
+                 {%endif%}
+                 {% if noticia.autoremail %}
+                    <h5>Email: {{noticia.autoremail}}</h5>
+                 {%endif%}
+             </div>
+            <div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body text-justify">
+                        {{noticia.descricao|nl2br|slice(0, 350)}} <a href="/informacoes/view/{{noticia.id}}" class="btn btn-warning btn-xs">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

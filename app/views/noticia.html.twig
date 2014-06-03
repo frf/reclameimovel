@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+<div class="col-md-10">
+    <div class="panel-group" >
+         <div class="panel panel-default">
+             <div class="panel-heading">
+                 <h4>
+                     <b><span  style="text-transform: capitalize">{{oNoticia.categoria}}</span> publicada em: {{oNoticia.dtCadastro|date("d/m/Y")}}</b>
+                 </h4>
+                 {% if oNoticia.autor %}
+                     <h5>Autor: {{oNoticia.autor}}</h5>                    
+                 {%endif%}
+                 {% if oNoticia.autoremail %}
+                    <h5>Email: {{oNoticia.autoremail}}</h5>
+                 {%endif%}
+             </div>
+            <div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body text-justify">
+                        {{oNoticia.descricao|nl2br}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

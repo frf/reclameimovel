@@ -11,6 +11,9 @@ $app['repository.empresa'] = $app->share(function ($app) {
 $app['repository.video'] = $app->share(function ($app) {
     return new Condominio\Repository\VideoRepository($app['db']);
 });  
+$app['repository.noticia'] = $app->share(function ($app) {
+    return new Condominio\Repository\NoticiaRepository($app['db']);
+});  
 $app['repository.user'] = $app->share(function ($app) {
     return new Condominio\Repository\UserRepository($app['db'],$app);
 });  
@@ -38,8 +41,8 @@ $app['repository.facebook'] = $app->share(function ($app) {
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.options' => array(
-        'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
-        'strict_variables' => true,
+        #'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
+        #'strict_variables' => true,
     ),
     'twig.form.templates' => array('form_div_layout.html.twig', 'common/form_div_layout.html.twig'),
     'twig.path' => array(__DIR__ . '/../app/views')    
@@ -122,7 +125,15 @@ $app->before(function (Request $request) use ($app)
         }
     }
     
-    $app['reclamacao'] = $app['repository.reclamacao']->findRand();
+    if($request->get("_route") == "informacoes_categoria"){
+        $app['noticia']     = $app['repository.noticia']->findRand();
+        $app['reclamacao']  = null;
+    }else if($request->get("_route") == "principalemp"){
+        $app['reclamacao'] = $app['repository.reclamacao']->findRand();
+        $app['noticia']    = null;
+    }else{
+        $app['reclamacao'] = null;
+    }
 
 });
 return $app;

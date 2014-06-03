@@ -34,6 +34,9 @@ $app->get('/quemsomos','Condominio\Controller\IndexController::quemsomosAction')
 $app->get('/empreendimento/view/{ide}/{id}', 'Condominio\Controller\IndexController::viewAction')->bind('view')->value('ide',false)->value('id',false);
 $app->get('/api/empreendimento', 'Condominio\Controller\EmpreendimentoController::apiAction')->bind('api_emp');
 
+$app->get('/informacoes/{categoria}', 'Condominio\Controller\NoticiaController::indexAction')->bind('informacoes_categoria');
+$app->get('/informacoes/view/{id}', 'Condominio\Controller\NoticiaController::viewAction')->bind('informacoes_view');
+
 $app->post('/buscar', 'Condominio\Controller\IndexController::buscarAction')->bind('buscar');
 
 $app->post('/adicionar', 'Condominio\Controller\MoradorController::adicionarAction');

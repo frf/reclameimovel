@@ -4,17 +4,26 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
         {% if metaDescription %}
-            <meta name="description" content="{{metaDescription}}" />
-            <meta property="og:description" content="{{metaDescription}}" />            
+        <meta name="description" content="{{metaDescription}}" />
+        <meta property="og:description" content="{{metaDescription}}" />        
         {% else %}
-            <meta name="description" content="Antes de comprar seu imóvel consulte nosso site e evite dor de cabeça,Reclamações, Problemas, prazos inacabaveis, cobrança indevida, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular">
-            <meta property="og:description" content="{{app.reclamacao.descricao|slice(0,200)}}" />
-        {% endif %}        
+            {% if app.noticia %}
+        <meta name="description" content="{{app.noticia.descricao|slice(0,200)}}" />
+        <meta property="og:description" content="{{app.noticia.descricao|slice(0,200)}}" />
+        <meta property="og:image" content="http://www.reclameimovel.com.br/images/250x250Logo.png" />
+            {% else %}
+        <meta name="description" content="Antes de comprar seu imóvel consulte nosso site e evite dor de cabeça,Reclamações, Problemas, prazos inacabaveis, cobrança indevida, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular" />
+        <meta property="og:description" content="Antes de comprar seu imóvel consulte nosso site e evite dor de cabeça,Reclamações, Problemas, prazos inacabaveis, cobrança indevida, Imóveis, Insatisfeito Reclamações de empreendimento, apartamento, beneficio popular" />
+        <meta property="og:image" content="http://www.reclameimovel.com.br/images/250x250Logo.png" />
+            {% endif %}
+        {% endif %}
+        
         <meta property="og:locale" content="pt_BR" />
         <meta property="og:title" content="{{app.title_layout}}" />
         <meta property="og:site_name" content="Reclame Imóvel" />
-        <meta property="og:url" content="http://www.reclameimovel.com.br" />        
+        <meta property="og:url" content="http://www.reclameimovel.com.br" />
         <meta property="og:image" content="http://www.reclameimovel.com.br/images/250x250Logo.png" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="100" />
@@ -23,11 +32,14 @@
         <meta property="fb:app_id" content="237093413164290" /> 
         <meta name="author" content="Reclame Imóvel" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        {% if app.reclamacao.imagem %}
-            {% for img in app.reclamacao.imagem %}
-                <meta property="og:image" content="http://reclameimovel.com.br/images/reclamacao/{{img.file}}" />
-            {% endfor %}
+        {% if app.reclamacao %}
+            {% if app.reclamacao.imagem %}
+                {% for img in app.reclamacao.imagem %}
+        <meta property="og:image" content="http://reclameimovel.com.br/images/reclamacao/{{img.file}}" />
+                {% endfor %}
+            {% endif %}
         {% endif %}
+        
         <link rel="shortcut icon" href="http://www.reclameimovel.com.br/images/favicon.ico" />
         <meta name="language" content="pt" />      
         <!-- Bootstrap core CSS -->
