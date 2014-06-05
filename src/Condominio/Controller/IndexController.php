@@ -204,7 +204,7 @@ class IndexController {
 
                 $txtReclamacao = substr("$nome_empresa - $nome_emp, $titulo_reclamacao -  $descricao", 0, 155);
 
-		$aYoutube = explode("=",$oReclamacao->getYoutube());
+		        $aYoutube = explode("=",$oReclamacao->getYoutube());
 
                 $oResposta = $app['repository.resposta']->findAll($id);
 
