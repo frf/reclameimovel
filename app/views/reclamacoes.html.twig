@@ -49,7 +49,17 @@
         <ul class="list-group">
         {% for reclamacao in aLista %}
             <li class="list-group-item"> 
-                <span class="label label-danger left" style="border-radius:10px;float: right;margin-left: 20px">Pendente</span> 
+                <span class="label label-danger left" style="border-radius:10px;float: right;margin-left: 20px">
+                    {% if reclamacao.solucao == 0 %}
+                        Pendente
+                    {% elseif reclamacao.solucao == 1 %}
+                        Respondido
+                    {% elseif reclamacao.solucao == 2 %}
+                        Solucionado
+                    {%else%}
+                        Pendente
+                    {%endif%}
+                </span> 
                 <span class="badge" title="Visualizações">{{reclamacao.visita}}</span>
                 <a href="{{uri}}/view/{{reclamacao.empreendimento.idnome}}/{{reclamacao.id}}">{{reclamacao.dt_cadastro.date|date('d/m/Y H:i')}} - {{reclamacao.titulo}}</a>
             </li>
