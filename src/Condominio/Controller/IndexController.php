@@ -21,7 +21,7 @@ class IndexController {
         if ($idnome != "buscar" && $idnome != "") {
             $oEmp = $app['repository.empreendimento']->findIdNome($idnome);
         }
-        
+
         /*
          * Pegar id da sessao
          */
@@ -29,8 +29,8 @@ class IndexController {
             $uid = $app['token']->getUid();
             $oUser = $app['repository.user']->find($uid);
             $validBemVindo = $app['repository.user']->bemVindo($uid);
-            
-             if ($validBemVindo) {                
+
+             if ($validBemVindo) {
                 /*
                 * Enviar email
                 */
@@ -47,13 +47,13 @@ class IndexController {
                                 ->setBody($body)
                                 ->setContentType("text/html");
 
-                $app['mailer']->send($message);                        
+                $app['mailer']->send($message);
                 $app['repository.user']->updateBemVindo($uid);
-                
+
                 $app['repository.sms']->sendSms($uid,$validBemVindo->getTelCelular(),"Olá " .$validBemVindo->getName(). ", Seja bem vindo ao ReclameImovel.com.br seu cadastro foi efetuado com sucesso!");
-            }        
+            }
         }
-        
+
         if ($oEmp) {
             $app['repository.empreendimento']->updateVisita($oEmp->getId());
 
@@ -91,9 +91,9 @@ class IndexController {
             );
 
             return $app['twig']->render('reclamacoes.html.twig', $data);
-            
+
         } else {
-            
+
             if ($busca) {
                 $limit = 5;
                 $total = $app['repository.empreendimento']->getCountBusca($busca);
@@ -106,7 +106,7 @@ class IndexController {
             $aEmpresas          = $app['repository.empresa']->findAll(5,0,array('nome' => 'DESC'),true);
             $aVideo             = $app['repository.video']->findAll(1,0,array('dt_cadastro' => 'DESC'),true);
             $oNoticia             = $app['repository.noticia']->findRand();
-            
+
             $data = array(
                 'idnome' => $idnome,
                 'metaDescription' => META_DESCRIPTION_DEFAULT,
@@ -120,12 +120,12 @@ class IndexController {
                 'here' => "buscar",
                 'adjacentes' => 1,
                 'uri' => '/empreendimento',
-                'oUser'=>$oUser            
+                'oUser'=>$oUser
             );
 
             $data['aLista'] = $aLista;
             $data['exibeErro'] = false;
-            
+
             return $app['twig']->render('index.html.twig', $data);
         }
     }
@@ -142,6 +142,9 @@ class IndexController {
         $offset = ($currentPage - 1) * $limit;
 
         $aLista = $app['repository.empreendimento']->findAllWhere($limit, $offset, array(), $busca);
+        $aEmpresas          = $app['repository.empresa']->findAll(5,0,array('nome' => 'DESC'),true);
+        $aVideo             = $app['repository.video']->findAll(1,0,array('dt_cadastro' => 'DESC'),true);
+        $oNoticia             = $app['repository.noticia']->findRand();
         $aEmpMaisProcurados = $app['repository.empreendimento']->findAll(5);
         if($app['token']){
             $uid = $app['token']->getUid();
@@ -154,10 +157,14 @@ class IndexController {
             'aEmpMaisProcurados' => $aEmpMaisProcurados,
             'currentPage' => $currentPage,
             'numPages' => $numPages,
+            'aVideo' => $aVideo,
+            'aEmpresas' => $aEmpresas,
+            'oNoticia' => $oNoticia,
             'here' => "buscar",
             'adjacentes' => 1,
             'uri' => '/empreendimento',
             'oUser'=>$oUser
+
         );
 
         if ($aLista) {
@@ -198,9 +205,9 @@ class IndexController {
                 $txtReclamacao = substr("$nome_empresa - $nome_emp, $titulo_reclamacao -  $descricao", 0, 155);
 
 		$aYoutube = explode("=",$oReclamacao->getYoutube());
-                
+
                 $oResposta = $app['repository.resposta']->findAll($id);
-       
+
                 $data = array(
                     'resposta' => $oResposta,
                     'youtube' => $aYoutube[1],
@@ -230,12 +237,12 @@ class IndexController {
         return $app['twig']->render('morador.html.twig');
     }
     public function emailbemvindoAction(Request $request, Application $app) {
-        
+
         $data = array(
             'mail'=>'fabio@fabiofarias.com.br',
             'name'=>'Fabio'
         );
-        
+
         return $app['twig']->render('emailSeguranca.html.twig',$data);
     }
 
@@ -252,9 +259,9 @@ class IndexController {
         return $app['twig']->render('sugestao.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT));
     }
     public function videosAction(Request $request, Application $app) {
-        
+
         $aList = $app['repository.video']->findAll();
-        
+
         return $app['twig']->render('videos.html.twig',array('metaDescription'=>META_DESCRIPTION_DEFAULT,'aLista'=>$aList));
     }
 
@@ -305,7 +312,7 @@ class IndexController {
 
                 $message = 'Informações adicionadas com sucesso. Em até 24hs entraremos em contato para liberar cadastro das reclamações do seu empreendimento.';
                 $app['session']->getFlashBag()->add('success', $message);
-                
+
                 // Redirect to the edit page.
                 $redirect = $app['url_generator']->generate('principal');
 
@@ -316,7 +323,7 @@ class IndexController {
                    $uid = $app['token']->getUid();
                    $oUser = $app['repository.user']->find($uid);
 
-                    if ($oUser) {                
+                    if ($oUser) {
                        /*
                        * Enviar email
                        */
@@ -335,11 +342,11 @@ class IndexController {
                                        ->setContentType("text/html");
                        $app['repository.sms']->sendSms($uid,$oUser->getTelCelular(),"Olá " .$oUser->getName(). ", Obrigado pelo cadastro, em até 24hs entraremos em contato para liberar cadastro das reclamações.");
 
-                       $app['mailer']->send($message);            
+                       $app['mailer']->send($message);
                    }
 
                }
-        
+
                 return $app->redirect($redirect);
             }
 
