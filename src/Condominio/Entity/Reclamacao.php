@@ -27,7 +27,7 @@ class Reclamacao
      * @var integer
      */
     protected $idu;
-
+    protected $solucao;
     /**
      * Id do Empreendimento.
      *
@@ -234,6 +234,14 @@ class Reclamacao
 
     public function setUser($user) {
         $this->user = $user;
+    }
+
+    public function getSolucao() {
+        return $this->solucao;
+    }
+
+    public function setSolucao($solucao) {
+        $this->solucao = $solucao;
     }
 
 

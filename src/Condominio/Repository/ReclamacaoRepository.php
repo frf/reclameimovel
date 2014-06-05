@@ -116,7 +116,7 @@ class ReclamacaoRepository implements RepositoryInterface
         
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.solucao,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide")
@@ -135,7 +135,7 @@ class ReclamacaoRepository implements RepositoryInterface
         
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.solucao,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide")
@@ -170,7 +170,7 @@ class ReclamacaoRepository implements RepositoryInterface
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.solucao,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
@@ -204,7 +204,7 @@ class ReclamacaoRepository implements RepositoryInterface
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.solucao,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
@@ -237,7 +237,7 @@ class ReclamacaoRepository implements RepositoryInterface
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->select('r.id,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
+            ->select('r.id,r.solucao,r.idu,r.ide,r.titulo,r.descricao,r.idassunto,r.dados,r.dt_cadastro,r.visita,r.youtube,emp.idnome,emp.cidade,emp.uf,e.nome as nome')
             ->from('reclamacao', 'r')
             ->innerJoin('r',"empreendimento","emp","emp.id = r.ide")
             ->innerJoin('emp',"empresa","e","e.id = emp.ide");
@@ -286,7 +286,7 @@ class ReclamacaoRepository implements RepositoryInterface
         $reclamacao->setDados($reclamacaoData['dados']);
         $reclamacao->setIdassunto($reclamacaoData['idassunto']);
         $reclamacao->setYoutube($reclamacaoData['youtube']);
-        
+        $reclamacao->setSolucao($reclamacaoData['solucao']);
         $createdAt = new \DateTime($reclamacaoData['dt_cadastro']);        
         $reclamacao->setDt_cadastro($createdAt);
         
